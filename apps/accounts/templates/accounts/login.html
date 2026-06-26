@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập tài khoản - Evergreen Care</title>
+    <style>
+        :root {
+            --primary-color: #1E4A38;
+            --secondary-color: #D9A74A;
+            --bg-footer: #F4F3EC;
+            --text-color: #333333;
+            --accent-orange: #E88569;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #ffffff; color: var(--text-color); -webkit-font-smoothing: antialiased; }
+        
+        /* Top announcement bar */
+        .top-announcement-bar {
+            background-color: #FBFBFA;
+            color: #666666;
+            font-size: 12px;
+            padding: 10px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .top-announcement-bar .top-links a { color: #666666; text-decoration: none; margin-left: 15px; }
+        .top-announcement-bar .top-links a:hover { color: var(--primary-color); }
+
+        /* Header Bar */
+        header { background: #ffffff; display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; border-bottom: 1px solid #eee; }
+        .logo-area img { height: 45px; width: auto; object-fit: contain; }
+        nav ul { display: flex; list-style: none; gap: 20px; }
+        nav ul li a { text-decoration: none; color: var(--text-color); font-weight: 500; font-size: 14px; }
+        nav ul li a:hover { color: var(--primary-color); }
+        .top-right { display: flex; align-items: center; gap: 15px; font-size: 14px; color: #555; }
+        .btn-booking { background: var(--accent-orange); color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: 500; font-size: 13px; }
+
+        /* FIX: BANNER CĂN TRÁI CHUẨN RESPONSIVE CONTAINER CỦA SAPO */
+        .banner { 
+            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("{% static 'images/ImageLogin.jpg' %}");
+            background-size: cover; background-position: center;
+            height: 150px; /* Thu hẹp chiều cao thanh mảnh đúng mẫu */
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: flex-start; /* Ép toàn bộ khối chữ về bên trái */
+            padding-left: 15%; /* Thụt lề khít với hệ thống lề Header/Footer */
+            color: white;
+        }
+        .banner h1 { font-size: 24px; font-weight: 500; margin-bottom: 6px; letter-spacing: 0.3px; }
+        .banner p { font-size: 13px; color: #cccccc; }
+        .banner p a { color: #cccccc; text-decoration: none; }
+        .banner p span { color: var(--accent-orange); } /* Điểm màu cam cho mục đăng nhập ở breadcrumb */
+
+        /* Login Card Main Window */
+        .login-wrapper { background-color: #ffffff; padding: 50px 0; display: flex; justify-content: center; }
+        .login-card { background: #ffffff; padding: 30px 35px; border-radius: 8px; box-shadow: 0 4px 25px rgba(0,0,0,0.06); width: 440px; text-align: center; border: 1px solid #eaeaea; }
+        .login-card h2 { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: var(--primary-color); letter-spacing: 1px; text-transform: uppercase; }
+        .form-group { text-align: left; margin-bottom: 15px; }
+        .form-group input { width: 100%; padding: 11px 15px; border: 1px solid #cccccc; border-radius: 4px; font-size: 14px; background: #fff; color: #333; }
+        .form-group input:focus { outline: none; border-color: var(--primary-color); }
+        .btn-submit { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 5px; }
+        .btn-submit:hover { background: #153427; }
+        .form-footer-links { display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px; }
+        .form-footer-links a { color: #666; text-decoration: none; }
+        .form-footer-links a:hover { color: var(--primary-color); }
+        
+        .sso-text { margin-top: 20px; font-size: 12px; color: #999999; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .sso-text::before, .sso-text::after { content: ""; display: block; width: 70px; height: 1px; background: #e5e5e5; }
+        .sso-buttons { display: flex; gap: 12px; margin-top: 15px; justify-content: center; }
+        .sso-btn { padding: 10px; color: white; font-size: 13px; font-weight: 500; border-radius: 4px; text-decoration: none; width: 120px; display: inline-block; }
+        .btn-facebook { background: #3b5998; } .btn-google { background: #ea4335; }
+
+        /* Footer Columns */
+        footer { background: var(--bg-footer); padding: 45px 8% 30px 8%; border-top: 1px solid #e5e4db; font-size: 14px; }
+        .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.3fr; gap: 35px; margin-bottom: 35px; }
+        .footer-col h3 { color: var(--primary-color); font-size: 14px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col p { color: #555; line-height: 1.6; margin-bottom: 12px; font-size: 13.5px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { text-decoration: none; color: #555; font-size: 13.5px; }
+        .footer-col ul li a:hover { color: var(--primary-color); text-decoration: underline; }
+        .footer-logo img { height: 42px; margin-bottom: 15px; object-fit: contain; }
+        
+        .social-icons { display: flex; gap: 8px; margin-top: 18px; }
+        .social-icons a { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; color: white; text-decoration: none; font-size: 12px; font-weight: bold; text-transform: lowercase; transition: opacity 0.2s; }
+        .social-icons a:hover { opacity: 0.85; }
+        .si-fb { background-color: #3B5998; }
+        .si-insta { background-color: #E1306C; }
+        .si-shopee { background-color: #EE4D2D; }
+        .si-lazada { background-color: #0F146D; }
+        .si-tiktok { background-color: #000000; }
+
+        .notify-form { display: flex; gap: 5px; margin-top: 12px; }
+        .notify-form input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 70%; font-size: 13px; }
+        .notify-form button { background: var(--primary-color); color: white; border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 500; }
+        
+        .fb-fake-widget { background: #3b5998; color: white; padding: 12px; border-radius: 4px; margin-top: 15px; text-align: left; font-size: 13px; font-weight: bold; border-left: 5px solid #2d4373; }
+        .fb-fake-widget p { color: #fff; margin: 0; font-size: 11px; font-weight: normal; opacity: 0.8; }
+        .zalo-fake-widget { background: #ffffff; border: 1px solid #ddd; padding: 10px; border-radius: 4px; margin-top: 10px; display: flex; align-items: center; gap: 12px; }
+        .zalo-qr-box { width: 45px; height: 45px; background: #333; color: white; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; text-align: center; border-radius: 2px; }
+        .zalo-text-box { text-align: left; }
+        .zalo-text-box h4 { font-size: 12px; color: #0068FF; margin-bottom: 2px; }
+        .zalo-text-box p { font-size: 11px; color: #666; margin: 0; }
+
+        /* Bottom Copyright Bar */
+        .bottom-bar { background: var(--primary-color); color: #c4d4cc; padding: 15px 8%; display: flex; justify-content: space-between; font-size: 13px; margin: 0 -8.7% -30px -8.7%; }
+        .bottom-bar a { color: #c4d4cc; text-decoration: none; margin-left: 15px; }
+        .bottom-bar a:hover { color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="top-announcement-bar">
+        <div>Chào mừng bạn đến với Evergreen Care</div>
+        <div class="top-links">
+            <span>📞 Hỗ trợ: 1900 6750</span>
+            <a href="#">Tiếng Việt (VI) ▾</a>
+            <a href="#">Tài khoản</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo-area">
+            <img src="{% static 'images/logo.png' %}" alt="Evergreen Care Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Về chúng tôi</a></li>
+                <li><a href="#">Sản phẩm ▾</a></li>
+                <li><a href="#">Dịch vụ ▾</a></li>
+                <li><a href="#">Đội ngũ</a></li>
+                <li><a href="#">Tin tức</a></li>
+                <li><a href="#">Câu hỏi thường gặp</a></li>
+                <li><a href="#">Liên hệ</a></li>
+            </ul>
+        </nav>
+        <div class="top-right">
+            <span>Gọi tư vấn: 1900 6750</span>
+            <a href="#" class="btn-booking">Đặt Lịch</a>
+        </div>
+    </header>
+
+    <div class="banner">
+        <h1>Đăng nhập tài khoản</h1>
+        <p><a href="#">Trang chủ</a> &gt; <span>Đăng nhập tài khoản</span></p>
+    </div>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h2>ĐĂNG NHẬP</h2>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <input type="text" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Mật khẩu">
+                </div>
+                <button type="button" class="btn-submit">Đăng nhập</button>
+                <div class="form-footer-links">
+                    <a href="#">Quên mật khẩu?</a>
+                    <a href="#">Đăng ký tại đây</a>
+                </div>
+            </form>
+            <div class="sso-text">hoặc đăng nhập qua</div>
+            <div class="sso-buttons">
+                <a href="#" class="sso-btn btn-facebook">Facebook</a>
+                <a href="#" class="sso-btn btn-google">Google</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Evergreen Care Logo">
+                </div>
+                <p>Nền tảng quản lý chăm sóc toàn diện, bảo mật và tận tâm dành cho các cơ sở dưỡng lão cao cấp tại Mỹ.</p>
+                <p>📍 123 Đường Evergreen, Austin, Texas, Mỹ</p>
+                <p>📞 1900 6750</p>
+                <p>✉️ support@evergreenhaven.com</p>
+                
+                <div class="social-icons">
+                    <a href="#" class="si-fb">f</a>
+                    <a href="#" class="si-insta">ig</a>
+                    <a href="#" class="si-shopee">s</a>
+                    <a href="#" class="si-lazada">l</a>
+                    <a href="#" class="si-tiktok">tk</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>CÁC PHÂN HỆ HỆ THỐNG</h3>
+                <ul>
+                    <li><a href="#">Quản lý Hồ sơ cư dân</a></li>
+                    <li><a href="#">Quản lý Ca trực nhân viên</a></li>
+                    <li><a href="#">Hồ sơ y tế & Thuốc men</a></li>
+                    <li><a href="#">Thanh toán & Hóa đơn</a></li>
+                    <li><a href="#">Quản lý Phòng & Cơ sở vật chất</a></li>
+                    <li><a href="#">Nhật ký hệ thống & Tuân thủ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>TÀI NGUYÊN HỖ TRỢ</h3>
+                <ul>
+                    <li><a href="#">Tài liệu hướng dẫn sử dụng</a></li>
+                    <li><a href="#">Tiêu chuẩn bảo mật y tế HIPAA</a></li>
+                    <li><a href="#">Gửi yêu cầu hỗ trợ kỹ thuật</a></li>
+                    <li><a href="#">Trạng thái hệ thống (Uptime)</a></li>
+                    <li><a href="#">Video bài giảng tập huấn</a></li>
+                    <li><a href="#">Thông tin cập nhật phiên bản</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Đăng ký Nhận Tin</h3>
+                <p>Đăng ký ngay! Để nhận thật nhiều ưu đãi</p>
+                <div class="notify-form">
+                    <input type="email" placeholder="Nhập địa chỉ email">
+                    <button type="button">Đăng ký</button>
+                </div>
+                
+                <div class="fb-fake-widget">
+                    Evergreen Care Fanpage
+                    <p>15,000 người thích trang này</p>
+                </div>
+                <div class="zalo-fake-widget">
+                    <div class="zalo-qr-box">ZALO<br>QR</div>
+                    <div class="zalo-text-box">
+                        <h4>Zalo Mini Apps</h4>
+                        <p>Quét mã QR để truy cập nhanh</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-bar">
+            <div>&copy; Bản quyền thuộc về Evergreen Care | Cung cấp bởi Sapo</div>
+            <div class="bottom-links">
+                <a href="#">Trung tâm hỗ trợ</a>
+                <a href="#">Điều khoản & Điều kiện</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
