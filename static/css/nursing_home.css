@@ -1,0 +1,715 @@
+/* ============================================
+   Nursing Home Theme - Login Page Styles
+   Màu sắc chủ đạo: Xanh lá #0D6E5C, Cam #E67E22
+   Nền: #F5F2ED (be/cream)
+   Font: Roboto (Google Fonts)
+   ============================================ */
+
+/* === Reset & Base === */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F2ED;
+    color: #333333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* === Header === */
+.header {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.header__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.header__logo-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #0D6E5C;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.header__logo-text {
+    color: #0D6E5C;
+}
+
+.header__logo-text span {
+    color: #E67E22;
+}
+
+/* Navigation */
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.header__nav-list {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header__nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.header__nav-link:hover {
+    color: #0D6E5C;
+}
+
+.header__nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #0D6E5C;
+    transition: width 0.3s ease;
+}
+
+.header__nav-link:hover::after {
+    width: 100%;
+}
+
+.header__nav-link.active {
+    color: #0D6E5C;
+}
+
+/* Header icons */
+.header__icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: #555555;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.header__icon:hover {
+    color: #0D6E5C;
+    background-color: #f0f7f5;
+}
+
+.header__phone {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0D6E5C;
+}
+
+.header__phone-number {
+    color: #E67E22;
+    font-size: 15px;
+}
+
+.header__btn-cta {
+    background-color: #E67E22;
+    color: #FFFFFF;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header__btn-cta:hover {
+    background-color: #d35400;
+}
+
+/* === Banner === */
+.banner {
+    position: relative;
+    height: 300px;
+    background-image: url('/static/images/spa-banner.svg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(51, 51, 51, 0.7);
+    z-index: 1;
+}
+
+.banner__content {
+    position: relative;
+    z-index: 2;
+}
+
+.banner__title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.banner__breadcrumb {
+    font-size: 14px;
+    color: #E67E22;
+}
+
+.banner__breadcrumb a {
+    color: #E67E22;
+}
+
+.banner__breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.banner__breadcrumb span {
+    color: #cccccc;
+    margin: 0 8px;
+}
+
+/* === Main Content - Login Section === */
+.login-section {
+    flex: 1;
+    padding: 40px 20px 60px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.login-card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 40px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.login-card__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0D6E5C;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* Form */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group__label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555555;
+}
+
+.form-group__input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333333;
+    font-family: 'Roboto', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.form-group__input:focus {
+    border-color: #0D6E5C;
+    box-shadow: 0 0 0 3px rgba(13, 110, 92, 0.1);
+}
+
+.form-group__input::placeholder {
+    color: #aaaaaa;
+}
+
+/* Password toggle */
+.form-group__password-wrapper {
+    position: relative;
+}
+
+.form-group__password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999999;
+    font-size: 16px;
+    background: none;
+    border: none;
+    padding: 4px;
+}
+
+.form-group__password-toggle:hover {
+    color: #0D6E5C;
+}
+
+/* Submit button */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background-color: #0D6E5C;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
+}
+
+.btn-login:hover {
+    background-color: #0a5a4b;
+}
+
+.btn-login:active {
+    transform: scale(0.98);
+}
+
+/* Links */
+.login-card__links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.login-card__forgot {
+    color: #888888;
+    transition: color 0.3s ease;
+}
+
+.login-card__forgot:hover {
+    color: #0D6E5C;
+}
+
+.login-card__register {
+    color: #E67E22;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.login-card__register:hover {
+    color: #d35400;
+}
+
+/* Divider */
+.login-card__divider {
+    display: flex;
+    align-items: center;
+    margin: 24px 0 20px;
+    gap: 12px;
+}
+
+.login-card__divider::before,
+.login-card__divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #e0e0e0;
+}
+
+.login-card__divider span {
+    font-size: 13px;
+    color: #999999;
+    white-space: nowrap;
+}
+
+/* Social login buttons */
+.social-login {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-social {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #FFFFFF;
+}
+
+.btn-social--facebook {
+    color: #3B5998;
+    border-color: #3B5998;
+}
+
+.btn-social--facebook:hover {
+    background-color: #3B5998;
+    color: #FFFFFF;
+}
+
+.btn-social--google {
+    color: #DB4437;
+    border-color: #DB4437;
+}
+
+.btn-social--google:hover {
+    background-color: #DB4437;
+    color: #FFFFFF;
+}
+
+.btn-social__icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* === Footer === */
+.footer {
+    background-color: #F5F2ED;
+    border-top: 3px solid #0D6E5C;
+    padding: 40px 20px 20px;
+}
+
+.footer__container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.footer__top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e0dcd7;
+}
+
+/* Footer - About column */
+.footer__about {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0D6E5C;
+}
+
+.footer__logo span {
+    color: #E67E22;
+}
+
+.footer__desc {
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.7;
+}
+
+.footer__contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.footer__contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555555;
+}
+
+.footer__contact-item svg {
+    width: 16px;
+    height: 16px;
+    color: #0D6E5C;
+    flex-shrink: 0;
+}
+
+/* Footer - Link columns */
+.footer__column-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333333;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+}
+
+.footer__link-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer__link {
+    font-size: 14px;
+    color: #555555;
+    transition: color 0.3s ease;
+}
+
+.footer__link:hover {
+    color: #0D6E5C;
+}
+
+/* Footer - Social */
+.footer__social {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.footer__social-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #d0ccc7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555555;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.footer__social-icon:hover {
+    background-color: #0D6E5C;
+    border-color: #0D6E5C;
+    color: #FFFFFF;
+}
+
+/* Footer - Newsletter */
+.footer__newsletter-form {
+    display: flex;
+    gap: 0;
+    margin-top: 8px;
+}
+
+.footer__newsletter-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #d0ccc7;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.footer__newsletter-input:focus {
+    border-color: #0D6E5C;
+}
+
+.footer__newsletter-btn {
+    padding: 10px 18px;
+    background-color: #0D6E5C;
+    color: #FFFFFF;
+    border: 1px solid #0D6E5C;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.footer__newsletter-btn:hover {
+    background-color: #0a5a4b;
+}
+
+/* Footer bottom */
+.footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    font-size: 13px;
+    color: #888888;
+}
+
+.footer__bottom-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer__bottom-link {
+    color: #888888;
+    transition: color 0.3s ease;
+}
+
+.footer__bottom-link:hover {
+    color: #0D6E5C;
+}
+
+/* === Responsive === */
+@media (max-width: 1024px) {
+    .header__nav-list {
+        display: none;
+    }
+
+    .footer__top {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .header__container {
+        height: 60px;
+    }
+
+    .header__logo-text {
+        font-size: 20px;
+    }
+
+    .header__icons {
+        gap: 10px;
+    }
+
+    .header__phone {
+        display: none;
+    }
+
+    .banner {
+        height: 200px;
+    }
+
+    .banner__title {
+        font-size: 26px;
+    }
+
+    .login-section {
+        padding: 30px 16px 40px;
+    }
+
+    .login-card {
+        padding: 28px 24px;
+    }
+
+    .footer__top {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .footer__bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-login {
+        flex-direction: column;
+    }
+
+    .login-card__links {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}

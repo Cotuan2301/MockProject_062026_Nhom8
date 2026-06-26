@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Nursing Home{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/nursing_home.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar__container">
+      <div class="topbar__left">
+        <a href="#"><i class="fas fa-globe"></i> VI</a>
+        <a href="#"><i class="fas fa-user"></i> Tài khoản</a>
+        <a href="#"><i class="fas fa-headset"></i> Hỗ trợ chi nhánh</a>
+      </div>
+      <div class="topbar__right">
+        <a href="mailto:support@nursinghome.vn"><i class="fas fa-envelope"></i> support@nursinghome.vn</a>
+        <div class="topbar__divider"></div>
+        <a href="tel:19006750"><i class="fas fa-phone"></i> 1900 6750</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header__container">
+      <a href="{% url 'home' %}" class="header__logo">
+        <div class="header__logo-icon">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="header__logo-text">Nursing<span>Home</span></div>
+      </a>
+
+      <nav class="header__nav">
+        <a href="#">Trang chủ</a>
+        <a href="#">Giới thiệu</a>
+        <a href="#">Dịch vụ</a>
+        <a href="#">Gói chăm sóc</a>
+        <a href="#">Tin tức</a>
+        <a href="#">Liên hệ</a>
+        <a href="{% url 'login' %}" class="active">Đăng nhập</a>
+      </nav>
+
+      <div class="header__right">
+        <div class="header__phone">
+          <i class="fas fa-phone-alt"></i>
+          1900 6750
+        </div>
+        <button class="btn-appointment">
+          <i class="fas fa-calendar-check"></i> Đặt lịch hẹn
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  {% block content %}{% endblock %}
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <div class="newsletter__container">
+      <div class="newsletter__text">
+        <h3>Đăng Ký Nhận Tin</h3>
+        <p>Nhận thông tin mới nhất về dịch vụ chăm sóc người cao tuổi</p>
+      </div>
+      <form class="newsletter__form">
+        <input type="email" placeholder="Nhập email của bạn...">
+        <button type="submit">Đăng ký</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__container">
+
+      <!-- Column 1: About -->
+      <div class="footer__col">
+        <h4>Về Nursing Home</h4>
+        <p class="footer__about-desc">
+          Hệ thống quản lý Nursing Home cung cấp giải pháp toàn diện cho việc quản lý và chăm sóc người cao tuổi. Với công nghệ hiện đại và đội ngũ chuyên nghiệp.
+        </p>
+        <div class="footer__contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>70 Lý Gia, Phường 15, Quận 11, TP Hồ Chí Minh</span>
+        </div>
+        <div class="footer__contact-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>1900 6750</span>
+        </div>
+        <div class="footer__contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>support@nursinghome.vn</span>
+        </div>
+        <div class="footer__social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-google"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="footer__col">
+        <h4>Liên kết nhanh</h4>
+        <div class="footer__links">
+          <a href="#">Trang chủ</a>
+          <a href="#">Giới thiệu</a>
+          <a href="#">Dịch vụ chăm sóc</a>
+          <a href="#">Gói chăm sóc</a>
+          <a href="#">Tin tức</a>
+          <a href="#">Tuyển dụng</a>
+          <a href="#">Liên hệ</a>
+        </div>
+      </div>
+
+      <!-- Column 3: Support -->
+      <div class="footer__col">
+        <h4>Hỗ trợ</h4>
+        <div class="footer__links">
+          <a href="#">Hướng dẫn sử dụng</a>
+          <a href="#">Chính sách bảo mật</a>
+          <a href="#">Điều khoản sử dụng</a>
+          <a href="#">Câu hỏi thường gặp</a>
+          <a href="#">Gửi yêu cầu hỗ trợ</a>
+          <a href="#">Tải về tài liệu</a>
+          <a href="#">Sơ đồ website</a>
+        </div>
+      </div>
+
+      <!-- Column 4: Fanpage -->
+      <div class="footer__col">
+        <h4>Kết nối</h4>
+        <div class="footer__fanpage">
+          <div class="footer__fanpage-header">
+            <i class="fab fa-facebook"></i> Nursing Home Fanpage
+          </div>
+          <div class="footer__fanpage-body">
+            <div class="qr-placeholder">
+              <i class="fas fa-qrcode" style="font-size: 28px;"></i>
+            </div>
+            <p>Quét mã QR để theo dõi Fanpage</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer__bottom">
+      <div class="footer__bottom-container">
+        <span>&copy; 2026 Nursing Home. Tất cả quyền được bảo lưu.</span>
+        <div class="footer__bottom-links">
+          <a href="#">Chính sách bảo mật</a>
+          <a href="#">Điều khoản sử dụng</a>
+          <a href="#">Sơ đồ website</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

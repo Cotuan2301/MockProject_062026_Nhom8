@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập tài khoản - Nursing Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ============================================
+       NURSING HOME - Design System
+       Theo Design Tokens:
+         Primary Color:   #1E4A38
+         Secondary Color: #D9A74A
+         Background Main: #FBFBFA
+         Text Primary:    #282D2C
+         CTA Button:      #D9A74A
+         Font:            Inter, sans-serif
+       ============================================ */
+    :root {
+      --color-primary: #1E4A38;
+      --color-secondary: #D9A74A;
+      --color-bg-main: #FBFBFA;
+      --color-text-primary: #282D2C;
+      --color-cta: #D9A74A;
+      --color-cta-hover: #e6b75e;
+      --color-white: #FFFFFF;
+      --color-border: #E2E2E0;
+      --color-text-muted: #6B7280;
+      --color-text-light: #9CA3AF;
+      --color-footer-bg: #1E4A38;
+      --color-footer-text: rgba(255,255,255,0.85);
+      --font-family: 'Inter', sans-serif;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --max-width: 1200px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font-family);background-color:var(--color-bg-main);color:var(--color-text-primary);font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+    a{text-decoration:none;color:inherit;transition:color .25s ease}
+    ul{list-style:none}
+    img{max-width:100%;height:auto}
+
+    /* TOPBAR */
+    .topbar{background-color:var(--color-primary);color:var(--color-white);font-size:12px;padding:7px 0}
+    .topbar__container{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+    .topbar__left{display:flex;align-items:center;gap:20px}
+    .topbar__left a{color:var(--color-white);display:flex;align-items:center;gap:5px;opacity:.9;transition:opacity .2s}
+    .topbar__left a:hover{opacity:1}
+    .topbar__right{display:flex;align-items:center;gap:20px}
+    .topbar__right a,.topbar__right span{color:var(--color-white);display:flex;align-items:center;gap:5px;opacity:.9}
+    .topbar__right a:hover{opacity:1}
+    .topbar__divider{width:1px;height:12px;background-color:rgba(255,255,255,.3)}
+
+    /* HEADER */
+    .header{background-color:var(--color-white);border-bottom:1px solid var(--color-border);position:sticky;top:0;z-index:1000;box-shadow:var(--shadow-sm)}
+    .header__container{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:68px}
+    .header__logo{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:700}
+    .header__logo-icon{width:40px;height:40px;background-color:var(--color-primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-white);font-size:18px}
+    .header__logo-text{color:var(--color-primary)}
+    .header__logo-text span{color:var(--color-secondary)}
+    .header__nav{display:flex;align-items:center;gap:4px}
+    .header__nav a{color:var(--color-text-primary);font-size:13.5px;font-weight:500;padding:8px 12px;border-radius:var(--radius-sm);transition:all .25s ease}
+    .header__nav a:hover{color:var(--color-primary);background-color:rgba(30,74,56,.05)}
+    .header__nav a.active{color:var(--color-primary);background-color:rgba(30,74,56,.08)}
+    .header__right{display:flex;align-items:center;gap:16px}
+    .header__phone{display:flex;align-items:center;gap:6px;color:var(--color-primary);font-weight:700;font-size:14px}
+    .btn-appointment{background-color:var(--color-secondary);color:var(--color-white);border:none;padding:9px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;font-family:var(--font-family);cursor:pointer;transition:background-color .25s;display:flex;align-items:center;gap:6px}
+    .btn-appointment:hover{background-color:#c4963f}
+
+    /* HERO BANNER */
+    .hero-banner{background:linear-gradient(135deg,#1E4A38 0%,#2a6b50 50%,#1E4A38 100%);padding:48px 0 52px;position:relative;overflow:hidden}
+    .hero-banner::before{content:'';position:absolute;top:-50%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(217,167,74,.12) 0%,transparent 70%);border-radius:50%}
+    .hero-banner::after{content:'';position:absolute;bottom:-40%;left:10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,.04) 0%,transparent 70%);border-radius:50%}
+    .hero-banner__container{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+    .hero-banner__title{color:var(--color-white);font-size:24px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+    .hero-banner__breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px}
+    .hero-banner__breadcrumb a{color:var(--color-secondary)}
+    .hero-banner__breadcrumb a:hover{text-decoration:underline}
+    .hero-banner__breadcrumb span.sep{color:rgba(255,255,255,.4)}
+    .hero-banner__breadcrumb .current{color:rgba(255,255,255,.9)}
+
+    /* LOGIN SECTION */
+    .login-section{background-color:var(--color-white);flex:1;padding:48px 0 56px}
+    .login-section__container{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;gap:36px;align-items:flex-start}
+
+    /* Login Card */
+    .login-card{background-color:var(--color-white);border-radius:var(--radius-md);box-shadow:var(--shadow-md);padding:36px 40px;width:100%;max-width:480px;flex-shrink:0;border:1px solid var(--color-border)}
+    .login-card__title{font-size:22px;font-weight:700;color:var(--color-text-primary);text-align:center;margin-bottom:8px}
+    .login-card__subtitle{font-size:14px;color:var(--color-text-muted);text-align:center;margin-bottom:32px}
+
+    .form-group{margin-bottom:20px}
+    .form-group label{display:block;font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:7px}
+    .form-group input{width:100%;padding:11px 14px;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);font-size:15px;font-family:var(--font-family);color:var(--color-text-primary);background-color:var(--color-white);transition:border-color .25s,box-shadow .25s;outline:none}
+    .form-group input::placeholder{color:var(--color-text-light)}
+    .form-group input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(30,74,56,.12)}
+
+    .form-options{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;font-size:14px}
+    .form-options label{display:flex;align-items:center;gap:6px;color:var(--color-text-muted);cursor:pointer;font-size:14px}
+    .form-options a{color:var(--color-text-muted);font-weight:500;font-size:14px}
+    .form-options a:hover{color:var(--color-primary)}
+
+    .btn-login{width:100%;padding:13px;background-color:var(--color-cta);color:var(--color-white);border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:600;font-family:var(--font-family);text-transform:uppercase;letter-spacing:.5px;cursor:pointer;transition:background-color .25s,transform .15s}
+    .btn-login:hover{background-color:var(--color-cta-hover);transform:translateY(-1px)}
+    .btn-login:active{transform:translateY(0)}
+
+    .form-sub-links{display:flex;align-items:center;justify-content:space-between;margin-top:16px;font-size:14px}
+    .form-sub-links span{color:var(--color-text-muted)}
+    .form-sub-links a{color:var(--color-text-primary);font-weight:500}
+    .form-sub-links a:hover{color:var(--color-primary)}
+
+    .social-divider{display:flex;align-items:center;gap:12px;margin:24px 0 18px;font-size:12px;color:var(--color-text-light)}
+    .social-divider::before,.social-divider::after{content:'';flex:1;height:1px;background-color:var(--color-border)}
+    .social-buttons{display:flex;gap:12px}
+    .btn-social{flex:1;padding:11px;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:var(--font-family);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .25s;background-color:var(--color-white);color:var(--color-text-primary)}
+    .btn-social--facebook{color:var(--color-white);background-color:#1877F2;border-color:#1877F2}
+    .btn-social--facebook:hover{background-color:#1565C0}
+    .btn-social--google{color:var(--color-white);background-color:#DB4437;border-color:#DB4437}
+    .btn-social--google:hover{background-color:#c43e31}
+
+    /* Info Cards */
+    .info-cards{flex:1;display:flex;flex-direction:column;gap:24px;min-width:0}
+    .info-card{background-color:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:24px;box-shadow:var(--shadow-sm)}
+    .info-card__header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:2.5px solid var(--color-secondary)}
+    .info-card__header i{color:var(--color-primary);font-size:17px}
+    .info-card__header h3{font-size:14px;font-weight:700;color:var(--color-text-primary);text-transform:uppercase;letter-spacing:.5px}
+    .info-card__list{display:flex;flex-direction:column;gap:10px}
+    .info-card__list a{display:flex;align-items:center;gap:8px;color:var(--color-text-muted);font-size:13.5px;padding:3px 0;transition:color .25s,padding-left .25s}
+    .info-card__list a::before{content:'\f105';font-family:'Font Awesome 6 Free';font-weight:900;color:var(--color-cta);font-size:10px}
+    .info-card__list a:hover{color:var(--color-primary);padding-left:4px}
+
+    /* NEWSLETTER */
+    .newsletter{background-color:var(--color-bg-main);border-top:1px solid var(--color-border);padding:40px 0}
+    .newsletter__container{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:30px}
+    .newsletter__text h3{font-size:18px;font-weight:600;color:var(--color-text-primary);margin-bottom:4px}
+    .newsletter__text p{font-size:13px;color:var(--color-text-muted)}
+    .newsletter__form{display:flex}
+    .newsletter__form input{padding:11px 16px;border:1.5px solid var(--color-border);border-right:none;border-radius:var(--radius-sm) 0 0 var(--radius-sm);font-size:14px;font-family:var(--font-family);width:300px;outline:none;color:var(--color-text-primary);background-color:var(--color-white);transition:border-color .25s}
+    .newsletter__form input:focus{border-color:var(--color-primary)}
+    .newsletter__form button{padding:11px 24px;background-color:var(--color-primary);color:var(--color-white);border:1.5px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:14px;font-weight:600;font-family:var(--font-family);cursor:pointer;transition:background-color .25s}
+    .newsletter__form button:hover{background-color:#163a2c}
+
+    /* FOOTER */
+    .footer{background-color:var(--color-bg-main);border-top:1px solid var(--color-border);padding:48px 0 0}
+    .footer__container{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.3fr .8fr .8fr 1.1fr;gap:36px}
+    .footer__col h4{font-size:15px;font-weight:700;color:var(--color-text-primary);margin-bottom:18px;text-transform:uppercase;letter-spacing:.5px;position:relative;padding-bottom:12px}
+    .footer__col h4::after{content:'';position:absolute;bottom:0;left:0;width:36px;height:2.5px;background-color:var(--color-secondary);border-radius:2px}
+    .footer__about-desc{font-size:13px;color:var(--color-text-muted);line-height:1.8;margin-bottom:18px}
+    .footer__contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13px;color:var(--color-text-muted)}
+    .footer__contact-item i{color:var(--color-primary);margin-top:3px;width:16px;text-align:center;font-size:13px}
+    .footer__social{display:flex;gap:8px;margin-top:18px}
+    .footer__social a{width:34px;height:34px;border-radius:50%;background-color:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-size:13px;transition:background-color .25s,transform .2s}
+    .footer__social a:hover{background-color:var(--color-secondary);transform:translateY(-2px)}
+    .footer__links{display:flex;flex-direction:column;gap:10px}
+    .footer__links a{font-size:13px;color:var(--color-text-muted);display:flex;align-items:center;gap:8px;transition:color .25s,padding-left .25s}
+    .footer__links a::before{content:'\f105';font-family:'Font Awesome 6 Free';font-weight:900;color:var(--color-cta);font-size:10px}
+    .footer__links a:hover{color:var(--color-primary);padding-left:4px}
+    .footer__fanpage{background-color:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden}
+    .footer__fanpage-header{background-color:var(--color-primary);color:var(--color-white);padding:9px 14px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
+    .footer__fanpage-body{padding:16px;text-align:center}
+    .footer__fanpage-body .qr-placeholder{width:100%;height:90px;background-color:#F3F4F6;border:1px dashed var(--color-border);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--color-text-light);font-size:12px;margin-bottom:8px}
+    .footer__fanpage-body p{font-size:11px;color:var(--color-text-muted)}
+    .footer__bottom{background-color:var(--color-footer-bg);margin-top:36px;padding:18px 0}
+    .footer__bottom-container{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--color-footer-text)}
+    .footer__bottom-links{display:flex;gap:20px}
+    .footer__bottom-links a{color:var(--color-footer-text);transition:color .2s}
+    .footer__bottom-links a:hover{color:var(--color-white)}
+
+    /* RESPONSIVE */
+    @media(max-width:992px){.header__nav{display:none}.login-section__container{flex-direction:column}.login-card{max-width:100%}.footer__container{grid-template-columns:1fr 1fr}.newsletter__container{flex-direction:column;text-align:center}.newsletter__form{justify-content:center}}
+    @media(max-width:576px){.topbar__left,.topbar__right{gap:10px;font-size:11px}.footer__container{grid-template-columns:1fr}.footer__bottom-container{flex-direction:column;gap:8px;text-align:center}.hero-banner__container{flex-direction:column;gap:10px;text-align:center}.social-buttons{flex-direction:column}.login-card{padding:28px 24px}.newsletter__form input{width:200px}}
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar__container">
+      <div class="topbar__left">
+        <a href="#"><i class="fas fa-globe"></i> VI</a>
+        <a href="#"><i class="fas fa-user"></i> Tài khoản</a>
+        <a href="#"><i class="fas fa-headset"></i> Hỗ trợ chi nhánh</a>
+      </div>
+      <div class="topbar__right">
+        <a href="mailto:support@nursinghome.vn"><i class="fas fa-envelope"></i> support@nursinghome.vn</a>
+        <div class="topbar__divider"></div>
+        <a href="tel:19006750"><i class="fas fa-phone"></i> 1900 6750</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header__container">
+      <a href="#" class="header__logo">
+        <div class="header__logo-icon"><i class="fas fa-heartbeat"></i></div>
+        <div class="header__logo-text">Nursing<span>Home</span></div>
+      </a>
+      <nav class="header__nav">
+        <a href="#">Trang chủ</a>
+        <a href="#">Giới thiệu</a>
+        <a href="#">Dịch vụ</a>
+        <a href="#">Gói chăm sóc</a>
+        <a href="#">Tin tức</a>
+        <a href="#">Liên hệ</a>
+        <a href="#" class="active">Đăng nhập</a>
+      </nav>
+      <div class="header__right">
+        <div class="header__phone"><i class="fas fa-phone-alt"></i> 1900 6750</div>
+        <button class="btn-appointment"><i class="fas fa-calendar-check"></i> Đặt lịch hẹn</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+    <div class="hero-banner__container">
+      <h1 class="hero-banner__title">Đăng nhập tài khoản</h1>
+      <div class="hero-banner__breadcrumb">
+        <a href="#">Trang chủ</a>
+        <span class="sep">/</span>
+        <span class="current">Đăng nhập tài khoản</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN SECTION - 2 COLUMNS -->
+  <main class="login-section">
+    <div class="login-section__container">
+
+      <!-- LEFT: Login Form -->
+      <div class="login-card">
+        <h2 class="login-card__title">Đăng nhập</h2>
+        <p class="login-card__subtitle">Vui lòng nhập thông tin tài khoản</p>
+        <form>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Nhập email của bạn">
+          </div>
+          <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" placeholder="Nhập mật khẩu">
+          </div>
+          <div class="form-options">
+            <label><input type="checkbox"> Ghi nhớ đăng nhập</label>
+            <a href="#">Quên mật khẩu?</a>
+          </div>
+          <button type="submit" class="btn-login">Đăng nhập</button>
+        </form>
+        <div class="form-sub-links">
+          <span>Bạn chưa có tài khoản?</span>
+          <a href="#">Đăng ký ngay</a>
+        </div>
+        <div class="social-divider">hoặc đăng nhập bằng</div>
+        <div class="social-buttons">
+          <button class="btn-social btn-social--facebook"><i class="fab fa-facebook-f"></i> Facebook</button>
+          <button class="btn-social btn-social--google"><i class="fab fa-google"></i> Google</button>
+        </div>
+      </div>
+
+      <!-- RIGHT: Info Cards -->
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-card__header">
+            <i class="fas fa-sitemap"></i>
+            <h3>Các phân hệ hệ thống</h3>
+          </div>
+          <div class="info-card__list">
+            <a href="#">Quản lý Hỗ trợ khách hàng</a>
+            <a href="#">Quản lý Cơ sở nhân viên</a>
+            <a href="#">Quản lý Hồ sơ người cao tuổi</a>
+            <a href="#">Quản lý Dịch vụ chăm sóc</a>
+            <a href="#">Quản lý Kế toán tài chính</a>
+            <a href="#">Quản lý Nhân sự</a>
+            <a href="#">Hệ thống Báo cáo thống kê</a>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card__header">
+            <i class="fas fa-book-open"></i>
+            <h3>Tài nguyên hỗ trợ</h3>
+          </div>
+          <div class="info-card__list">
+            <a href="#">Hướng dẫn sử dụng hệ thống</a>
+            <a href="#">Tiêu chuẩn bảo mật HIPAA</a>
+            <a href="#">Quy trình chăm sóc người cao tuổi</a>
+            <a href="#">Tài liệu đào tạo nhân viên</a>
+            <a href="#">Câu hỏi thường gặp (FAQ)</a>
+            <a href="#">Chính sách bảo mật thông tin</a>
+            <a href="#">Liên hệ bộ phận hỗ trợ</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <div class="newsletter__container">
+      <div class="newsletter__text">
+        <h3>Đăng Ký Nhận Tin</h3>
+        <p>Nhận thông tin mới nhất về dịch vụ chăm sóc người cao tuổi</p>
+      </div>
+      <form class="newsletter__form">
+        <input type="email" placeholder="Nhập email của bạn...">
+        <button type="submit">Đăng ký</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__col">
+        <h4>Về Nursing Home</h4>
+        <p class="footer__about-desc">Hệ thống quản lý Nursing Home cung cấp giải pháp toàn diện cho việc quản lý và chăm sóc người cao tuổi. Với công nghệ hiện đại và đội ngũ chuyên nghiệp.</p>
+        <div class="footer__contact-item"><i class="fas fa-map-marker-alt"></i><span>70 Lý Gia, Phường 15, Quận 11, TP Hồ Chí Minh</span></div>
+        <div class="footer__contact-item"><i class="fas fa-phone-alt"></i><span>1900 6750</span></div>
+        <div class="footer__contact-item"><i class="fas fa-envelope"></i><span>support@nursinghome.vn</span></div>
+        <div class="footer__social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-google"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Liên kết nhanh</h4>
+        <div class="footer__links">
+          <a href="#">Trang chủ</a><a href="#">Giới thiệu</a><a href="#">Dịch vụ chăm sóc</a><a href="#">Gói chăm sóc</a><a href="#">Tin tức</a><a href="#">Tuyển dụng</a><a href="#">Liên hệ</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Hỗ trợ</h4>
+        <div class="footer__links">
+          <a href="#">Hướng dẫn sử dụng</a><a href="#">Chính sách bảo mật</a><a href="#">Điều khoản sử dụng</a><a href="#">Câu hỏi thường gặp</a><a href="#">Gửi yêu cầu hỗ trợ</a><a href="#">Tải về tài liệu</a><a href="#">Sơ đồ website</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Kết nối</h4>
+        <div class="footer__fanpage">
+          <div class="footer__fanpage-header"><i class="fab fa-facebook"></i> Nursing Home Fanpage</div>
+          <div class="footer__fanpage-body">
+            <div class="qr-placeholder"><i class="fas fa-qrcode" style="font-size:28px;"></i></div>
+            <p>Quét mã QR để theo dõi Fanpage</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__bottom-container">
+        <span>&copy; 2026 Nursing Home. Tất cả quyền được bảo lưu.</span>
+        <div class="footer__bottom-links">
+          <a href="#">Chính sách bảo mật</a>
+          <a href="#">Điều khoản sử dụng</a>
+          <a href="#">Sơ đồ website</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
