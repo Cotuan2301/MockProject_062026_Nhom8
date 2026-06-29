@@ -1,757 +1,1483 @@
-{% load static %} <!DOCTYPE html>
+{% load static %} <!doctype html>
 <html lang="vi">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="theme-color" content="#ffffff" />
-    <link rel="canonical" href="https://bean-spa.mysapo.net/account/login"/>
-    <meta name='revisit-after' content='2 days' />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">	
+    <link rel="canonical" href="https://bean-spa.mysapo.net/account/login" />
+    <meta name="revisit-after" content="2 days" />
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <meta name="robots" content="noodp,index,follow" />
-    <meta name="description" content="">
+    <meta name="description" content="" />
 
     <title>Đăng nhập tài khoản</title>
 
-    <meta name="keywords" content="Đăng nhập tài khoản, Bean Spa, bean-spa.mysapo.net"/>		
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="Đăng nhập tài khoản">
-	<meta property="og:image" content="https://bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848">
-	<meta property="og:image:secure_url" content="https://bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848">
-    <meta property="og:description" content="">
-    <meta property="og:url" content="https://bean-spa.mysapo.net/account/login">
-    <meta property="og:site_name" content="Bean Spa">
+    <meta
+      name="keywords"
+      content="Đăng nhập tài khoản, Bean Spa, bean-spa.mysapo.net"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Đăng nhập tài khoản" />
+    <meta
+      property="og:image"
+      content="https://bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848"
+    />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:url"
+      content="https://bean-spa.mysapo.net/account/login"
+    />
+    <meta property="og:site_name" content="Bean Spa" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/static/css/style.css" />
     <link rel="stylesheet" href="/static/js/script.js" />
 
-    <link rel="icon" href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/favicon.png?1780120748848" type="image/x-icon" />
-    <link rel="preload" as="script" href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/jquery.js?1780120748848" />
-    <script src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/jquery.js?1780120748848" type="text/javascript"></script>
-    <link rel="preload" as="script" href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/swiper.js?1780120748848" />
-    <script src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/swiper.js?1780120748848" type="text/javascript"></script>
-    <link rel="preload" as="script" href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/lazy.js?1780120748848" />
-    <script src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/lazy.js?1780120748848" type="text/javascript"></script>
-    <link rel="preload" as='image' media="screen and (max-width: 480px)" href="//bizweb.dktcdn.net/thumb/grande/100/632/411/themes/1096693/assets/slider_1.jpg?1780120748848">
-    <link rel="preload" as='image' href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/header_pattent.png?1780120748848">
-    <link rel="preload" as='image' href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/footer_pattent.png?1780120748848">
-    <link rel="preload" as='style' type="text/css" href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/main.scss.css?1780120748848">
-    <link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/bootstrap-4-3-min.css?1780120748848">
-    <link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/quickviews_popup_cart.scss.css?1780120748848">
-    <link rel="stylesheet" href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/bootstrap-4-3-min.css?1780120748848">
-    <link href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/main.scss.css?1780120748848" rel="stylesheet" type="text/css" media="all" />	
-    <link href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/breadcrumb_style.scss.css?1780120748848" rel="stylesheet" type="text/css" media="all" />
-    <link href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/account_oder_style.scss.css?1780120748848" rel="stylesheet" type="text/css" media="all" />
+    <link
+      rel="icon"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/favicon.png?1780120748848"
+      type="image/x-icon"
+    />
+    <link
+      rel="preload"
+      as="script"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/jquery.js?1780120748848"
+    />
+    <script
+      src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/jquery.js?1780120748848"
+      type="text/javascript"
+    ></script>
+    <link
+      rel="preload"
+      as="script"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/swiper.js?1780120748848"
+    />
+    <script
+      src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/swiper.js?1780120748848"
+      type="text/javascript"
+    ></script>
+    <link
+      rel="preload"
+      as="script"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/lazy.js?1780120748848"
+    />
+    <script
+      src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/lazy.js?1780120748848"
+      type="text/javascript"
+    ></script>
+    <link
+      rel="preload"
+      as="image"
+      media="screen and (max-width: 480px)"
+      href="//bizweb.dktcdn.net/thumb/grande/100/632/411/themes/1096693/assets/slider_1.jpg?1780120748848"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/header_pattent.png?1780120748848"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/footer_pattent.png?1780120748848"
+    />
+    <link
+      rel="preload"
+      as="style"
+      type="text/css"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/main.scss.css?1780120748848"
+    />
+    <link
+      rel="preload"
+      as="style"
+      type="text/css"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/bootstrap-4-3-min.css?1780120748848"
+    />
+    <link
+      rel="preload"
+      as="style"
+      type="text/css"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/quickviews_popup_cart.scss.css?1780120748848"
+    />
+    <link
+      rel="stylesheet"
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/bootstrap-4-3-min.css?1780120748848"
+    />
+    <link
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/main.scss.css?1780120748848"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <link
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/breadcrumb_style.scss.css?1780120748848"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <link
+      href="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/account_oder_style.scss.css?1780120748848"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
 
-	<script src="/dist/js/stats.min.js?v=96f2ff2"></script>
+    <script src="/dist/js/stats.min.js?v=96f2ff2"></script>
 
-	<script src="//bizweb.dktcdn.net/assets/themes_support/bizweb-api.js" type="text/javascript"></script><script src="//bizweb.dktcdn.net/assets/themes_support/common.js" type="text/javascript"></script><script src="//bizweb.dktcdn.net/assets/themes_support/customer.js" type="text/javascript"></script>
-		
+    <script
+      src="//bizweb.dktcdn.net/assets/themes_support/bizweb-api.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="//bizweb.dktcdn.net/assets/themes_support/common.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="//bizweb.dktcdn.net/assets/themes_support/customer.js"
+      type="text/javascript"
+    ></script>
+
     <script type="application/ld+json">
-            {
-            "@context": "http://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": 
-            [
-                {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "item": 
-                    {
-                    "@id": "https://bean-spa.mysapo.net",
-                    "name": "Trang chủ"
-                    }
-                },      
-            ]
+      {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "https://bean-spa.mysapo.net",
+              "name": "Trang chủ"
             }
+          }
+        ]
+      }
     </script>
 
     <script type="application/ld+json">
-        {
-            "@context" : "http://schema.org",
-            "@type" : "Organization",
-            "legalName" : "Bean Spa",
-            "url" : "https://bean-spa.mysapo.net",
-            "contactPoint":[{
-                "@type" : "ContactPoint",
-                "telephone" : "+84 0346800147",
-                "contactType" : "customer service"
-            }],
-            "logo":"//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848",
-            "sameAs":[
-            "#",
-            "#"
-            ]
-        }
+      {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "legalName": "Bean Spa",
+        "url": "https://bean-spa.mysapo.net",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+84 0346800147",
+            "contactType": "customer service"
+          }
+        ],
+        "logo": "//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848",
+        "sameAs": ["#", "#"]
+      }
     </script>
     <script type="application/ld+json">
-        {
-        "@context" : "http://schema.org",
-        "@type" : "WebSite", 
-        "name" : "Bean Spa",
-        "url" : "https://bean-spa.mysapo.net",
-        "potentialAction":{
-                "@type" : "SearchAction",
-                "target" : "https://bean-spa.mysapo.net/search?query={search_term}",
-                "query-input" : "required name=search_term"
-            }                     
+      {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": "Bean Spa",
+        "url": "https://bean-spa.mysapo.net",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://bean-spa.mysapo.net/search?query={search_term}",
+          "query-input": "required name=search_term"
         }
+      }
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">	
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
+  <body>
     <!-- header -->
-    <header class="header" style="min-height: 135px;">
-	
-	<div class="topbarhea">
-		<div class="container">
-			<div class="box-topbar">
-				<div class="row ">
-					<div class="col-lg-7 col-md-5 col-sm-12 col-xs-12 col-12 d-none d-md-block">
-						<div class="box_text_hi">
-							<div class="box_text_item">
-								<span>Chào mừng bạn đến với Bean Spa</span>
-							</div>
-
-						</div>
-					</div>
-					<div class="col-lg-5 col-md-7 col-sm-12 col-xs-12 col-12 text-hea-right">
-						<div class="language-select">
-							<button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2" type="button" id="languageDropdown">
-								<img src="https://bizweb.dktcdn.net/100/496/044/themes/927290/assets/vn.png?1699256128806" alt="Vietnam Flag"> VI
-							</button>
-							<ul class="dropdown-menu" aria-labelledby="languageDropdown">
-								<li>
-									<a class="dropdown-item" href="#" data-lang="vi">
-										<img src="https://bizweb.dktcdn.net/100/496/044/themes/927290/assets/vn.png?1699256128806" alt="Vietnam Flag" class="flag-icon"> Tiếng Việt
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="#" data-lang="en">
-										<img src="https://bizweb.dktcdn.net/100/496/044/themes/927290/assets/en.png?1699256128806" alt="UK Flag" class="flag-icon"> English
-									</a>
-								</li>
-							</ul>
-						</div>
-						<script>
-							document.querySelectorAll('.language-select .dropdown-item').forEach(item => {
-								item.addEventListener('click', function(e) {
-									e.preventDefault();
-									const lang = this.getAttribute('data-lang');
-									const flagSrc = this.querySelector('img').src;
-									const langText = lang === 'vi' ? 'VI' : 'EN';
-									const dropdownToggle = document.querySelector('#languageDropdown');
-									dropdownToggle.innerHTML = `<img src="${flagSrc}" alt="${langText} Flag"> ${langText}`;
-								});
-							});
-						</script>
-						<div class="box_top_hea">
-							<a href="/account" title="Tài khoản" class="opaci_href"></a>
-							<svg viewBox="-42 0 512 512.001" xmlns="http://www.w3.org/2000/svg">
-								<path d="m210.351562 246.632812c33.882813 0 63.21875-12.152343 87.195313-36.128906 23.96875-23.972656 36.125-53.304687 36.125-87.191406 0-33.875-12.152344-63.210938-36.128906-87.191406-23.976563-23.96875-53.3125-36.121094-87.191407-36.121094-33.886718 0-63.21875 12.152344-87.191406 36.125s-36.128906 53.308594-36.128906 87.1875c0 33.886719 12.15625 63.222656 36.128906 87.195312 23.980469 23.96875 53.316406 36.125 87.191406 36.125zm-65.972656-189.292968c18.394532-18.394532 39.972656-27.335938 65.972656-27.335938 25.996094 0 47.578126 8.941406 65.976563 27.335938 18.394531 18.398437 27.339844 39.980468 27.339844 65.972656 0 26-8.945313 47.578125-27.339844 65.976562-18.398437 18.398438-39.980469 27.339844-65.976563 27.339844-25.992187 0-47.570312-8.945312-65.972656-27.339844-18.398437-18.394531-27.34375-39.976562-27.34375-65.976562 0-25.992188 8.945313-47.574219 27.34375-65.972656zm0 0"></path><path d="m426.128906 393.703125c-.691406-9.976563-2.089844-20.859375-4.148437-32.351563-2.078125-11.578124-4.753907-22.523437-7.957031-32.527343-3.3125-10.339844-7.808594-20.550781-13.375-30.335938-5.769532-10.15625-12.550782-19-20.160157-26.277343-7.957031-7.613282-17.699219-13.734376-28.964843-18.199219-11.226563-4.441407-23.667969-6.691407-36.976563-6.691407-5.226563 0-10.28125 2.144532-20.042969 8.5-6.007812 3.917969-13.035156 8.449219-20.878906 13.460938-6.707031 4.273438-15.792969 8.277344-27.015625 11.902344-10.949219 3.542968-22.066406 5.339844-33.042969 5.339844-10.96875 0-22.085937-1.796876-33.042968-5.339844-11.210938-3.621094-20.300782-7.625-26.996094-11.898438-7.769532-4.964844-14.800782-9.496094-20.898438-13.46875-9.753906-6.355468-14.808594-8.5-20.035156-8.5-13.3125 0-25.75 2.253906-36.972656 6.699219-11.257813 4.457031-21.003906 10.578125-28.96875 18.199219-7.609375 7.28125-14.390625 16.121094-20.15625 26.273437-5.558594 9.785157-10.058594 19.992188-13.371094 30.339844-3.199219 10.003906-5.875 20.945313-7.953125 32.523437-2.0625 11.476563-3.457031 22.363282-4.148437 32.363282-.679688 9.777344-1.023438 19.953125-1.023438 30.234375 0 26.726562 8.496094 48.363281 25.25 64.320312 16.546875 15.746094 38.4375 23.730469 65.066406 23.730469h246.53125c26.621094 0 48.511719-7.984375 65.0625-23.730469 16.757813-15.945312 25.253906-37.589843 25.253906-64.324219-.003906-10.316406-.351562-20.492187-1.035156-30.242187zm-44.90625 72.828125c-10.933594 10.40625-25.449218 15.464844-44.378906 15.464844h-246.527344c-18.933594 0-33.449218-5.058594-44.378906-15.460938-10.722656-10.207031-15.933594-24.140625-15.933594-42.585937 0-9.59375.316406-19.066407.949219-28.160157.617187-8.921874 1.878906-18.722656 3.75-29.136718 1.847656-10.285156 4.199219-19.9375 6.996094-28.675782 2.683593-8.378906 6.34375-16.675781 10.882812-24.667968 4.332031-7.617188 9.316407-14.152344 14.816407-19.417969 5.144531-4.925781 11.628906-8.957031 19.269531-11.980469 7.066406-2.796875 15.007812-4.328125 23.628906-4.558594 1.050781.558594 2.921875 1.625 5.953125 3.601563 6.167969 4.019531 13.277344 8.605469 21.136719 13.625 8.859375 5.648437 20.273437 10.75 33.910156 15.152344 13.941406 4.507812 28.160156 6.796875 42.273437 6.796875 14.113282 0 28.335938-2.289063 42.269532-6.792969 13.648437-4.410156 25.058594-9.507813 33.929687-15.164063 8.042969-5.140624 14.953125-9.59375 21.121094-13.617187 3.03125-1.972656 4.902344-3.042969 5.953125-3.601563 8.625.230469 16.566406 1.761719 23.636719 4.558594 7.636719 3.023438 14.121093 7.058594 19.265625 11.980469 5.5 5.261719 10.484375 11.796875 14.816406 19.421875 4.542969 7.988281 8.207031 16.289062 10.886719 24.660156 2.800781 8.75 5.15625 18.398438 7 28.675782 1.867187 10.433593 3.132812 20.238281 3.75 29.144531v.007812c.636719 9.058594.957031 18.527344.960937 28.148438-.003906 18.449219-5.214844 32.378906-15.9375 42.582031zm0 0"></path>
-							</svg>
-							<span class="sub-text">Tài khoản</span>
-						</div>
-						<div class="box_top_hea">
-							<a href="/he-thong-cua-hang" title="Hệ thống chi nhánh" class="opaci_href"></a>
-							<div class="img_top">
-								<img width="36" height="36" src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_topbar_3.png?1780120748848" data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_topbar_3.png?1780120748848" alt="Bean Spa" class="lazyload loaded" data-was-processed="true">
-							</div>
-							<span class="sub-text">Hệ thống chi nhánh</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="main-header">
-		<div class="container">
-			<div class="box-hearder">
-				<div class="row align-items-center">
-					<div class="col-lg-2 col-md-5 col-5 header-logo">
-						
-						<a href="/" class="logo-wrapper" title="Bean Spa">
-							<img width="400" height="188" src="{% static 'images/logo.png' %}" data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848" alt="Bean Spa" class="lazyload loaded" data-was-processed="true">
-						</a>
-						
-					</div>
-					<div class="col-lg-6 col-md-12 col-12">
-						<div class="header-menu">
-							<div class="navigation-horizontal overflow">
-								<div class="row">
-									<div class="col-lg-12 col-sm-12 col-xs-12 col-12 sudes-main-header tab-content-mb">
-										<div class="col-menu">
-											<ul class="nav nav_new_menu ">
-	
-	
-	
-	
-	
-	<li class="nav-item ">
-		<a class="nav-link" href="/" title="Trang chủ">Trang chủ</a>
-	</li>
-
-	<li class="nav-item ">
-		<a class="nav-link" href="/ve-chung-toi" title="Về chúng tôi">Về chúng tôi</a>
-	</li>
-
-	<li class="nav-item has-childs   has-mega has-mega-1  hover-left">
-		<a href="/collections/all" class="nav-link" title="Sản phẩm">Sản phẩm
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-				<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path>
-			</svg>
-		</a>
-		<i class="open_mnu down_icon"></i>
-		
-		
-
-
-
-    <div class="mega-content dropdown-menu">
-        <div class="row d-flex justify-content-center">
-            <div class="mega-menu-list  col-lg-12">
-                <ul class="level0  no-banner half-banner">
-                    
-                    
-                    <li class="level1 parent item fix-navs nav-item-lv2 has-childs2">
-                        <a class="hmega" href="/cham-soc-da" title="Chăm sóc da">Chăm sóc da</a>
-                        <i class="open_mnu down_icon"></i>
-                        <ul class="level1 dropdown-menu">
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/tay-trang" title="Tẩy trang">Tẩy trang</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/kem-duong-da" title="Kem dưỡng da">Kem dưỡng da</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/sua-rua-mat" title="Sữa rửa mặt">Sữa rửa mặt</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/toner-nuoc-can-bang" title="Toner nước cân bằng">Toner nước cân bằng</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/treatment-dac-tri" title="Treatment đặc trị">Treatment đặc trị</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/serum-tri-mun" title="Serum trị mụn">Serum trị mụn</a>
-                            </li>
-                            
-                        </ul>
+    <header class="header" style="min-height: 135px">
+      <div class="topbarhea">
+        <div class="container">
+          <div class="box-topbar">
+            <div class="row">
+              <div
+                class="col-lg-7 col-md-5 col-sm-12 col-xs-12 col-12 d-none d-md-block"
+              >
+                <div class="box_text_hi">
+                  <div class="box_text_item">
+                    <span>Chào mừng bạn đến với Bean Spa</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-lg-5 col-md-7 col-sm-12 col-xs-12 col-12 text-hea-right"
+              >
+                <div class="language-select">
+                  <button
+                    class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2"
+                    type="button"
+                    id="languageDropdown"
+                  >
+                    <img
+                      src="https://bizweb.dktcdn.net/100/496/044/themes/927290/assets/vn.png?1699256128806"
+                      alt="Vietnam Flag"
+                    />
+                    VI
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                    <li>
+                      <a class="dropdown-item" href="#" data-lang="vi">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/496/044/themes/927290/assets/vn.png?1699256128806"
+                          alt="Vietnam Flag"
+                          class="flag-icon"
+                        />
+                        Tiếng Việt
+                      </a>
                     </li>
-                    
-                    
-                    
-                    <li class="level1 parent item fix-navs nav-item-lv2 has-childs2">
-                        <a class="hmega" href="/cham-soc-toc" title="Chăm sóc tóc">Chăm sóc tóc</a>
-                        <i class="open_mnu down_icon"></i>
-                        <ul class="level1 dropdown-menu">
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/dau-xa-toc" title="Dầu xả tóc">Dầu xả tóc</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/dau-goi" title="Dầu gội">Dầu gội</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/kem-u-toc" title="Kem ủ tóc">Kem ủ tóc</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/xit-duong-toc" title="Xịt dưỡng tóc">Xịt dưỡng tóc</a>
-                            </li>
-                            
-                        </ul>
+                    <li>
+                      <a class="dropdown-item" href="#" data-lang="en">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/496/044/themes/927290/assets/en.png?1699256128806"
+                          alt="UK Flag"
+                          class="flag-icon"
+                        />
+                        English
+                      </a>
                     </li>
-                    
-                    
-                    
-                    <li class="level1 parent item fix-navs nav-item-lv2 has-childs2">
-                        <a class="hmega" href="/cham-soc-co-the" title="Chăm sóc cơ thể">Chăm sóc cơ thể</a>
-                        <i class="open_mnu down_icon"></i>
-                        <ul class="level1 dropdown-menu">
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/sua-tam" title="Sữa tắm">Sữa tắm</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/sua-duong-the" title="Sữa dưỡng thể">Sữa dưỡng thể</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/tay-te-bao-chet" title="Tẩy tế bào chết">Tẩy tế bào chết</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/kem-tay-long" title="Kem tẩy lông">Kem tẩy lông</a>
-                            </li>
-                            
-                            <li class="level2 nav-item-lv3">
-                                <a href="/xit-khu-mui" title="Xịt khử mùi">Xịt khử mùi</a>
-                            </li>
-                            
-                        </ul>
-                    </li>
-                    
-                    
-                </ul>	
+                  </ul>
+                </div>
+                <script>
+                  document
+                    .querySelectorAll(".language-select .dropdown-item")
+                    .forEach((item) => {
+                      item.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        const lang = this.getAttribute("data-lang");
+                        const flagSrc = this.querySelector("img").src;
+                        const langText = lang === "vi" ? "VI" : "EN";
+                        const dropdownToggle =
+                          document.querySelector("#languageDropdown");
+                        dropdownToggle.innerHTML = `<img src="${flagSrc}" alt="${langText} Flag"> ${langText}`;
+                      });
+                    });
+                </script>
+                <div class="box_top_hea">
+                  <a href="/account" title="Tài khoản" class="opaci_href"></a>
+                  <svg
+                    viewBox="-42 0 512 512.001"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m210.351562 246.632812c33.882813 0 63.21875-12.152343 87.195313-36.128906 23.96875-23.972656 36.125-53.304687 36.125-87.191406 0-33.875-12.152344-63.210938-36.128906-87.191406-23.976563-23.96875-53.3125-36.121094-87.191407-36.121094-33.886718 0-63.21875 12.152344-87.191406 36.125s-36.128906 53.308594-36.128906 87.1875c0 33.886719 12.15625 63.222656 36.128906 87.195312 23.980469 23.96875 53.316406 36.125 87.191406 36.125zm-65.972656-189.292968c18.394532-18.394532 39.972656-27.335938 65.972656-27.335938 25.996094 0 47.578126 8.941406 65.976563 27.335938 18.394531 18.398437 27.339844 39.980468 27.339844 65.972656 0 26-8.945313 47.578125-27.339844 65.976562-18.398437 18.398438-39.980469 27.339844-65.976563 27.339844-25.992187 0-47.570312-8.945312-65.972656-27.339844-18.398437-18.394531-27.34375-39.976562-27.34375-65.976562 0-25.992188 8.945313-47.574219 27.34375-65.972656zm0 0"
+                    ></path>
+                    <path
+                      d="m426.128906 393.703125c-.691406-9.976563-2.089844-20.859375-4.148437-32.351563-2.078125-11.578124-4.753907-22.523437-7.957031-32.527343-3.3125-10.339844-7.808594-20.550781-13.375-30.335938-5.769532-10.15625-12.550782-19-20.160157-26.277343-7.957031-7.613282-17.699219-13.734376-28.964843-18.199219-11.226563-4.441407-23.667969-6.691407-36.976563-6.691407-5.226563 0-10.28125 2.144532-20.042969 8.5-6.007812 3.917969-13.035156 8.449219-20.878906 13.460938-6.707031 4.273438-15.792969 8.277344-27.015625 11.902344-10.949219 3.542968-22.066406 5.339844-33.042969 5.339844-10.96875 0-22.085937-1.796876-33.042968-5.339844-11.210938-3.621094-20.300782-7.625-26.996094-11.898438-7.769532-4.964844-14.800782-9.496094-20.898438-13.46875-9.753906-6.355468-14.808594-8.5-20.035156-8.5-13.3125 0-25.75 2.253906-36.972656 6.699219-11.257813 4.457031-21.003906 10.578125-28.96875 18.199219-7.609375 7.28125-14.390625 16.121094-20.15625 26.273437-5.558594 9.785157-10.058594 19.992188-13.371094 30.339844-3.199219 10.003906-5.875 20.945313-7.953125 32.523437-2.0625 11.476563-3.457031 22.363282-4.148437 32.363282-.679688 9.777344-1.023438 19.953125-1.023438 30.234375 0 26.726562 8.496094 48.363281 25.25 64.320312 16.546875 15.746094 38.4375 23.730469 65.066406 23.730469h246.53125c26.621094 0 48.511719-7.984375 65.0625-23.730469 16.757813-15.945312 25.253906-37.589843 25.253906-64.324219-.003906-10.316406-.351562-20.492187-1.035156-30.242187zm-44.90625 72.828125c-10.933594 10.40625-25.449218 15.464844-44.378906 15.464844h-246.527344c-18.933594 0-33.449218-5.058594-44.378906-15.460938-10.722656-10.207031-15.933594-24.140625-15.933594-42.585937 0-9.59375.316406-19.066407.949219-28.160157.617187-8.921874 1.878906-18.722656 3.75-29.136718 1.847656-10.285156 4.199219-19.9375 6.996094-28.675782 2.683593-8.378906 6.34375-16.675781 10.882812-24.667968 4.332031-7.617188 9.316407-14.152344 14.816407-19.417969 5.144531-4.925781 11.628906-8.957031 19.269531-11.980469 7.066406-2.796875 15.007812-4.328125 23.628906-4.558594 1.050781.558594 2.921875 1.625 5.953125 3.601563 6.167969 4.019531 13.277344 8.605469 21.136719 13.625 8.859375 5.648437 20.273437 10.75 33.910156 15.152344 13.941406 4.507812 28.160156 6.796875 42.273437 6.796875 14.113282 0 28.335938-2.289063 42.269532-6.792969 13.648437-4.410156 25.058594-9.507813 33.929687-15.164063 8.042969-5.140624 14.953125-9.59375 21.121094-13.617187 3.03125-1.972656 4.902344-3.042969 5.953125-3.601563 8.625.230469 16.566406 1.761719 23.636719 4.558594 7.636719 3.023438 14.121093 7.058594 19.265625 11.980469 5.5 5.261719 10.484375 11.796875 14.816406 19.421875 4.542969 7.988281 8.207031 16.289062 10.886719 24.660156 2.800781 8.75 5.15625 18.398438 7 28.675782 1.867187 10.433593 3.132812 20.238281 3.75 29.144531v.007812c.636719 9.058594.957031 18.527344.960937 28.148438-.003906 18.449219-5.214844 32.378906-15.9375 42.582031zm0 0"
+                    ></path>
+                  </svg>
+                  <span class="sub-text">Tài khoản</span>
+                </div>
+                <div class="box_top_hea">
+                  <a
+                    href="/he-thong-cua-hang"
+                    title="Hệ thống chi nhánh"
+                    class="opaci_href"
+                  ></a>
+                  <div class="img_top">
+                    <img
+                      width="36"
+                      height="36"
+                      src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_topbar_3.png?1780120748848"
+                      data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_topbar_3.png?1780120748848"
+                      alt="Bean Spa"
+                      class="lazyload loaded"
+                      data-was-processed="true"
+                    />
+                  </div>
+                  <span class="sub-text">Hệ thống chi nhánh</span>
+                </div>
+              </div>
             </div>
-            
+          </div>
         </div>
-    </div>
-            
-        </li>
-        
-        
-        
-        
-        <li class="nav-item has-childs    hover-left">
-            <a href="/dich-vu" class="nav-link" title="Dịch vụ">Dịch vụ
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path>
-                </svg>
-            </a>
-            <i class="open_mnu down_icon"></i>
-            
-            <ul class="dropdown-menu">
-                
-                
-                <li class="nav-item-lv2">
-                    <a class="nav-link" href="/massage-thu-gian-toan-than" title="Massage thư giãn toàn thân">Massage thư giãn toàn thân</a>
-                </li>
-                
-                
-                
-                <li class="nav-item-lv2">
-                    <a class="nav-link" href="/cham-soc-da-mat-chuyen-sau" title="Chăm sóc da mặt chuyên sâu">Chăm sóc da mặt chuyên sâu</a>
-                </li>
-                
-                
-                
-                <li class="nav-item-lv2">
-                    <a class="nav-link" href="/massage-da-nong-tri-lieu" title="Massage đá nóng trị liệu">Massage đá nóng trị liệu</a>
-                </li>
-                
-                
-                
-                <li class="nav-item-lv2">
-                    <a class="nav-link" href="/tam-duong-trang-toan-than" title="Tắm dưỡng trắng toàn thân">Tắm dưỡng trắng toàn thân</a>
-                </li>
-                
-                
-                
-                <li class="nav-item-lv2">
-                    <a class="nav-link" href="/massage-chan-thao-duoc" title="Massage chân thảo dược">Massage chân thảo dược</a>
-                </li>
-                
-                
-                
-                <li class="nav-item-lv2">
-                    <a class="nav-link" href="/goi-dau-duong-sinh-thao-moc" title="Gội đầu dưỡng sinh thảo mộc">Gội đầu dưỡng sinh thảo mộc</a>
-                </li>
-                
-                
-                </ul>
-                
-        </li>
-        
-        
-        
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="/doi-ngu" title="Đội ngũ">Đội ngũ</a>
-        </li>
-        
-        
-        
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="/tin-tuc" title="Tin tức">Tin tức</a>
-        </li>
-        
-        
-        
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="/cau-hoi-thuong-gap" title="Câu hỏi thường gặp">Câu hỏi thường gặp</a>
-        </li>
-        
-        
-        
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="/lien-he" title="Liên hệ">Liên hệ</a>
-        </li>
-        
-        
-        
-    </ul>
-										</div>
-										<div class="control-menu">
-											<a href="#" id="prev" class="unactive"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#fff" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path></svg></a>
-											<a href="#" id="next" class="unactive"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#fff" d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"></path></svg></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-7 col-7 header-right">
-						
-						<div class="box-phone">
-							<div class="icon_phone">
-								<svg enable-background="new 0 0 100 100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="m65.9455872 97.5c-.4152527 0-.8334427-.0363235-1.2486954-.1109314-14.2991944-2.5739746-28.5532303-10.3685303-40.1351242-21.9504242s-19.3764553-25.8359299-21.9504278-40.1351242c-.4849515-2.6986465.6459472-5.5052757 2.8812392-7.1505775 2.8625875-2.1066914 5.9470344-4.0651474 9.1659718-5.8174515 2.1341791-1.1613312 4.6502314-1.2261219 6.7353258-.1757221 7.1280003 3.5929604 11.8528385 9.5772991 14.0429745 17.7861309.5939178 2.2215462.0647888 4.6305962-1.4146042 6.4427834l-4.7228775 5.7791672c-.7568779.9267082-.8491554 2.2048607-.2287331 3.1806526 4.0180283 6.3220367 9.2592316 11.5632401 15.5812721 15.5802841.9748077.6214066 2.2529602.5281525 3.1806526-.2277451l5.778183-4.7218933c1.8131676-1.4803772 4.2192726-2.0085258 6.4447479-1.4155884 8.2078514 2.1911163 14.1921883 6.9159546 17.7851448 14.0439529 1.051384 2.0831299.9865952 4.6001663-.174736 6.7343445-1.7532883 3.2189407-3.7117462 6.3033829-5.8194122 9.1659698-1.3910442 1.8907242-3.6145625 2.9921723-5.9009013 2.9921723zm-47.7127285-71.5617332c-.4721889 0-.9591045.1236916-1.4106789.3700943-3.0402708 1.655117-5.9489975 3.5016632-8.6476431 5.487608-.8570094.6312199-1.2928767 1.6934032-1.1102834 2.7064991 2.4110131 13.399971 9.7608719 26.8019028 20.695837 37.7378502 10.9359474 10.934967 24.337883 18.2848282 37.7378502 20.6958389 1.0150604.1816101 2.0752792-.2542572 2.7055206-1.1102829 1.9869232-2.6986465 3.8334732-5.6073761 5.4895706-8.647644.450592-.8285446.4918213-1.7758636.108963-2.5337219-3.0304489-6.010849-7.908432-9.8413696-14.913723-11.710495h-.0009807c-.8206863-.2179337-1.7248192-.0147247-2.4149399.5487595l-5.7772026 4.7209091c-2.4414482 1.9947815-5.8469048 2.2127151-8.4699631.5428772-6.8855209-4.3753662-12.5959702-10.0858154-16.9723129-16.9713364-1.6688614-2.6250191-1.4509277-6.0294952.5438519-8.4699593l4.7218952-5.7781868c.5625038-.6891403.7676754-1.5913048.5477791-2.4139557-1.8691235-7.0062714-5.6996498-11.8842525-11.7095127-14.9147091-.3455525-.1737576-.7293912-.2601452-1.1240273-.2601452z"></path><path d="m95.2016983 52.3759689c-.0323944 0-.0647888-.0009842-.096199-.0019646-1.248703-.0520287-2.2176208-1.1063576-2.165596-2.3540764.4829865-11.5259361-3.9021912-22.7986012-12.0305252-30.9288979-8.1293106-8.128335-19.378418-12.5360909-30.9288979-12.0305233-1.20158.0314136-2.3020439-.9159102-2.3540726-2.1655927-.0520325-1.2477188.9168892-2.3020461 2.164608-2.3540752 12.7883835-.541889 25.2940445 4.3302031 34.3166885 13.3518686 9.0216675 9.0216646 13.8878632 21.5302658 13.3518677 34.3166847-.0510482 1.2153248-1.0523605 2.1665768-2.2578735 2.1665768z"></path><path d="m83.1672516 52.3759689c-.0441742 0-.0893326-.0009842-.134491-.0039291-1.2477188-.0736275-2.198967-1.1436615-2.1253433-2.3903961.4908447-8.3393974-2.6053848-16.5011063-8.4964676-22.3921871-5.8910751-5.891077-14.0576935-8.9794521-22.3921814-8.4964638-1.2536087.0834427-2.3167725-.8776245-2.3903999-2.1253433-.0736237-1.2467375.8776245-2.3167715 2.1253433-2.390398 9.6165657-.5723209 19.0525017 3.00984 25.8555641 9.8138828 6.8040466 6.8040447 10.3812943 16.2282009 9.8138809 25.8555622-.0706787 1.2025604-1.0670852 2.1292724-2.2559051 2.1292724z"></path><path d="m71.1465454 52.3759689c-.0706787 0-.1413651-.0029449-.213028-.009819-1.2437897-.1158371-2.1577377-1.2182693-2.0419006-2.462059.4790649-5.1361656-1.335083-10.1721992-4.9790916-13.8162041-3.6440086-3.6430244-8.6761131-5.4591389-13.8162041-4.9790974-1.2428131.1128941-2.3472061-.7981071-2.4620628-2.0418987-.1158371-1.2437935.798111-2.3462219 2.0419006-2.4620609 6.4869614-.603735 12.8364868 1.6865311 17.4346886 6.2847347 4.5991821 4.5982018 6.8894501 10.9536171 6.2847366 17.4346848-.1089706 1.1721306-1.0945816 2.0517196-2.2490387 2.0517196z"></path></svg>
-							</div>
-							<div class="content_phone">
-								<span>Gọi tư vấn</span>
-								<a title="1900 6750" href="tel:19006750">1900 6750</a>
-							</div>
-						</div>
-						
-						<div class="sudes-header-search">
-							<a class="button-search" href="javascript:;" title="Tìm kiếm">
-								<span class="box-icon">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-										<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-									</svg>
-								</span>
-							</a>
-						</div>
-						<div class="sudes-header-iwish">
-							<a href="/san-pham-yeu-thich" title="Danh sách yêu thích">
-								<span class="box-icon">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-										<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
-									</svg>
-									<span class="js-wishlist-count">0</span>
-								</span>
-							</a>
-						</div>
-						<div class="sudes-header-cart header-action_cart">
-							<a class="a-hea" href="/cart" aria-label="Giỏ hàng" title="Giỏ hàng">
-								<span class="box-icon">
-									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
-										<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
-									</svg>
-									<span class="count_item count_item_pr hidden-count">0</span>
-								</span>
-							</a>
-							<div class="top-cart-content">		
-								<div class="CartHeaderContainer"><div class="cart--empty-message"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 201.387 201.387" style="enable-background:new 0 0 201.387 201.387;" xml:space="preserve"> <g> <g> <path d="M129.413,24.885C127.389,10.699,115.041,0,100.692,0C91.464,0,82.7,4.453,77.251,11.916    c-1.113,1.522-0.78,3.657,0.742,4.77c1.517,1.109,3.657,0.78,4.768-0.744c4.171-5.707,10.873-9.115,17.93-9.115    c10.974,0,20.415,8.178,21.963,19.021c0.244,1.703,1.705,2.932,3.376,2.932c0.159,0,0.323-0.012,0.486-0.034    C128.382,28.479,129.679,26.75,129.413,24.885z"></path> </g> </g> <g> <g> <path d="M178.712,63.096l-10.24-17.067c-0.616-1.029-1.727-1.657-2.927-1.657h-9.813c-1.884,0-3.413,1.529-3.413,3.413    s1.529,3.413,3.413,3.413h7.881l6.144,10.24H31.626l6.144-10.24h3.615c1.884,0,3.413-1.529,3.413-3.413s-1.529-3.413-3.413-3.413    h-5.547c-1.2,0-2.311,0.628-2.927,1.657l-10.24,17.067c-0.633,1.056-0.648,2.369-0.043,3.439s1.739,1.732,2.97,1.732h150.187    c1.231,0,2.364-0.662,2.97-1.732S179.345,64.15,178.712,63.096z"></path> </g> </g> <g> <g> <path d="M161.698,31.623c-0.478-0.771-1.241-1.318-2.123-1.524l-46.531-10.883c-0.881-0.207-1.809-0.053-2.579,0.423    c-0.768,0.478-1.316,1.241-1.522,2.123l-3.509,15c-0.43,1.835,0.71,3.671,2.546,4.099c1.835,0.43,3.673-0.71,4.101-2.546    l2.732-11.675l39.883,9.329l-6.267,26.795c-0.43,1.835,0.71,3.671,2.546,4.099c0.263,0.061,0.524,0.09,0.782,0.09    c1.55,0,2.953-1.062,3.318-2.635l7.045-30.118C162.328,33.319,162.176,32.391,161.698,31.623z"></path> </g> </g> <g> <g> <path d="M102.497,39.692l-3.11-26.305c-0.106-0.899-0.565-1.72-1.277-2.28c-0.712-0.56-1.611-0.816-2.514-0.71l-57.09,6.748    c-1.871,0.222-3.209,1.918-2.988,3.791l5.185,43.873c0.206,1.737,1.679,3.014,3.386,3.014c0.133,0,0.27-0.009,0.406-0.024    c1.87-0.222,3.208-1.918,2.988-3.791l-4.785-40.486l50.311-5.946l2.708,22.915c0.222,1.872,1.91,3.202,3.791,2.99    C101.379,43.261,102.717,41.564,102.497,39.692z"></path> </g> </g> <g> <g> <path d="M129.492,63.556l-6.775-28.174c-0.212-0.879-0.765-1.64-1.536-2.113c-0.771-0.469-1.696-0.616-2.581-0.406L63.613,46.087    c-1.833,0.44-2.961,2.284-2.521,4.117l3.386,14.082c0.44,1.835,2.284,2.964,4.116,2.521c1.833-0.44,2.961-2.284,2.521-4.117    l-2.589-10.764l48.35-11.626l5.977,24.854c0.375,1.565,1.775,2.615,3.316,2.615c0.265,0,0.533-0.031,0.802-0.096    C128.804,67.232,129.932,65.389,129.492,63.556z"></path> </g> </g> <g> <g> <path d="M179.197,64.679c-0.094-1.814-1.592-3.238-3.41-3.238H25.6c-1.818,0-3.316,1.423-3.41,3.238l-6.827,133.12    c-0.048,0.934,0.29,1.848,0.934,2.526c0.645,0.677,1.539,1.062,2.475,1.062h163.84c0.935,0,1.83-0.384,2.478-1.062    c0.643-0.678,0.981-1.591,0.934-2.526L179.197,64.679z M22.364,194.56l6.477-126.293h143.701l6.477,126.293H22.364z"></path> </g> </g> <g> <g> <path d="M126.292,75.093c-5.647,0-10.24,4.593-10.24,10.24c0,5.647,4.593,10.24,10.24,10.24c5.647,0,10.24-4.593,10.24-10.24    C136.532,79.686,131.939,75.093,126.292,75.093z M126.292,88.747c-1.883,0-3.413-1.531-3.413-3.413s1.531-3.413,3.413-3.413    c1.882,0,3.413,1.531,3.413,3.413S128.174,88.747,126.292,88.747z"></path> </g> </g> <g> <g> <path d="M75.092,75.093c-5.647,0-10.24,4.593-10.24,10.24c0,5.647,4.593,10.24,10.24,10.24c5.647,0,10.24-4.593,10.24-10.24    C85.332,79.686,80.739,75.093,75.092,75.093z M75.092,88.747c-1.882,0-3.413-1.531-3.413-3.413s1.531-3.413,3.413-3.413    s3.413,1.531,3.413,3.413S76.974,88.747,75.092,88.747z"></path> </g> </g> <g> <g> <path d="M126.292,85.333h-0.263c-1.884,0-3.413,1.529-3.413,3.413c0,0.466,0.092,0.911,0.263,1.316v17.457    c0,12.233-9.953,22.187-22.187,22.187s-22.187-9.953-22.187-22.187V88.747c0-1.884-1.529-3.413-3.413-3.413    s-3.413,1.529-3.413,3.413v18.773c0,15.998,13.015,29.013,29.013,29.013s29.013-13.015,29.013-29.013V88.747    C129.705,86.863,128.176,85.333,126.292,85.333z"></path> </g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </svg><p>Giỏ hàng của bạn đang trống</p></div></div>
-							</div>
-						</div>
-						<div class="header-action-booking">
-							<a href="/dat-lich" title="Đặt Lịch">Đặt Lịch
-								<svg enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m456.832 32.133h-41.232v-17.133c0-8.284-6.716-15-15-15s-15 6.716-15 15v17.133h-66.4v-17.133c0-8.284-6.716-15-15-15s-15 6.716-15 15v17.133h-66.4v-17.133c0-8.284-6.716-15-15-15s-15 6.716-15 15v17.133h-66.4v-17.133c0-8.284-6.716-15-15-15s-15 6.716-15 15v17.133h-41.234c-30.418 0-55.166 24.747-55.166 55.167v369.533c0 30.419 24.748 55.167 55.166 55.167h401.666c30.419 0 55.168-24.748 55.168-55.167v-369.533c0-30.42-24.749-55.167-55.168-55.167zm-401.666 30h41.234v17.134c0 8.284 6.716 15 15 15s15-6.716 15-15v-17.134h66.398v17.134c0 8.284 6.716 15 15 15s15-6.716 15-15v-17.134h66.4v17.134c0 8.284 6.716 15 15 15s15-6.716 15-15v-17.134h66.4v17.134c0 8.284 6.716 15 15 15s15-6.716 15-15v-17.134h41.232c13.879 0 25.17 11.29 25.17 25.167v41.233h-452v-41.233c0-13.877 11.29-25.167 25.166-25.167zm401.666 419.867h-401.666c-13.876 0-25.166-11.29-25.166-25.167v-298.3h452v298.3c0 13.877-11.291 25.167-25.168 25.167z"></path><path d="m151.566 208.867h-64.267c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.268c8.284 0 15-6.716 15-15v-64.266c-.001-8.284-6.716-15-15.001-15zm-15 64.266h-34.268v-34.266h34.268z"></path><path d="m424.699 208.867h-64.266c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.266c8.284 0 15-6.716 15-15v-64.266c0-8.284-6.716-15-15-15zm-15 64.266h-34.266v-34.266h34.266z"></path><path d="m151.566 337.4h-64.267c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.268c8.284 0 15-6.716 15-15v-64.266c-.001-8.284-6.716-15-15.001-15zm-15 64.266h-34.268v-34.266h34.268z"></path><path d="m424.699 337.4h-64.266c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.266c8.284 0 15-6.716 15-15v-64.266c0-8.284-6.716-15-15-15zm-15 64.266h-34.266v-34.266h34.266z"></path><path d="m288.133 337.4h-64.268c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.268c8.284 0 15-6.716 15-15v-64.266c0-8.284-6.716-15-15-15zm-15 64.266h-34.268v-34.266h34.268z"></path><path d="m279.475 222.673-34.834 34.836-12.116-12.116c-5.857-5.858-15.355-5.858-21.213 0s-5.858 15.355 0 21.213l22.723 22.723c2.813 2.813 6.628 4.394 10.606 4.394 3.979 0 7.794-1.581 10.607-4.394l45.441-45.443c5.857-5.858 5.857-15.355 0-21.213-5.859-5.858-15.356-5.858-21.214 0z"></path></g></svg>
-							</a>
-						</div>
-						<button class="menu-icon md-hidden" aria-label="Menu" id="btn-menu-mobile" title="Menu">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-								<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
-							</svg>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div> 
-	</div>
-	
-	<div class="mobile-nav-overflow"></div>
-</header>
+      </div>
 
-    <div class="content">
-        {% block content %}
-        {% endblock %}
-    </div>
+      <div class="main-header">
+        <div class="container">
+          <div class="box-hearder">
+            <div class="row align-items-center">
+              <div class="col-lg-2 col-md-5 col-5 header-logo">
+                <a href="/" class="logo-wrapper" title="Bean Spa">
+                  <img
+                    width="400"
+                    height="188"
+                    src="{% static 'images/logo.png' %}"
+                    data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848"
+                    alt="Bean Spa"
+                    class="lazyload loaded"
+                    data-was-processed="true"
+                  />
+                </a>
+              </div>
+              <div class="col-lg-6 col-md-12 col-12">
+                <div class="header-menu">
+                  <div class="navigation-horizontal overflow">
+                    <div class="row">
+                      <div
+                        class="col-lg-12 col-sm-12 col-xs-12 col-12 sudes-main-header tab-content-mb"
+                      >
+                        <div class="col-menu">
+                          <ul class="nav nav_new_menu">
+                            <li class="nav-item">
+                              <a class="nav-link" href="/" title="Trang chủ"
+                                >Trang chủ</a
+                              >
+                            </li>
+
+                            <li class="nav-item">
+                              <a
+                                class="nav-link"
+                                href="/ve-chung-toi"
+                                title="Về chúng tôi"
+                                >Về chúng tôi</a
+                              >
+                            </li>
+
+                            <li
+                              class="nav-item has-childs has-mega has-mega-1 hover-left"
+                            >
+                              <a
+                                href="/collections/all"
+                                class="nav-link"
+                                title="Sản phẩm"
+                                >Sản phẩm
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  class="bi bi-chevron-right"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                                  ></path>
+                                </svg>
+                              </a>
+                              <i class="open_mnu down_icon"></i>
+
+                              <div class="mega-content dropdown-menu">
+                                <div class="row d-flex justify-content-center">
+                                  <div class="mega-menu-list col-lg-12">
+                                    <ul class="level0 no-banner half-banner">
+                                      <li
+                                        class="level1 parent item fix-navs nav-item-lv2 has-childs2"
+                                      >
+                                        <a
+                                          class="hmega"
+                                          href="/cham-soc-da"
+                                          title="Chăm sóc da"
+                                          >Chăm sóc da</a
+                                        >
+                                        <i class="open_mnu down_icon"></i>
+                                        <ul class="level1 dropdown-menu">
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/tay-trang"
+                                              title="Tẩy trang"
+                                              >Tẩy trang</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/kem-duong-da"
+                                              title="Kem dưỡng da"
+                                              >Kem dưỡng da</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/sua-rua-mat"
+                                              title="Sữa rửa mặt"
+                                              >Sữa rửa mặt</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/toner-nuoc-can-bang"
+                                              title="Toner nước cân bằng"
+                                              >Toner nước cân bằng</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/treatment-dac-tri"
+                                              title="Treatment đặc trị"
+                                              >Treatment đặc trị</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/serum-tri-mun"
+                                              title="Serum trị mụn"
+                                              >Serum trị mụn</a
+                                            >
+                                          </li>
+                                        </ul>
+                                      </li>
+
+                                      <li
+                                        class="level1 parent item fix-navs nav-item-lv2 has-childs2"
+                                      >
+                                        <a
+                                          class="hmega"
+                                          href="/cham-soc-toc"
+                                          title="Chăm sóc tóc"
+                                          >Chăm sóc tóc</a
+                                        >
+                                        <i class="open_mnu down_icon"></i>
+                                        <ul class="level1 dropdown-menu">
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/dau-xa-toc"
+                                              title="Dầu xả tóc"
+                                              >Dầu xả tóc</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a href="/dau-goi" title="Dầu gội"
+                                              >Dầu gội</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/kem-u-toc"
+                                              title="Kem ủ tóc"
+                                              >Kem ủ tóc</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/xit-duong-toc"
+                                              title="Xịt dưỡng tóc"
+                                              >Xịt dưỡng tóc</a
+                                            >
+                                          </li>
+                                        </ul>
+                                      </li>
+
+                                      <li
+                                        class="level1 parent item fix-navs nav-item-lv2 has-childs2"
+                                      >
+                                        <a
+                                          class="hmega"
+                                          href="/cham-soc-co-the"
+                                          title="Chăm sóc cơ thể"
+                                          >Chăm sóc cơ thể</a
+                                        >
+                                        <i class="open_mnu down_icon"></i>
+                                        <ul class="level1 dropdown-menu">
+                                          <li class="level2 nav-item-lv3">
+                                            <a href="/sua-tam" title="Sữa tắm"
+                                              >Sữa tắm</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/sua-duong-the"
+                                              title="Sữa dưỡng thể"
+                                              >Sữa dưỡng thể</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/tay-te-bao-chet"
+                                              title="Tẩy tế bào chết"
+                                              >Tẩy tế bào chết</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/kem-tay-long"
+                                              title="Kem tẩy lông"
+                                              >Kem tẩy lông</a
+                                            >
+                                          </li>
+
+                                          <li class="level2 nav-item-lv3">
+                                            <a
+                                              href="/xit-khu-mui"
+                                              title="Xịt khử mùi"
+                                              >Xịt khử mùi</a
+                                            >
+                                          </li>
+                                        </ul>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+
+                            <li class="nav-item has-childs hover-left">
+                              <a
+                                href="/dich-vu"
+                                class="nav-link"
+                                title="Dịch vụ"
+                                >Dịch vụ
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  class="bi bi-chevron-right"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                                  ></path>
+                                </svg>
+                              </a>
+                              <i class="open_mnu down_icon"></i>
+
+                              <ul class="dropdown-menu">
+                                <li class="nav-item-lv2">
+                                  <a
+                                    class="nav-link"
+                                    href="/massage-thu-gian-toan-than"
+                                    title="Massage thư giãn toàn thân"
+                                    >Massage thư giãn toàn thân</a
+                                  >
+                                </li>
+
+                                <li class="nav-item-lv2">
+                                  <a
+                                    class="nav-link"
+                                    href="/cham-soc-da-mat-chuyen-sau"
+                                    title="Chăm sóc da mặt chuyên sâu"
+                                    >Chăm sóc da mặt chuyên sâu</a
+                                  >
+                                </li>
+
+                                <li class="nav-item-lv2">
+                                  <a
+                                    class="nav-link"
+                                    href="/massage-da-nong-tri-lieu"
+                                    title="Massage đá nóng trị liệu"
+                                    >Massage đá nóng trị liệu</a
+                                  >
+                                </li>
+
+                                <li class="nav-item-lv2">
+                                  <a
+                                    class="nav-link"
+                                    href="/tam-duong-trang-toan-than"
+                                    title="Tắm dưỡng trắng toàn thân"
+                                    >Tắm dưỡng trắng toàn thân</a
+                                  >
+                                </li>
+
+                                <li class="nav-item-lv2">
+                                  <a
+                                    class="nav-link"
+                                    href="/massage-chan-thao-duoc"
+                                    title="Massage chân thảo dược"
+                                    >Massage chân thảo dược</a
+                                  >
+                                </li>
+
+                                <li class="nav-item-lv2">
+                                  <a
+                                    class="nav-link"
+                                    href="/goi-dau-duong-sinh-thao-moc"
+                                    title="Gội đầu dưỡng sinh thảo mộc"
+                                    >Gội đầu dưỡng sinh thảo mộc</a
+                                  >
+                                </li>
+                              </ul>
+                            </li>
+
+                            <li class="nav-item">
+                              <a
+                                class="nav-link"
+                                href="/doi-ngu"
+                                title="Đội ngũ"
+                                >Đội ngũ</a
+                              >
+                            </li>
+
+                            <li class="nav-item">
+                              <a
+                                class="nav-link"
+                                href="/tin-tuc"
+                                title="Tin tức"
+                                >Tin tức</a
+                              >
+                            </li>
+
+                            <li class="nav-item">
+                              <a
+                                class="nav-link"
+                                href="/cau-hoi-thuong-gap"
+                                title="Câu hỏi thường gặp"
+                                >Câu hỏi thường gặp</a
+                              >
+                            </li>
+
+                            <li class="nav-item">
+                              <a
+                                class="nav-link"
+                                href="/lien-he"
+                                title="Liên hệ"
+                                >Liên hệ</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="control-menu">
+                          <a href="#" id="prev" class="unactive"
+                            ><svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 384 512"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"
+                              ></path></svg
+                          ></a>
+                          <a href="#" id="next" class="unactive"
+                            ><svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 384 512"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
+                              ></path></svg
+                          ></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-7 col-7 header-right">
+                <div class="box-phone">
+                  <div class="icon_phone">
+                    <svg
+                      enable-background="new 0 0 100 100"
+                      viewBox="0 0 100 100"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m65.9455872 97.5c-.4152527 0-.8334427-.0363235-1.2486954-.1109314-14.2991944-2.5739746-28.5532303-10.3685303-40.1351242-21.9504242s-19.3764553-25.8359299-21.9504278-40.1351242c-.4849515-2.6986465.6459472-5.5052757 2.8812392-7.1505775 2.8625875-2.1066914 5.9470344-4.0651474 9.1659718-5.8174515 2.1341791-1.1613312 4.6502314-1.2261219 6.7353258-.1757221 7.1280003 3.5929604 11.8528385 9.5772991 14.0429745 17.7861309.5939178 2.2215462.0647888 4.6305962-1.4146042 6.4427834l-4.7228775 5.7791672c-.7568779.9267082-.8491554 2.2048607-.2287331 3.1806526 4.0180283 6.3220367 9.2592316 11.5632401 15.5812721 15.5802841.9748077.6214066 2.2529602.5281525 3.1806526-.2277451l5.778183-4.7218933c1.8131676-1.4803772 4.2192726-2.0085258 6.4447479-1.4155884 8.2078514 2.1911163 14.1921883 6.9159546 17.7851448 14.0439529 1.051384 2.0831299.9865952 4.6001663-.174736 6.7343445-1.7532883 3.2189407-3.7117462 6.3033829-5.8194122 9.1659698-1.3910442 1.8907242-3.6145625 2.9921723-5.9009013 2.9921723zm-47.7127285-71.5617332c-.4721889 0-.9591045.1236916-1.4106789.3700943-3.0402708 1.655117-5.9489975 3.5016632-8.6476431 5.487608-.8570094.6312199-1.2928767 1.6934032-1.1102834 2.7064991 2.4110131 13.399971 9.7608719 26.8019028 20.695837 37.7378502 10.9359474 10.934967 24.337883 18.2848282 37.7378502 20.6958389 1.0150604.1816101 2.0752792-.2542572 2.7055206-1.1102829 1.9869232-2.6986465 3.8334732-5.6073761 5.4895706-8.647644.450592-.8285446.4918213-1.7758636.108963-2.5337219-3.0304489-6.010849-7.908432-9.8413696-14.913723-11.710495h-.0009807c-.8206863-.2179337-1.7248192-.0147247-2.4149399.5487595l-5.7772026 4.7209091c-2.4414482 1.9947815-5.8469048 2.2127151-8.4699631.5428772-6.8855209-4.3753662-12.5959702-10.0858154-16.9723129-16.9713364-1.6688614-2.6250191-1.4509277-6.0294952.5438519-8.4699593l4.7218952-5.7781868c.5625038-.6891403.7676754-1.5913048.5477791-2.4139557-1.8691235-7.0062714-5.6996498-11.8842525-11.7095127-14.9147091-.3455525-.1737576-.7293912-.2601452-1.1240273-.2601452z"
+                      ></path>
+                      <path
+                        d="m95.2016983 52.3759689c-.0323944 0-.0647888-.0009842-.096199-.0019646-1.248703-.0520287-2.2176208-1.1063576-2.165596-2.3540764.4829865-11.5259361-3.9021912-22.7986012-12.0305252-30.9288979-8.1293106-8.128335-19.378418-12.5360909-30.9288979-12.0305233-1.20158.0314136-2.3020439-.9159102-2.3540726-2.1655927-.0520325-1.2477188.9168892-2.3020461 2.164608-2.3540752 12.7883835-.541889 25.2940445 4.3302031 34.3166885 13.3518686 9.0216675 9.0216646 13.8878632 21.5302658 13.3518677 34.3166847-.0510482 1.2153248-1.0523605 2.1665768-2.2578735 2.1665768z"
+                      ></path>
+                      <path
+                        d="m83.1672516 52.3759689c-.0441742 0-.0893326-.0009842-.134491-.0039291-1.2477188-.0736275-2.198967-1.1436615-2.1253433-2.3903961.4908447-8.3393974-2.6053848-16.5011063-8.4964676-22.3921871-5.8910751-5.891077-14.0576935-8.9794521-22.3921814-8.4964638-1.2536087.0834427-2.3167725-.8776245-2.3903999-2.1253433-.0736237-1.2467375.8776245-2.3167715 2.1253433-2.390398 9.6165657-.5723209 19.0525017 3.00984 25.8555641 9.8138828 6.8040466 6.8040447 10.3812943 16.2282009 9.8138809 25.8555622-.0706787 1.2025604-1.0670852 2.1292724-2.2559051 2.1292724z"
+                      ></path>
+                      <path
+                        d="m71.1465454 52.3759689c-.0706787 0-.1413651-.0029449-.213028-.009819-1.2437897-.1158371-2.1577377-1.2182693-2.0419006-2.462059.4790649-5.1361656-1.335083-10.1721992-4.9790916-13.8162041-3.6440086-3.6430244-8.6761131-5.4591389-13.8162041-4.9790974-1.2428131.1128941-2.3472061-.7981071-2.4620628-2.0418987-.1158371-1.2437935.798111-2.3462219 2.0419006-2.4620609 6.4869614-.603735 12.8364868 1.6865311 17.4346886 6.2847347 4.5991821 4.5982018 6.8894501 10.9536171 6.2847366 17.4346848-.1089706 1.1721306-1.0945816 2.0517196-2.2490387 2.0517196z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="content_phone">
+                    <span>Gọi tư vấn</span>
+                    <a title="1900 6750" href="tel:19006750">1900 6750</a>
+                  </div>
+                </div>
+
+                <div class="sudes-header-search">
+                  <a class="button-search" href="javascript:;" title="Tìm kiếm">
+                    <span class="box-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-search"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                        ></path>
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+                <div class="sudes-header-iwish">
+                  <a href="/san-pham-yeu-thich" title="Danh sách yêu thích">
+                    <span class="box-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-heart"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                        ></path>
+                      </svg>
+                      <span class="js-wishlist-count">0</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="sudes-header-cart header-action_cart">
+                  <a
+                    class="a-hea"
+                    href="/cart"
+                    aria-label="Giỏ hàng"
+                    title="Giỏ hàng"
+                  >
+                    <span class="box-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-cart3"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+                        ></path>
+                      </svg>
+                      <span class="count_item count_item_pr hidden-count"
+                        >0</span
+                      >
+                    </span>
+                  </a>
+                  <div class="top-cart-content">
+                    <div class="CartHeaderContainer">
+                      <div class="cart--empty-message">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          version="1.1"
+                          id="Capa_1"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 201.387 201.387"
+                          style="enable-background: new 0 0 201.387 201.387"
+                          xml:space="preserve"
+                        >
+                          <g>
+                            <g>
+                              <path
+                                d="M129.413,24.885C127.389,10.699,115.041,0,100.692,0C91.464,0,82.7,4.453,77.251,11.916    c-1.113,1.522-0.78,3.657,0.742,4.77c1.517,1.109,3.657,0.78,4.768-0.744c4.171-5.707,10.873-9.115,17.93-9.115    c10.974,0,20.415,8.178,21.963,19.021c0.244,1.703,1.705,2.932,3.376,2.932c0.159,0,0.323-0.012,0.486-0.034    C128.382,28.479,129.679,26.75,129.413,24.885z"
+                              ></path>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path
+                                d="M178.712,63.096l-10.24-17.067c-0.616-1.029-1.727-1.657-2.927-1.657h-9.813c-1.884,0-3.413,1.529-3.413,3.413    s1.529,3.413,3.413,3.413h7.881l6.144,10.24H31.626l6.144-10.24h3.615c1.884,0,3.413-1.529,3.413-3.413s-1.529-3.413-3.413-3.413    h-5.547c-1.2,0-2.311,0.628-2.927,1.657l-10.24,17.067c-0.633,1.056-0.648,2.369-0.043,3.439s1.739,1.732,2.97,1.732h150.187    c1.231,0,2.364-0.662,2.97-1.732S179.345,64.15,178.712,63.096z"
+                              ></path>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path
+                                d="M161.698,31.623c-0.478-0.771-1.241-1.318-2.123-1.524l-46.531-10.883c-0.881-0.207-1.809-0.053-2.579,0.423    c-0.768,0.478-1.316,1.241-1.522,2.123l-3.509,15c-0.43,1.835,0.71,3.671,2.546,4.099c1.835,0.43,3.673-0.71,4.101-2.546    l2.732-11.675l39.883,9.329l-6.267,26.795c-0.43,1.835,0.71,3.671,2.546,4.099c0.263,0.061,0.524,0.09,0.782,0.09    c1.55,0,2.953-1.062,3.318-2.635l7.045-30.118C162.328,33.319,162.176,32.391,161.698,31.623z"
+                              ></path>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path
+                                d="M102.497,39.692l-3.11-26.305c-0.106-0.899-0.565-1.72-1.277-2.28c-0.712-0.56-1.611-0.816-2.514-0.71l-57.09,6.748    c-1.871,0.222-3.209,1.918-2.988,3.791l5.185,43.873c0.206,1.737,1.679,3.014,3.386,3.014c0.133,0,0.27-0.009,0.406-0.024    c1.87-0.222,3.208-1.918,2.988-3.791l-4.785-40.486l50.311-5.946l2.708,22.915c0.222,1.872,1.91,3.202,3.791,2.99    C101.379,43.261,102.717,41.564,102.497,39.692z"
+                              ></path>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path
+                                d="M129.492,63.556l-6.775-28.174c-0.212-0.879-0.765-1.64-1.536-2.113c-0.771-0.469-1.696-0.616-2.581-0.406L63.613,46.087    c-1.833,0.44-2.961,2.284-2.521,4.117l3.386,14.082c0.44,1.835,2.284,2.964,4.116,2.521c1.833-0.44,2.961-2.284,2.521-4.117    l-2.589-10.764l48.35-11.626l5.977,24.854c0.375,1.565,1.775,2.615,3.316,2.615c0.265,0,0.533-0.031,0.802-0.096    C128.804,67.232,129.932,65.389,129.492,63.556z"
+                              ></path>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path
+                                d="M179.197,64.679c-0.094-1.814-1.592-3.238-3.41-3.238H25.6c-1.818,0-3.316,1.423-3.41,3.238l-6.827,133.12    c-0.048,0.934,0.29,1.848,0.934,2.526c0.645,0.677,1.539,1.062,2.475,1.062h163.84c0.935,0,1.83-0.384,2.478-1.062    c0.643-0.678,0.981-1.591,0.934-2.526L179.197,64.679z M22.364,194.56l6.477-126.293h143.701l6.477,126.293H22.364z"
+                              ></path>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path
+                                d="M126.292,75.093c-5.647,0-10.24,4.593-10.24,10.24c0,5.647,4.593,10.24,10.24,10.24c5.647,0,10.24-4.593,10.24-10.24    C136.532,79.686,131.939,75.093,126.292,75.093z M126.292,88.747c-1.883,0-3.413-1.531-3.413-3.413s1.531-3.413,3.413-3.413    c1.882,0,3.413,1.531,3.413,3.413S128.174,88.747,126.292,88.747z"
+                              ></path>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path
+                                d="M75.092,75.093c-5.647,0-10.24,4.593-10.24,10.24c0,5.647,4.593,10.24,10.24,10.24c5.647,0,10.24-4.593,10.24-10.24    C85.332,79.686,80.739,75.093,75.092,75.093z M75.092,88.747c-1.882,0-3.413-1.531-3.413-3.413s1.531-3.413,3.413-3.413    s3.413,1.531,3.413,3.413S76.974,88.747,75.092,88.747z"
+                              ></path>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path
+                                d="M126.292,85.333h-0.263c-1.884,0-3.413,1.529-3.413,3.413c0,0.466,0.092,0.911,0.263,1.316v17.457    c0,12.233-9.953,22.187-22.187,22.187s-22.187-9.953-22.187-22.187V88.747c0-1.884-1.529-3.413-3.413-3.413    s-3.413,1.529-3.413,3.413v18.773c0,15.998,13.015,29.013,29.013,29.013s29.013-13.015,29.013-29.013V88.747    C129.705,86.863,128.176,85.333,126.292,85.333z"
+                              ></path>
+                            </g>
+                          </g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                          <g></g>
+                        </svg>
+                        <p>Giỏ hàng của bạn đang trống</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="header-action-booking">
+                  <a href="/dat-lich" title="Đặt Lịch"
+                    >Đặt Lịch
+                    <svg
+                      enable-background="new 0 0 512 512"
+                      height="512"
+                      viewBox="0 0 512 512"
+                      width="512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g>
+                        <path
+                          d="m456.832 32.133h-41.232v-17.133c0-8.284-6.716-15-15-15s-15 6.716-15 15v17.133h-66.4v-17.133c0-8.284-6.716-15-15-15s-15 6.716-15 15v17.133h-66.4v-17.133c0-8.284-6.716-15-15-15s-15 6.716-15 15v17.133h-66.4v-17.133c0-8.284-6.716-15-15-15s-15 6.716-15 15v17.133h-41.234c-30.418 0-55.166 24.747-55.166 55.167v369.533c0 30.419 24.748 55.167 55.166 55.167h401.666c30.419 0 55.168-24.748 55.168-55.167v-369.533c0-30.42-24.749-55.167-55.168-55.167zm-401.666 30h41.234v17.134c0 8.284 6.716 15 15 15s15-6.716 15-15v-17.134h66.398v17.134c0 8.284 6.716 15 15 15s15-6.716 15-15v-17.134h66.4v17.134c0 8.284 6.716 15 15 15s15-6.716 15-15v-17.134h66.4v17.134c0 8.284 6.716 15 15 15s15-6.716 15-15v-17.134h41.232c13.879 0 25.17 11.29 25.17 25.167v41.233h-452v-41.233c0-13.877 11.29-25.167 25.166-25.167zm401.666 419.867h-401.666c-13.876 0-25.166-11.29-25.166-25.167v-298.3h452v298.3c0 13.877-11.291 25.167-25.168 25.167z"
+                        ></path>
+                        <path
+                          d="m151.566 208.867h-64.267c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.268c8.284 0 15-6.716 15-15v-64.266c-.001-8.284-6.716-15-15.001-15zm-15 64.266h-34.268v-34.266h34.268z"
+                        ></path>
+                        <path
+                          d="m424.699 208.867h-64.266c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.266c8.284 0 15-6.716 15-15v-64.266c0-8.284-6.716-15-15-15zm-15 64.266h-34.266v-34.266h34.266z"
+                        ></path>
+                        <path
+                          d="m151.566 337.4h-64.267c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.268c8.284 0 15-6.716 15-15v-64.266c-.001-8.284-6.716-15-15.001-15zm-15 64.266h-34.268v-34.266h34.268z"
+                        ></path>
+                        <path
+                          d="m424.699 337.4h-64.266c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.266c8.284 0 15-6.716 15-15v-64.266c0-8.284-6.716-15-15-15zm-15 64.266h-34.266v-34.266h34.266z"
+                        ></path>
+                        <path
+                          d="m288.133 337.4h-64.268c-8.284 0-15 6.716-15 15v64.266c0 8.284 6.716 15 15 15h64.268c8.284 0 15-6.716 15-15v-64.266c0-8.284-6.716-15-15-15zm-15 64.266h-34.268v-34.266h34.268z"
+                        ></path>
+                        <path
+                          d="m279.475 222.673-34.834 34.836-12.116-12.116c-5.857-5.858-15.355-5.858-21.213 0s-5.858 15.355 0 21.213l22.723 22.723c2.813 2.813 6.628 4.394 10.606 4.394 3.979 0 7.794-1.581 10.607-4.394l45.441-45.443c5.857-5.858 5.857-15.355 0-21.213-5.859-5.858-15.356-5.858-21.214 0z"
+                        ></path>
+                      </g>
+                    </svg>
+                  </a>
+                </div>
+                <button
+                  class="menu-icon md-hidden"
+                  aria-label="Menu"
+                  id="btn-menu-mobile"
+                  title="Menu"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-list"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mobile-nav-overflow"></div>
+    </header>
+
+    <div class="content">{% block content %} {% endblock %}</div>
 
     <!-- footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="mid-footer">
-                <div class="row">
-                    <div class="col-xs-12 col-md-12 col-lg-cus-35 footer-info">
-                        <div class="logo-footer">
-                            <a href="/" title="Bean Spa">
-                                <img width="400" height="188" src="{% static 'images/logo.png' %}" data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848" alt="Bean Spa" class="lazyload loaded" data-was-processed="true">
-                            </a>
-                        </div>
-                        
-                        <div class="info_foo_content">
-                            Nền tảng quản lý chăm sóc toàn diện, bảo mật và tận tâm dành cho các cơ sỡ dưỡng lão cao cấp tại Mỹ.
-                        </div>
-                        
-                        <div class="list-menu toggle-mn">
-                            <div class="content-contact clearfix mb-3">
-                                <span class="list_footer">
-                                    <b><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12.005 11.8928C13.9204 8.88722 13.6796 9.2622 13.7348 9.18383C14.4322 8.20023 14.8008 7.04257 14.8008 5.83594C14.8008 2.63602 12.2041 0 9 0C5.80634 0 3.19922 2.63081 3.19922 5.83594C3.19922 7.0418 3.57553 8.22976 4.29574 9.22662L5.99491 11.8929C4.17822 12.172 1.08984 13.004 1.08984 14.8359C1.08984 15.5037 1.52571 16.4554 3.60218 17.197C5.05209 17.7148 6.96906 18 9 18C12.7978 18 16.9102 16.9287 16.9102 14.8359C16.9102 13.0037 13.8254 12.1726 12.005 11.8928ZM5.17672 8.6465C5.17092 8.63743 5.16488 8.62857 5.15855 8.61985C4.55924 7.79537 4.25391 6.81824 4.25391 5.83594C4.25391 3.19859 6.37755 1.05469 9 1.05469C11.617 1.05469 13.7461 3.19954 13.7461 5.83594C13.7461 6.81982 13.4465 7.7638 12.8796 8.56656C12.8288 8.63357 13.0939 8.22182 9 14.6457L5.17672 8.6465ZM9 16.9453C4.85177 16.9453 2.14453 15.726 2.14453 14.8359C2.14453 14.2377 3.53559 13.2541 6.61809 12.8707L8.55527 15.9104C8.65209 16.0623 8.81979 16.1543 8.99996 16.1543C9.18014 16.1543 9.34787 16.0623 9.44466 15.9104L11.3818 12.8707C14.4644 13.2541 15.8555 14.2377 15.8555 14.8359C15.8555 15.7184 13.1726 16.9453 9 16.9453Z" fill="black"></path>
-                                        <path d="M9 3.19922C7.54611 3.19922 6.36328 4.38205 6.36328 5.83594C6.36328 7.28982 7.54611 8.47266 9 8.47266C10.4539 8.47266 11.6367 7.28982 11.6367 5.83594C11.6367 4.38205 10.4539 3.19922 9 3.19922ZM9 7.41797C8.12767 7.41797 7.41797 6.70827 7.41797 5.83594C7.41797 4.96361 8.12767 4.25391 9 4.25391C9.87233 4.25391 10.582 4.96361 10.582 5.83594C10.582 6.70827 9.87233 7.41797 9 7.41797Z" fill="black"></path>
-                                        </svg>
-                                    </b>
-                                    
-                                    123 Đường Evergreen, Austin, Texas, Mỹ
-                                    
-                                </span>
-                            </div>
-                            <div class="content-contact clearfix mb-3">
-                                <span class="list_footer">
-                                    <b><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_250_4882)">
-                                            <path d="M12.645 9.91174C12.3175 9.57067 11.9224 9.38832 11.5036 9.38832C11.0883 9.38832 10.6898 9.56729 10.3487 9.90836L9.28164 10.9721C9.19384 10.9248 9.10604 10.8809 9.02162 10.837C8.90005 10.7762 8.78523 10.7188 8.6873 10.658C7.68774 10.0232 6.77935 9.19583 5.90811 8.12535C5.48599 7.5918 5.20233 7.14267 4.99634 6.68679C5.27325 6.43352 5.52989 6.17012 5.77978 5.91685C5.87434 5.8223 5.96889 5.72437 6.06344 5.62982C6.7726 4.92066 6.7726 4.00215 6.06344 3.29299L5.14155 2.3711C5.03686 2.26641 4.9288 2.15835 4.8275 2.05029C4.62488 1.84092 4.41214 1.6248 4.19264 1.42219C3.86508 1.098 3.47335 0.925781 3.06137 0.925781C2.64939 0.925781 2.25091 1.098 1.91322 1.42219C1.90985 1.42556 1.90985 1.42556 1.90647 1.42894L0.75832 2.58722C0.326075 3.01947 0.0795609 3.54626 0.0255303 4.15748C-0.0555155 5.14354 0.234899 6.06206 0.457775 6.66315C1.00483 8.13886 1.82205 9.50651 3.04111 10.9721C4.5202 12.7382 6.29983 14.1329 8.33273 15.1156C9.10942 15.4836 10.1461 15.9193 11.3044 15.9936C11.3753 15.9969 11.4496 16.0003 11.5172 16.0003C12.2972 16.0003 12.9523 15.72 13.4656 15.1628C13.469 15.1561 13.4758 15.1527 13.4791 15.1459C13.6547 14.9332 13.8574 14.7407 14.0701 14.5347C14.2153 14.3963 14.3639 14.2511 14.5091 14.0991C14.8434 13.7513 15.019 13.3461 15.019 12.9307C15.019 12.512 14.84 12.1101 14.499 11.7724L12.645 9.91174ZM13.854 13.4676C13.8506 13.4676 13.8506 13.471 13.854 13.4676C13.7223 13.6095 13.5872 13.7378 13.442 13.8796C13.2225 14.089 12.9996 14.3085 12.7902 14.555C12.4492 14.9197 12.0473 15.0919 11.5205 15.0919C11.4699 15.0919 11.4158 15.0919 11.3652 15.0885C10.3622 15.0244 9.43022 14.6327 8.7312 14.2983C6.81987 13.3731 5.14155 12.0595 3.74688 10.3946C2.59536 9.00673 1.82542 7.7235 1.31551 6.34572C1.00146 5.50487 0.886642 4.84975 0.937296 4.23178C0.971065 3.83668 1.12303 3.50912 1.40331 3.22883L2.55484 2.07731C2.7203 1.92197 2.8959 1.83755 3.06813 1.83755C3.28087 1.83755 3.45309 1.96587 3.56115 2.07393C3.56453 2.07731 3.56791 2.08068 3.57129 2.08406C3.77728 2.27655 3.97314 2.47578 4.17913 2.68853C4.28381 2.79659 4.39187 2.90465 4.49994 3.01609L5.42183 3.93798C5.77978 4.29594 5.77978 4.62687 5.42183 4.98483C5.3239 5.08276 5.22935 5.18069 5.13142 5.27524C4.84776 5.56565 4.5776 5.83581 4.28381 6.09921C4.27706 6.10596 4.27031 6.10934 4.26693 6.11609C3.97651 6.40651 4.03054 6.69017 4.09133 6.88265C4.09471 6.89278 4.09808 6.90291 4.10146 6.91304C4.34122 7.49387 4.67891 8.04093 5.1922 8.69267L5.19558 8.69605C6.12761 9.8442 7.11029 10.7391 8.19427 11.4246C8.33273 11.5124 8.47456 11.5833 8.60963 11.6508C8.7312 11.7116 8.84602 11.769 8.94395 11.8298C8.95746 11.8366 8.97096 11.8467 8.98447 11.8535C9.09929 11.9109 9.20735 11.9379 9.31878 11.9379C9.59907 11.9379 9.77467 11.7623 9.83208 11.7049L10.987 10.55C11.1018 10.4352 11.2841 10.2967 11.4969 10.2967C11.7063 10.2967 11.8785 10.4284 11.9832 10.5432C11.9865 10.5466 11.9865 10.5466 11.9899 10.55L13.8506 12.4107C14.1984 12.7551 14.1984 13.1097 13.854 13.4676Z" fill="black"></path>
-                                            <path d="M8.64678 3.80573C9.53153 3.95431 10.3352 4.37305 10.9768 5.01466C11.6185 5.65627 12.0338 6.45998 12.1858 7.34473C12.2229 7.56761 12.4154 7.72294 12.6349 7.72294C12.6619 7.72294 12.6856 7.71957 12.7126 7.71619C12.9625 7.67567 13.1279 7.43928 13.0874 7.18939C12.9051 6.11891 12.3985 5.14298 11.6252 4.36967C10.8519 3.59636 9.87598 3.08982 8.80549 2.90747C8.5556 2.86695 8.3226 3.03242 8.2787 3.27893C8.2348 3.52544 8.39689 3.76521 8.64678 3.80573Z" fill="black"></path>
-                                            <path d="M15.9814 7.05794C15.6809 5.29519 14.8502 3.69116 13.5737 2.41469C12.2972 1.13821 10.6932 0.307495 8.93044 0.00695018C8.68393 -0.0369496 8.45092 0.131896 8.40702 0.37841C8.3665 0.628301 8.53197 0.861308 8.78186 0.905208C10.3555 1.17198 11.7907 1.91828 12.9321 3.0563C14.0735 4.19769 14.8164 5.63288 15.0832 7.20652C15.1203 7.4294 15.3128 7.58473 15.5323 7.58473C15.5593 7.58473 15.583 7.58136 15.61 7.57798C15.8565 7.54083 16.0253 7.30445 15.9814 7.05794Z" fill="black"></path>
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_250_4882">
-                                                <rect width="16" height="16" fill="white"></rect>
-                                            </clipPath>
-                                        </defs>
-                                        </svg>
-                                    </b>
-                                    <a title="1900 6750" href="tel:19006750">
-                                        1900 6750
-                                    </a>
-                                </span>
-                            </div>
-
-                            <div class="content-contact clearfix">
-                                <span class="list_footer">
-                                    <b><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.5938 2.375H1.40625C0.629281 2.375 0 3.00819 0 3.78125V12.2188C0 12.9964 0.633906 13.625 1.40625 13.625H14.5938C15.3642 13.625 16 12.9991 16 12.2188V3.78125C16 3.00956 15.3732 2.375 14.5938 2.375ZM14.3968 3.3125C14.1095 3.59828 9.16509 8.51666 8.99438 8.68647C8.72875 8.95209 8.37562 9.09834 8 9.09834C7.62437 9.09834 7.27125 8.95206 7.00475 8.68559C6.88994 8.57137 2.00009 3.70731 1.60319 3.3125H14.3968ZM0.9375 12.0279V3.97266L4.98869 8.0025L0.9375 12.0279ZM1.60378 12.6875L5.65338 8.66366L6.34272 9.34937C6.78541 9.79206 7.37397 10.0358 8 10.0358C8.62603 10.0358 9.21459 9.79206 9.65641 9.35025L10.3466 8.66366L14.3962 12.6875H1.60378ZM15.0625 12.0279L11.0113 8.0025L15.0625 3.97266V12.0279Z" fill="black"></path>
-                                        </svg> </b>
-                                    <a title="support@sapo.vn" href="mailto:support@sapo.vn">
-                                        support@sapo.vn
-                                    </a>
-                                </span>
-                            </div>
-                            
-                            <div class="social-footer">
-                                <div class="social">
-                                    
-                                    <a href="https://facebook.com/" target="_blank" aria-label="Facebook" title="Theo dõi Bean Spa trên Facebook">
-                                        <img class="lazyload loaded" width="50" height="50" alt="Facebook" data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_face_book.png?1780120748848" src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_face_book.png?1780120748848" data-was-processed="true">
-                                    </a>
-
-                                    <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram" title="Theo dõi Bean Spa trên Instagram">
-                                        <img class="lazyload loaded" width="100" height="101" alt="Instagram" data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/insta.png?1780120748848" src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/insta.png?1780120748848" data-was-processed="true">
-                                    </a>
-         
-                                    <a href="https://shopee.vn/" target="_blank" aria-label="Shopee" title="Theo dõi Bean Spa trên Shopee">
-                                        <img class="lazyload loaded" width="50" height="50" alt="Shopee" data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon-shop-ee.png?1780120748848" src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon-shop-ee.png?1780120748848" data-was-processed="true">
-                                    </a>
-           
-                                    <a href="https://www.lazada.vn/" target="_blank" aria-label="Lazada" title="Theo dõi Bean Spa trên Lazada">
-                                        <img class="lazyload loaded" width="50" height="50" alt="Lazada" data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_lazada.png?1780120748848" src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_lazada.png?1780120748848" data-was-processed="true">
-                                    </a>
-                         
-                                    <a href="https://www.tiktok.com/vi-VN" target="_blank" aria-label="Tiktok" title="Theo dõi Bean Spa trên Tiktok">
-                                        <img class="lazyload loaded" width="50" height="50" alt="Tiktok" data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_tik_tok.png?1780120748848" src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_tik_tok.png?1780120748848" data-was-processed="true">
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                    <div class="col-xs-12 col-md-4 col-lg-cus-20 footer-click">
-                        <h3 class="title-menu clicked">
-                            <span>CÁC PHÂN HỆ HỆ THỐNG</span>
-                        </h3>
-                        <ul class="list-menu toggle-mn hidden-mob">
-                            
-                            
-                            <li class="li_menu">
-                                <a href="/chinh-sach-thanh-vien" title="Chính sách thành viên">Quản lý Hồ sơ dân cư</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/chinh-sach-thanh-toan" title="Chính sách thanh toán">Quản lý Ca trực nhân viên</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/chinh-sach-doi-san-pham" title="Chính sách đổi sản phẩm">Hồ sơ y tế & thuốc men</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/chinh-sach-bao-mat" title="Chính sách bảo mật">Thanh toán & Hóa đơn</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/chinh-sach-cong-tac-vien" title="Chính sách cộng tác viên">Quản lý phòng & Cơ sở vật chất</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/chinh-sach-bao-hanh" title="Chính sách bảo hành">Nhật ký hệ thống & Tuân thủ</a>
-                            </li>
-                            
-                            
-                        </ul>
-                    </div>
-                    <div class="col-xs-12 col-md-4 col-lg-cus-20 footer-click">
-                        <h3 class="title-menu clicked">
-                            <span>TÀI NGUYÊN HỖ TRỢ</span>
-                        </h3>
-                        <ul class="list-menu toggle-mn hidden-mob footer-click">
-                            
-                            
-                            <li class="li_menu">
-                                <a href="/massage-thu-gian-toan-than" title="Massage thư giãn toàn thân">Massage thư giãn toàn thân</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/cham-soc-da-mat-chuyen-sau" title="Chăm sóc da mặt chuyên sâu">Tiêu chuẩn bảo mật y tế HIPAA</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/massage-da-nong-tri-lieu" title="Massage đá nóng trị liệu">Gửi yêu cầu hỗ trợ kỹ thuật</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/tam-duong-trang-toan-than" title="Tắm dưỡng trắng toàn thân">Trạng thái hệ thống(Uptime)</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/massage-chan-thao-duoc" title="Massage chân thảo dược">Video bài giảng tập huấn</a>
-                            </li>
-                            
-                            <li class="li_menu">
-                                <a href="/goi-dau-duong-sinh-thao-moc" title="Gội đầu dưỡng sinh thảo mộc">Thông tin cập nhật phiên bản</a>
-                            </li>
-                            
-                            
-                        </ul>
-                    </div>
-                    <div class="col-xs-12 col-md-4 col-lg-cus-25">
-                        <div class="block-payment">
-                            <h3 class="title-menu">
-                                <span>Đăng Ký Nhận Tin</span>
-                            </h3>
-                            <span class="content-mailchimp">Đăng ký ngay! Để nhận thật nhiều ưu đãi</span>
-                            <form id="mc-form" class="newsletter-form" data-toggle="validator" novalidate="true">
-                                <input aria-label="Địa chỉ Email" type="email" class="form-control" placeholder="Nhập địa chỉ email" name="EMAIL" required="" autocomplete="off">
-                                <button class="btn btn-default" type="submit" aria-label="Đăng ký nhận tin" name="subscribe">Đăng ký</button>
-                            </form>
-                            <div class="mailchimp-alerts ">
-                                <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                                <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                            </div>
-                            <script>
-                                $('#mc-form').ajaxChimp({
-                                    language: 'en',
-                                    callback: mailChimpResponse,
-                                    url: 'https://gmail.us2.list-manage.com/subscribe/post-json?u=ef7f65e3be67e30ff1c4bd591&id=a7430e9bc5'
-                                });
-                                function mailChimpResponse(resp) {
-                                    if (resp.result === 'success') {
-                                        if(resp.msg == 'Thank you for subscribing!'){
-                                            $('.mailchimp-success').html('Cảm ơn bạn đã đăng ký!').fadeIn(900);
-                                        }else if(resp.msg.includes("You're already subscribed, your profile has been updated. Thank you!")){
-                                            $('.mailchimp-success').html('Bạn đã đăng ký trước đó, thông tin của bạn đã được cập nhật. Cảm ơn bạn!').fadeIn(900);
-                                        }else{
-                                            $('.mailchimp-success').html('' + resp.msg).fadeIn(900);
-                                        }
-                                        $('.mailchimp-error').fadeOut(100);
-                                    } else if (resp.result === 'error') {
-                                        console.log("aaaaaaa");
-                                        if(resp.msg == '0 - Please enter a value'){
-                                            $('.mailchimp-error').html('Vui lòng nhập các trường thông tin').fadeIn(900);
-                                        }else if(resp.msg == '0 - An email address must contain a single @.'){
-                                            $('.mailchimp-error').html('Địa chỉ email phải chứa ký tự @').fadeIn(900);
-                                        }else if(resp.msg == 'This email cannot be added to this list. Please enter a different email address.'){
-                                            $('.mailchimp-error').html('Email này không thể được thêm vào danh sách này. Vui lòng nhập một địa chỉ email khác.').fadeIn(900);
-                                        }else if(resp.msg.includes('0 - The domain portion of the email address is invalid')){
-                                            $('.mailchimp-error').html('Phần tên miền của địa chỉ email không hợp lệ').fadeIn(900);
-                                        }else if(resp.msg.includes('0 - The username portion of the email address is empty')){
-                                            $('.mailchimp-error').html('Phần tên người dùng của địa chỉ email trống').fadeIn(900);
-                                        }else if(resp.msg == 'Thank you for subscribing!'){
-                                            $('.mailchimp-error').html('Cảm ơn bạn đã đăng ký!').fadeIn(900);
-                                        }else if(resp.msg.includes("You're already subscribed, your profile has been updated. Thank you!")){
-                                            $('.mailchimp-error').html('Bạn đã đăng ký trước đó, thông tin của bạn đã được cập nhật. Cảm ơn bạn!').fadeIn(900);
-                                        }else{
-                                            $('.mailchimp-error').html('' + resp.msg).fadeIn(900);
-                                        }
-                                    }
-                                }
-                            </script>
-                        </div>
-                        
-                        <h3 class="title-menu">
-                            <span>Fanpage</span>
-                        </h3>
-                        <div class="f-b-box">
-                                <iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/sapo.vn&amp;tabs=&amp;width=500&amp;height=130&amp;small_header=false&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=true" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                                </iframe>
-                        </div>	
-                        
-                        <div class="info_support">
-                            <a href="https://apps.sapo.vn/aimini" target="_blank" title="Zalo Mini Apps">
-                                <div class="flex-shrink-0">
-                                    <img src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/qrzalo.jpg?1780120748848" alt="Zalo Mini Apps" width="200" height="200">
-                                </div>
-                                <div class="flex-grow-1 ms-2">
-                                    <p class="zalo-header fw-medium mb-1 h5 title-menu-zalo">Zalo Mini Apps</p>
-                                    <p class="zalo-content mb-0">Quét mã QR để mua hàng nhanh chóng</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="bg-footer-bottom copyright clearfix">
-            <div class="container">
-                <div class="row tablet">
-                    <div class="col-lg-5 col-md-12 col-xs-12 order-lg-2">
-                        <ul class="listmenu_footer">
-                            <li class="li_menu">
-                                <a href="/trung-tam-ho-tro" title="Trung tâm hỗ trợ">Trung tâm hỗ trợ</a>
-                            </li>
-                            <li class="li_menu">
-                                <a href="/dieu-khoan-va-dieu-kien" title="Điều khoản &amp; Điều kiện">Điều khoản &amp; Điều kiện</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="copyright" class="col-lg-7 order-lg-1  col-md-12 col-xs-12 fot_copyright ">
-                        <span class="wsp">
-                            
-                            <span class="mobile">© Bản quyền thuộc về <b>Mr. Bean</b>
-                                <span class="dash"> | </span>
-                            </span>
-                            
-                            <span class="opacity1">Cung cấp bởi</span>
-                            
-                            <a href="javascript:;" title="Sapo">Sapo</a>
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <a href="#" class="backtop show" title="Lên đầu trang">
-                    <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.5 29H39.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M29 18.5L39.5 29L29 39.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
+      <div class="container">
+        <div class="mid-footer">
+          <div class="row">
+            <div class="col-xs-12 col-md-12 col-lg-cus-35 footer-info">
+              <div class="logo-footer">
+                <a href="/" title="Bean Spa">
+                  <img
+                    width="400"
+                    height="188"
+                    src="{% static 'images/logo.png' %}"
+                    data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/logo.png?1780120748848"
+                    alt="Bean Spa"
+                    class="lazyload loaded"
+                    data-was-processed="true"
+                  />
                 </a>
-                
+              </div>
+
+              <div class="info_foo_content">
+                Nền tảng quản lý chăm sóc toàn diện, bảo mật và tận tâm dành cho
+                các cơ sỡ dưỡng lão cao cấp tại Mỹ.
+              </div>
+
+              <div class="list-menu toggle-mn">
+                <div class="content-contact clearfix mb-3">
+                  <span class="list_footer">
+                    <b
+                      ><svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12.005 11.8928C13.9204 8.88722 13.6796 9.2622 13.7348 9.18383C14.4322 8.20023 14.8008 7.04257 14.8008 5.83594C14.8008 2.63602 12.2041 0 9 0C5.80634 0 3.19922 2.63081 3.19922 5.83594C3.19922 7.0418 3.57553 8.22976 4.29574 9.22662L5.99491 11.8929C4.17822 12.172 1.08984 13.004 1.08984 14.8359C1.08984 15.5037 1.52571 16.4554 3.60218 17.197C5.05209 17.7148 6.96906 18 9 18C12.7978 18 16.9102 16.9287 16.9102 14.8359C16.9102 13.0037 13.8254 12.1726 12.005 11.8928ZM5.17672 8.6465C5.17092 8.63743 5.16488 8.62857 5.15855 8.61985C4.55924 7.79537 4.25391 6.81824 4.25391 5.83594C4.25391 3.19859 6.37755 1.05469 9 1.05469C11.617 1.05469 13.7461 3.19954 13.7461 5.83594C13.7461 6.81982 13.4465 7.7638 12.8796 8.56656C12.8288 8.63357 13.0939 8.22182 9 14.6457L5.17672 8.6465ZM9 16.9453C4.85177 16.9453 2.14453 15.726 2.14453 14.8359C2.14453 14.2377 3.53559 13.2541 6.61809 12.8707L8.55527 15.9104C8.65209 16.0623 8.81979 16.1543 8.99996 16.1543C9.18014 16.1543 9.34787 16.0623 9.44466 15.9104L11.3818 12.8707C14.4644 13.2541 15.8555 14.2377 15.8555 14.8359C15.8555 15.7184 13.1726 16.9453 9 16.9453Z"
+                          fill="black"
+                        ></path>
+                        <path
+                          d="M9 3.19922C7.54611 3.19922 6.36328 4.38205 6.36328 5.83594C6.36328 7.28982 7.54611 8.47266 9 8.47266C10.4539 8.47266 11.6367 7.28982 11.6367 5.83594C11.6367 4.38205 10.4539 3.19922 9 3.19922ZM9 7.41797C8.12767 7.41797 7.41797 6.70827 7.41797 5.83594C7.41797 4.96361 8.12767 4.25391 9 4.25391C9.87233 4.25391 10.582 4.96361 10.582 5.83594C10.582 6.70827 9.87233 7.41797 9 7.41797Z"
+                          fill="black"
+                        ></path>
+                      </svg>
+                    </b>
+
+                    123 Đường Evergreen, Austin, Texas, Mỹ
+                  </span>
+                </div>
+                <div class="content-contact clearfix mb-3">
+                  <span class="list_footer">
+                    <b
+                      ><svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_250_4882)">
+                          <path
+                            d="M12.645 9.91174C12.3175 9.57067 11.9224 9.38832 11.5036 9.38832C11.0883 9.38832 10.6898 9.56729 10.3487 9.90836L9.28164 10.9721C9.19384 10.9248 9.10604 10.8809 9.02162 10.837C8.90005 10.7762 8.78523 10.7188 8.6873 10.658C7.68774 10.0232 6.77935 9.19583 5.90811 8.12535C5.48599 7.5918 5.20233 7.14267 4.99634 6.68679C5.27325 6.43352 5.52989 6.17012 5.77978 5.91685C5.87434 5.8223 5.96889 5.72437 6.06344 5.62982C6.7726 4.92066 6.7726 4.00215 6.06344 3.29299L5.14155 2.3711C5.03686 2.26641 4.9288 2.15835 4.8275 2.05029C4.62488 1.84092 4.41214 1.6248 4.19264 1.42219C3.86508 1.098 3.47335 0.925781 3.06137 0.925781C2.64939 0.925781 2.25091 1.098 1.91322 1.42219C1.90985 1.42556 1.90985 1.42556 1.90647 1.42894L0.75832 2.58722C0.326075 3.01947 0.0795609 3.54626 0.0255303 4.15748C-0.0555155 5.14354 0.234899 6.06206 0.457775 6.66315C1.00483 8.13886 1.82205 9.50651 3.04111 10.9721C4.5202 12.7382 6.29983 14.1329 8.33273 15.1156C9.10942 15.4836 10.1461 15.9193 11.3044 15.9936C11.3753 15.9969 11.4496 16.0003 11.5172 16.0003C12.2972 16.0003 12.9523 15.72 13.4656 15.1628C13.469 15.1561 13.4758 15.1527 13.4791 15.1459C13.6547 14.9332 13.8574 14.7407 14.0701 14.5347C14.2153 14.3963 14.3639 14.2511 14.5091 14.0991C14.8434 13.7513 15.019 13.3461 15.019 12.9307C15.019 12.512 14.84 12.1101 14.499 11.7724L12.645 9.91174ZM13.854 13.4676C13.8506 13.4676 13.8506 13.471 13.854 13.4676C13.7223 13.6095 13.5872 13.7378 13.442 13.8796C13.2225 14.089 12.9996 14.3085 12.7902 14.555C12.4492 14.9197 12.0473 15.0919 11.5205 15.0919C11.4699 15.0919 11.4158 15.0919 11.3652 15.0885C10.3622 15.0244 9.43022 14.6327 8.7312 14.2983C6.81987 13.3731 5.14155 12.0595 3.74688 10.3946C2.59536 9.00673 1.82542 7.7235 1.31551 6.34572C1.00146 5.50487 0.886642 4.84975 0.937296 4.23178C0.971065 3.83668 1.12303 3.50912 1.40331 3.22883L2.55484 2.07731C2.7203 1.92197 2.8959 1.83755 3.06813 1.83755C3.28087 1.83755 3.45309 1.96587 3.56115 2.07393C3.56453 2.07731 3.56791 2.08068 3.57129 2.08406C3.77728 2.27655 3.97314 2.47578 4.17913 2.68853C4.28381 2.79659 4.39187 2.90465 4.49994 3.01609L5.42183 3.93798C5.77978 4.29594 5.77978 4.62687 5.42183 4.98483C5.3239 5.08276 5.22935 5.18069 5.13142 5.27524C4.84776 5.56565 4.5776 5.83581 4.28381 6.09921C4.27706 6.10596 4.27031 6.10934 4.26693 6.11609C3.97651 6.40651 4.03054 6.69017 4.09133 6.88265C4.09471 6.89278 4.09808 6.90291 4.10146 6.91304C4.34122 7.49387 4.67891 8.04093 5.1922 8.69267L5.19558 8.69605C6.12761 9.8442 7.11029 10.7391 8.19427 11.4246C8.33273 11.5124 8.47456 11.5833 8.60963 11.6508C8.7312 11.7116 8.84602 11.769 8.94395 11.8298C8.95746 11.8366 8.97096 11.8467 8.98447 11.8535C9.09929 11.9109 9.20735 11.9379 9.31878 11.9379C9.59907 11.9379 9.77467 11.7623 9.83208 11.7049L10.987 10.55C11.1018 10.4352 11.2841 10.2967 11.4969 10.2967C11.7063 10.2967 11.8785 10.4284 11.9832 10.5432C11.9865 10.5466 11.9865 10.5466 11.9899 10.55L13.8506 12.4107C14.1984 12.7551 14.1984 13.1097 13.854 13.4676Z"
+                            fill="black"
+                          ></path>
+                          <path
+                            d="M8.64678 3.80573C9.53153 3.95431 10.3352 4.37305 10.9768 5.01466C11.6185 5.65627 12.0338 6.45998 12.1858 7.34473C12.2229 7.56761 12.4154 7.72294 12.6349 7.72294C12.6619 7.72294 12.6856 7.71957 12.7126 7.71619C12.9625 7.67567 13.1279 7.43928 13.0874 7.18939C12.9051 6.11891 12.3985 5.14298 11.6252 4.36967C10.8519 3.59636 9.87598 3.08982 8.80549 2.90747C8.5556 2.86695 8.3226 3.03242 8.2787 3.27893C8.2348 3.52544 8.39689 3.76521 8.64678 3.80573Z"
+                            fill="black"
+                          ></path>
+                          <path
+                            d="M15.9814 7.05794C15.6809 5.29519 14.8502 3.69116 13.5737 2.41469C12.2972 1.13821 10.6932 0.307495 8.93044 0.00695018C8.68393 -0.0369496 8.45092 0.131896 8.40702 0.37841C8.3665 0.628301 8.53197 0.861308 8.78186 0.905208C10.3555 1.17198 11.7907 1.91828 12.9321 3.0563C14.0735 4.19769 14.8164 5.63288 15.0832 7.20652C15.1203 7.4294 15.3128 7.58473 15.5323 7.58473C15.5593 7.58473 15.583 7.58136 15.61 7.57798C15.8565 7.54083 16.0253 7.30445 15.9814 7.05794Z"
+                            fill="black"
+                          ></path>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_250_4882">
+                            <rect width="16" height="16" fill="white"></rect>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </b>
+                    <a title="1900 6750" href="tel:19006750"> 1900 6750 </a>
+                  </span>
+                </div>
+
+                <div class="content-contact clearfix">
+                  <span class="list_footer">
+                    <b
+                      ><svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14.5938 2.375H1.40625C0.629281 2.375 0 3.00819 0 3.78125V12.2188C0 12.9964 0.633906 13.625 1.40625 13.625H14.5938C15.3642 13.625 16 12.9991 16 12.2188V3.78125C16 3.00956 15.3732 2.375 14.5938 2.375ZM14.3968 3.3125C14.1095 3.59828 9.16509 8.51666 8.99438 8.68647C8.72875 8.95209 8.37562 9.09834 8 9.09834C7.62437 9.09834 7.27125 8.95206 7.00475 8.68559C6.88994 8.57137 2.00009 3.70731 1.60319 3.3125H14.3968ZM0.9375 12.0279V3.97266L4.98869 8.0025L0.9375 12.0279ZM1.60378 12.6875L5.65338 8.66366L6.34272 9.34937C6.78541 9.79206 7.37397 10.0358 8 10.0358C8.62603 10.0358 9.21459 9.79206 9.65641 9.35025L10.3466 8.66366L14.3962 12.6875H1.60378ZM15.0625 12.0279L11.0113 8.0025L15.0625 3.97266V12.0279Z"
+                          fill="black"
+                        ></path>
+                      </svg>
+                    </b>
+                    <a title="support@sapo.vn" href="mailto:support@sapo.vn">
+                      support@sapo.vn
+                    </a>
+                  </span>
+                </div>
+
+                <div class="social-footer">
+                  <div class="social">
+                    <a
+                      href="https://facebook.com/"
+                      target="_blank"
+                      aria-label="Facebook"
+                      title="Theo dõi Bean Spa trên Facebook"
+                    >
+                      <img
+                        class="lazyload loaded"
+                        width="50"
+                        height="50"
+                        alt="Facebook"
+                        data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_face_book.png?1780120748848"
+                        src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_face_book.png?1780120748848"
+                        data-was-processed="true"
+                      />
+                    </a>
+
+                    <a
+                      href="https://www.instagram.com/"
+                      target="_blank"
+                      aria-label="Instagram"
+                      title="Theo dõi Bean Spa trên Instagram"
+                    >
+                      <img
+                        class="lazyload loaded"
+                        width="100"
+                        height="101"
+                        alt="Instagram"
+                        data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/insta.png?1780120748848"
+                        src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/insta.png?1780120748848"
+                        data-was-processed="true"
+                      />
+                    </a>
+
+                    <a
+                      href="https://shopee.vn/"
+                      target="_blank"
+                      aria-label="Shopee"
+                      title="Theo dõi Bean Spa trên Shopee"
+                    >
+                      <img
+                        class="lazyload loaded"
+                        width="50"
+                        height="50"
+                        alt="Shopee"
+                        data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon-shop-ee.png?1780120748848"
+                        src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon-shop-ee.png?1780120748848"
+                        data-was-processed="true"
+                      />
+                    </a>
+
+                    <a
+                      href="https://www.lazada.vn/"
+                      target="_blank"
+                      aria-label="Lazada"
+                      title="Theo dõi Bean Spa trên Lazada"
+                    >
+                      <img
+                        class="lazyload loaded"
+                        width="50"
+                        height="50"
+                        alt="Lazada"
+                        data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_lazada.png?1780120748848"
+                        src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_lazada.png?1780120748848"
+                        data-was-processed="true"
+                      />
+                    </a>
+
+                    <a
+                      href="https://www.tiktok.com/vi-VN"
+                      target="_blank"
+                      aria-label="Tiktok"
+                      title="Theo dõi Bean Spa trên Tiktok"
+                    >
+                      <img
+                        class="lazyload loaded"
+                        width="50"
+                        height="50"
+                        alt="Tiktok"
+                        data-src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_tik_tok.png?1780120748848"
+                        src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/icon_tik_tok.png?1780120748848"
+                        data-was-processed="true"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="col-xs-12 col-md-4 col-lg-cus-20 footer-click">
+              <h3 class="title-menu clicked">
+                <span>CÁC PHÂN HỆ HỆ THỐNG</span>
+              </h3>
+              <ul class="list-menu toggle-mn hidden-mob">
+                <li class="li_menu">
+                  <a href="/chinh-sach-thanh-vien" title="Chính sách thành viên"
+                    >Quản lý Hồ sơ dân cư</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a href="/chinh-sach-thanh-toan" title="Chính sách thanh toán"
+                    >Quản lý Ca trực nhân viên</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a
+                    href="/chinh-sach-doi-san-pham"
+                    title="Chính sách đổi sản phẩm"
+                    >Hồ sơ y tế & thuốc men</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a href="/chinh-sach-bao-mat" title="Chính sách bảo mật"
+                    >Thanh toán & Hóa đơn</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a
+                    href="/chinh-sach-cong-tac-vien"
+                    title="Chính sách cộng tác viên"
+                    >Quản lý phòng & Cơ sở vật chất</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a href="/chinh-sach-bao-hanh" title="Chính sách bảo hành"
+                    >Nhật ký hệ thống & Tuân thủ</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-cus-20 footer-click">
+              <h3 class="title-menu clicked">
+                <span>TÀI NGUYÊN HỖ TRỢ</span>
+              </h3>
+              <ul class="list-menu toggle-mn hidden-mob footer-click">
+                <li class="li_menu">
+                  <a
+                    href="/massage-thu-gian-toan-than"
+                    title="Massage thư giãn toàn thân"
+                    >Massage thư giãn toàn thân</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a
+                    href="/cham-soc-da-mat-chuyen-sau"
+                    title="Chăm sóc da mặt chuyên sâu"
+                    >Tiêu chuẩn bảo mật y tế HIPAA</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a
+                    href="/massage-da-nong-tri-lieu"
+                    title="Massage đá nóng trị liệu"
+                    >Gửi yêu cầu hỗ trợ kỹ thuật</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a
+                    href="/tam-duong-trang-toan-than"
+                    title="Tắm dưỡng trắng toàn thân"
+                    >Trạng thái hệ thống(Uptime)</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a
+                    href="/massage-chan-thao-duoc"
+                    title="Massage chân thảo dược"
+                    >Video bài giảng tập huấn</a
+                  >
+                </li>
+
+                <li class="li_menu">
+                  <a
+                    href="/goi-dau-duong-sinh-thao-moc"
+                    title="Gội đầu dưỡng sinh thảo mộc"
+                    >Thông tin cập nhật phiên bản</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-cus-25">
+              <div class="block-payment">
+                <h3 class="title-menu">
+                  <span>Đăng Ký Nhận Tin</span>
+                </h3>
+                <span class="content-mailchimp"
+                  >Đăng ký ngay! Để nhận thật nhiều ưu đãi</span
+                >
+                <form
+                  id="mc-form"
+                  class="newsletter-form"
+                  data-toggle="validator"
+                  novalidate="true"
+                >
+                  <input
+                    aria-label="Địa chỉ Email"
+                    type="email"
+                    class="form-control"
+                    placeholder="Nhập địa chỉ email"
+                    name="EMAIL"
+                    required=""
+                    autocomplete="off"
+                  />
+                  <button
+                    class="btn btn-default"
+                    type="submit"
+                    aria-label="Đăng ký nhận tin"
+                    name="subscribe"
+                  >
+                    Đăng ký
+                  </button>
+                </form>
+                <div class="mailchimp-alerts">
+                  <div class="mailchimp-submitting"></div>
+                  <!-- mailchimp-submitting end -->
+                  <div class="mailchimp-success"></div>
+                  <!-- mailchimp-success end -->
+                  <div class="mailchimp-error"></div>
+                  <!-- mailchimp-error end -->
+                </div>
+                <script>
+                  $("#mc-form").ajaxChimp({
+                    language: "en",
+                    callback: mailChimpResponse,
+                    url: "https://gmail.us2.list-manage.com/subscribe/post-json?u=ef7f65e3be67e30ff1c4bd591&id=a7430e9bc5",
+                  });
+                  function mailChimpResponse(resp) {
+                    if (resp.result === "success") {
+                      if (resp.msg == "Thank you for subscribing!") {
+                        $(".mailchimp-success")
+                          .html("Cảm ơn bạn đã đăng ký!")
+                          .fadeIn(900);
+                      } else if (
+                        resp.msg.includes(
+                          "You're already subscribed, your profile has been updated. Thank you!",
+                        )
+                      ) {
+                        $(".mailchimp-success")
+                          .html(
+                            "Bạn đã đăng ký trước đó, thông tin của bạn đã được cập nhật. Cảm ơn bạn!",
+                          )
+                          .fadeIn(900);
+                      } else {
+                        $(".mailchimp-success")
+                          .html("" + resp.msg)
+                          .fadeIn(900);
+                      }
+                      $(".mailchimp-error").fadeOut(100);
+                    } else if (resp.result === "error") {
+                      console.log("aaaaaaa");
+                      if (resp.msg == "0 - Please enter a value") {
+                        $(".mailchimp-error")
+                          .html("Vui lòng nhập các trường thông tin")
+                          .fadeIn(900);
+                      } else if (
+                        resp.msg ==
+                        "0 - An email address must contain a single @."
+                      ) {
+                        $(".mailchimp-error")
+                          .html("Địa chỉ email phải chứa ký tự @")
+                          .fadeIn(900);
+                      } else if (
+                        resp.msg ==
+                        "This email cannot be added to this list. Please enter a different email address."
+                      ) {
+                        $(".mailchimp-error")
+                          .html(
+                            "Email này không thể được thêm vào danh sách này. Vui lòng nhập một địa chỉ email khác.",
+                          )
+                          .fadeIn(900);
+                      } else if (
+                        resp.msg.includes(
+                          "0 - The domain portion of the email address is invalid",
+                        )
+                      ) {
+                        $(".mailchimp-error")
+                          .html("Phần tên miền của địa chỉ email không hợp lệ")
+                          .fadeIn(900);
+                      } else if (
+                        resp.msg.includes(
+                          "0 - The username portion of the email address is empty",
+                        )
+                      ) {
+                        $(".mailchimp-error")
+                          .html("Phần tên người dùng của địa chỉ email trống")
+                          .fadeIn(900);
+                      } else if (resp.msg == "Thank you for subscribing!") {
+                        $(".mailchimp-error")
+                          .html("Cảm ơn bạn đã đăng ký!")
+                          .fadeIn(900);
+                      } else if (
+                        resp.msg.includes(
+                          "You're already subscribed, your profile has been updated. Thank you!",
+                        )
+                      ) {
+                        $(".mailchimp-error")
+                          .html(
+                            "Bạn đã đăng ký trước đó, thông tin của bạn đã được cập nhật. Cảm ơn bạn!",
+                          )
+                          .fadeIn(900);
+                      } else {
+                        $(".mailchimp-error")
+                          .html("" + resp.msg)
+                          .fadeIn(900);
+                      }
+                    }
+                  }
+                </script>
+              </div>
+
+              <h3 class="title-menu">
+                <span>Fanpage</span>
+              </h3>
+              <div class="f-b-box">
+                <iframe
+                  src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/sapo.vn&amp;tabs=&amp;width=500&amp;height=130&amp;small_header=false&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=true"
+                  style="border: none; overflow: hidden"
+                  scrolling="no"
+                  frameborder="0"
+                  allowfullscreen="true"
+                  allow="
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    picture-in-picture;
+                    web-share;
+                  "
+                >
+                </iframe>
+              </div>
+
+              <div class="info_support">
+                <a
+                  href="https://apps.sapo.vn/aimini"
+                  target="_blank"
+                  title="Zalo Mini Apps"
+                >
+                  <div class="flex-shrink-0">
+                    <img
+                      src="//bizweb.dktcdn.net/100/632/411/themes/1096693/assets/qrzalo.jpg?1780120748848"
+                      alt="Zalo Mini Apps"
+                      width="200"
+                      height="200"
+                    />
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    <p class="zalo-header fw-medium mb-1 h5 title-menu-zalo">
+                      Zalo Mini Apps
+                    </p>
+                    <p class="zalo-content mb-0">
+                      Quét mã QR để mua hàng nhanh chóng
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="bg-footer-bottom copyright clearfix">
+        <div class="container">
+          <div class="row tablet">
+            <div class="col-lg-5 col-md-12 col-xs-12 order-lg-2">
+              <ul class="listmenu_footer">
+                <li class="li_menu">
+                  <a href="/trung-tam-ho-tro" title="Trung tâm hỗ trợ"
+                    >Trung tâm hỗ trợ</a
+                  >
+                </li>
+                <li class="li_menu">
+                  <a
+                    href="/dieu-khoan-va-dieu-kien"
+                    title="Điều khoản &amp; Điều kiện"
+                    >Điều khoản &amp; Điều kiện</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div
+              id="copyright"
+              class="col-lg-7 order-lg-1 col-md-12 col-xs-12 fot_copyright"
+            >
+              <span class="wsp">
+                <span class="mobile"
+                  >© Bản quyền thuộc về <b>Mr. Bean</b>
+                  <span class="dash"> | </span>
+                </span>
+
+                <span class="opacity1">Cung cấp bởi</span>
+
+                <a href="javascript:;" title="Sapo">Sapo</a>
+              </span>
+            </div>
+          </div>
+
+          <a href="#" class="backtop show" title="Lên đầu trang">
+            <svg
+              width="58"
+              height="58"
+              viewBox="0 0 58 58"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18.5 29H39.5"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M29 18.5L39.5 29L29 39.5"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </div>
     </footer>
 
     <script src="{% static 'js/script.js' %}"></script>
-</body>
+  </body>
 </html>
