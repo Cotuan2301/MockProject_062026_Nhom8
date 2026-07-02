@@ -94,7 +94,7 @@ DATABASES = {
         "HOST": os.environ.get("DB_HOST"),
         "PORT": os.environ.get("DB_PORT"),
         "OPTIONS": {
-            'driver': 'ODBC Driver 18 for SQL Server', 
+            'driver': 'ODBC Driver 17 for SQL Server', 
             'extra_params': 'TrustServerCertificate=yes;', 
         },
     }
