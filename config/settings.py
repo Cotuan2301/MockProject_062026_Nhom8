@@ -45,6 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.accounts',
+    'apps.billing',
+    'apps.medical',
+    'apps.residents',
+    'apps.rooms',
+    'apps.staff',
 ]
 
 MIDDLEWARE = [
@@ -82,8 +87,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "mssql", # pip install mssql-django
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
+        "OPTIONS": {
+            'driver': 'ODBC Driver 18 for SQL Server', 
+            'extra_params': 'TrustServerCertificate=yes;', 
+        },
     }
 }
 
@@ -112,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -122,8 +135,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+# Cấu hình Media (Upload ảnh, file...)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Cấu hình Static (File CSS, JS, Images của Django)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Định nghĩa Model Auto Field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
