@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add Resident{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/resident_form.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="breadcrumb">Resident List &gt; New Resident</div>
+  <h2>New Resident</h2>
+
+  <div id="duplicateWarning" class="alert-warning" {% if not duplicate_warning %}style="display:none;"{% endif %}>
+    &#9888; A resident with a similar name already exists. Please verify before saving.
+  </div>
+
+  <form method="post" action="" enctype="multipart/form-data" id="residentForm" novalidate>
+    {% csrf_token %}
+
+    <h4 class="section-title">PERSONAL INFORMATION</h4>
+    <hr />
+
+    <div class="row">
+      <div class="form-group photo-group">
+        <label>Resident Photo</label>
+        <div class="photo-upload" id="photoUpload">
+          <img id="photoPreview" src="" alt="Photo preview" style="display:none;" />
+          <span id="photoPlaceholder" class="photo-placeholder">+ Upload</span>
+        </div>
+        <input type="file" name="photo" id="photoInput" accept="image/*" hidden />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-50 form-group">
+        <label>First Name *</label>
+        <input type="text" name="first_name" id="id_first_name" required />
+        <span class="error-text"></span>
+      </div>
+      <div class="col-50 form-group">
+        <label>Last Name *</label>
+        <input type="text" name="last_name" id="id_last_name" required />
+        <span class="error-text"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-50 form-group">
+        <label>Date of Birth *</label>
+        <input type="date" name="dob" required />
+        <span class="error-text"></span>
+      </div>
+      <div class="col-50 form-group">
+        <label>Gender *</label>
+        <select name="gender" required>
+          <option value="">Select...</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+          <option value="O">Other</option>
+        </select>
+        <span class="error-text"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-50 form-group">
+        <label>SSN *</label>
+        <input type="text" name="ssn" placeholder="XXX-XX-XXXX" maxlength="11" required />
+        <span class="error-text"></span>
+      </div>
+      <div class="col-50 form-group">
+        <label>Status *</label>
+        <select name="status" required>
+          <option value="">Select...</option>
+          <option value="new">New</option>
+          <option value="open">Open</option>
+        </select>
+        <span class="error-text"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-50 form-group">
+        <label>Expected Admission Date *</label>
+        <input type="date" name="expected_admission_date" required />
+        <span class="error-text"></span>
+      </div>
+      <div class="col-50 form-group">
+        <label>Referral Source</label>
+        <select name="referral_source">
+          <option value="">Select...</option>
+          <option value="hospital">Hospital</option>
+          <option value="physician">Physician</option>
+          <option value="family">Family / Self</option>
+          <option value="social_worker">Social Worker</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <h4 class="section-title">EMERGENCY CONTACT</h4>
+    <hr />
+
+    <div class="section-box">
+      <div class="row">
+        <div class="col-50 form-group">
+          <label>Contact Name *</label>
+          <input type="text" name="emergency_contact_name" required />
+          <span class="error-text"></span>
+        </div>
+        <div class="col-50 form-group">
+          <label>Phone *</label>
+          <input type="tel" name="emergency_contact_phone" required />
+          <span class="error-text"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-50 form-group">
+          <label>Email</label>
+          <input type="email" name="emergency_contact_email" />
+          <span class="error-text"></span>
+        </div>
+        <div class="col-50 form-group">
+          <label>Relationship</label>
+          <select name="emergency_contact_relationship">
+            <option value="">Select...</option>
+            <option value="spouse">Spouse</option>
+            <option value="child">Child</option>
+            <option value="sibling">Sibling</option>
+            <option value="friend">Friend</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="section-title">LEGAL &amp; MEDICAL FLAGS</h4>
+    <hr />
+
+    <div class="flag-row">
+      <label class="flag-label">Power of Attorney (POA)</label>
+      <label class="toggle-switch">
+        <input type="checkbox" name="poa_enabled" id="poaToggle" />
+        <span class="slider"></span>
+      </label>
+      <span class="flag-status" id="poaStatusText">No</span>
+    </div>
+
+    <div class="row poa-fields">
+      <div class="col-50 form-group">
+        <label>POA Full Name (if applicable)</label>
+        <input type="text" name="poa_full_name" id="poaFullName" placeholder="Disabled unless toggled on" disabled />
+      </div>
+      <div class="col-50 form-group">
+        <label>POA Type</label>
+        <select name="poa_type" id="poaType" disabled>
+          <option value="">Select...</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="financial">Financial</option>
+          <option value="durable">Durable</option>
+          <option value="both">Healthcare &amp; Financial</option>
+        </select>
+      </div>
+    </div>
+    <div class="row poa-fields">
+      <div class="col-50 form-group">
+        <label>POA Relationship to Resident</label>
+        <input type="text" name="poa_relationship" id="poaRelationship" disabled />
+      </div>
+      <div class="col-50 form-group">
+        <label>POA Phone Number</label>
+        <input type="tel" name="poa_phone" id="poaPhone" disabled />
+      </div>
+    </div>
+    <div class="row poa-fields">
+      <div class="col-50 form-group">
+        <label>POA Effective Date</label>
+        <input type="date" name="poa_effective_date" id="poaEffectiveDate" disabled />
+      </div>
+      <div class="col-50 form-group">
+        <label>POA Document</label>
+        <input type="file" name="poa_document" id="poaDocument" accept=".pdf,.jpg,.jpeg,.png" disabled />
+      </div>
+    </div>
+
+    <div class="flag-row">
+      <label class="flag-label">Do Not Resuscitate (DNR)</label>
+      <label class="toggle-switch toggle-critical">
+        <input type="checkbox" name="dnr_enabled" id="dnrToggle" />
+        <span class="slider"></span>
+      </label>
+      <span class="flag-status" id="dnrStatusText">No</span>
+    </div>
+
+    <div class="flag-row">
+      <label class="flag-label">Advance Directive / Living Will</label>
+      <label class="toggle-switch">
+        <input type="checkbox" name="advance_directive" id="advDirectiveToggle" />
+        <span class="slider"></span>
+      </label>
+      <span class="flag-status" id="advDirectiveStatusText">No</span>
+    </div>
+
+    <div class="flag-row">
+      <label class="flag-label">Healthcare Proxy</label>
+      <label class="toggle-switch">
+        <input type="checkbox" name="healthcare_proxy_enabled" id="proxyToggle" />
+        <span class="slider"></span>
+      </label>
+      <span class="flag-status" id="proxyStatusText">No</span>
+    </div>
+
+    <div class="row poa-fields" id="proxyNameRow">
+      <div class="col-50 form-group">
+        <label>Healthcare Proxy Name</label>
+        <input type="text" name="healthcare_proxy_name" id="proxyName" placeholder="Disabled unless toggled on" disabled />
+      </div>
+    </div>
+
+    <h4 class="section-title">PAYER SOURCE</h4>
+    <hr />
+
+    <div class="row">
+      <div class="col-50 form-group">
+        <label>Payer Source *</label>
+        <select name="payer_source" id="payerSource" required>
+          <option value="medicare">Medicare</option>
+          <option value="medicaid">Medicaid</option>
+          <option value="private_insurance">Private Insurance</option>
+          <option value="self_pay">Self-Pay</option>
+          <option value="other">Other</option>
+        </select>
+        <span class="error-text"></span>
+      </div>
+      <div class="col-50 form-group">
+        <label>Insurance Provider</label>
+        <input type="text" name="insurance_provider" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-50 form-group">
+        <label>Payer Name</label>
+        <input type="text" name="payer_name" />
+      </div>
+      <div class="col-50 form-group">
+        <label>Authorization Number</label>
+        <input type="text" name="authorization_number" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-50 form-group">
+        <label>Authorization Start Date</label>
+        <input type="date" name="authorization_start_date" />
+      </div>
+      <div class="col-50 form-group">
+        <label>Authorization End Date</label>
+        <input type="date" name="authorization_end_date" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-50 form-group" id="medicareNumberGroup">
+        <label>Medicare Number</label>
+        <input type="text" name="medicare_number" id="medicareNumber" />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">Save Resident</button>
+      <button type="button" class="btn-secondary" onclick="window.history.back()">Cancel</button>
+      <span class="required-note">* Required fields must be filled before saving.</span>
+    </div>
+  </form>
+</div>
+
+  {% block extra_js %}
+    <script src="{% static 'js/resident_form.js' %}"></script>
+  {% endblock %}
+
+{% endblock %}
