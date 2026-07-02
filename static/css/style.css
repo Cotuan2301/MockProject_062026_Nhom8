@@ -351,3 +351,116 @@ footer {
     color: #a3d9c3;
     margin-left: 15px;
 }
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #13503b;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   ========================================= */
+
+/* Desktop / Tablet Landscape */
+@media (max-width: 1024px) {
+    header {
+        flex-wrap: wrap;
+        padding: 15px 20px;
+        justify-content: space-between;
+    }
+
+    .menu-toggle {
+        display: block;
+        order: 2;
+    }
+
+    .header-right {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        margin-top: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .nav-links {
+        display: none;
+        order: 4;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 20px 0;
+        background-color: #f9f9f9;
+        margin-top: 15px;
+        border-radius: 8px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer-col {
+        width: 100%;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px 20px;
+    }
+
+    .footer-bottom a {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    footer {
+        padding: 30px 20px 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .banner h1 {
+        font-size: 24px;
+    }
+    
+    .banner {
+        height: 180px;
+    }
+
+    .main-content {
+        padding: 30px 15px;
+    }
+    
+    .login-box {
+        padding: 20px;
+    }
+
+    .social-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-social {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .login-actions {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}

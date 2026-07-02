@@ -25,15 +25,14 @@
             </div>
         </div>
 
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+
         <nav class="nav-links">
             <a href="#">Trang chủ</a>
             <a href="#">Về chúng tôi</a>
-            <a href="#">Sản phẩm <i class="fas fa-chevron-down" style="font-size: 10px;"></i></a>
-            <a href="#">Dịch vụ <i class="fas fa-chevron-down" style="font-size: 10px;"></i></a>
-            <a href="#">Đội ngũ</a>
-            <a href="#">Tin tức</a>
-            <a href="#">Câu hỏi thường gặp</a>
-            <a href="#">Liên hệ</a>
+            <a href="{% url 'residents:list' %}">Cư dân</a>
         </nav>
 
         <div class="header-right">
@@ -169,6 +168,14 @@
         </div>
     </div>
 
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
 </body>
 
 </html>
