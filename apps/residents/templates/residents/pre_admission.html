@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-Admission Screening — NHMS</title>
+  <style>
+    /* =============================================
+       CSS VARIABLES (design tokens)
+       Thay đổi tại đây nếu dự án có design system riêng
+       ============================================= */
+    :root {
+      /* Colors */
+      --color-bg:             #f4f5f7;
+      --color-white:          #ffffff;
+      --color-primary:        #1a1f36;
+      --color-border:         #d6d9e0;
+      --color-text:           #1a1f36;
+      --color-text-muted:     #6b7280;
+      --color-label:          #9ca3af;
+
+      --color-pass-bg:        #ecfdf5;
+      --color-pass-border:    #22c55e;
+      --color-pass-text:      #14532d;
+      --color-pass-btn:       #16a34a;
+
+      --color-flagged-bg:     #fffbeb;
+      --color-flagged-border: #f59e0b;
+      --color-flagged-text:   #78350f;
+
+      /* Spacing */
+      --space-xs:  4px;
+      --space-sm:  8px;
+      --space-md:  16px;
+      --space-lg:  24px;
+      --space-xl:  32px;
+
+      /* Typography */
+      --font-family:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-sm:       12px;
+      --font-base:     14px;
+      --font-lg:       18px;
+
+      /* Misc */
+      --radius:        4px;
+      --radius-lg:     8px;
+      --shadow-card:   0 1px 3px rgba(0,0,0,0.08);
+      --transition:    0.15s ease;
+
+      /* Layout */
+      --container-max: 900px;
+      --nav-height:    48px;
+    }
+
+    /* =============================================
+       BASE RESET
+       ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-base);
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* =============================================
+       NAVBAR
+       ============================================= */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      background: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-lg);
+    }
+
+    .navbar__brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: #fff;
+      font-size: var(--font-base);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .navbar__brand-icon {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+
+    .navbar__user {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      color: rgba(255,255,255,0.75);
+      font-size: var(--font-sm);
+      white-space: nowrap;
+    }
+
+    /* =============================================
+       MAIN LAYOUT
+       ============================================= */
+    .main-container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--space-lg);
+    }
+
+    /* =============================================
+       BREADCRUMB
+       ============================================= */
+    .breadcrumb {
+      font-size: var(--font-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    /* =============================================
+       PROGRESS STEPS
+       ============================================= */
+    .steps {
+      display: flex;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: var(--space-xl);
+      background: var(--color-white);
+    }
+
+    .step {
+      flex: 1;
+      padding: 10px var(--space-md);
+      text-align: center;
+      font-size: var(--font-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      border-right: 1px solid var(--color-border);
+      transition: background var(--transition);
+    }
+
+    .step:last-child {
+      border-right: none;
+    }
+
+    .step--active {
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    /* =============================================
+       PAGE TITLE
+       ============================================= */
+    .page-title {
+      font-size: var(--font-lg);
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: var(--space-xs);
+    }
+
+    .page-subtitle {
+      font-size: var(--font-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* =============================================
+       FORM CARD (wrapper section)
+       ============================================= */
+    .form-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      box-shadow: var(--shadow-card);
+    }
+
+    /* =============================================
+       SECTION LABEL (uppercase heading inside card)
+       ============================================= */
+    .section-label {
+      font-size: var(--font-sm);
+      font-weight: 600;
+      color: var(--color-label);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-md);
+    }
+
+    /* =============================================
+       CHECKBOX GRID
+       — Desktop/Tablet: 2 cột
+       — Mobile: 1 cột (overridden in media query)
+       ============================================= */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm) var(--space-xl);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      cursor: pointer;
+      padding: var(--space-xs) 0;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      cursor: pointer;
+      accent-color: var(--color-primary);
+    }
+
+    .checkbox-item__label {
+      font-size: var(--font-base);
+      line-height: 1.4;
+      color: var(--color-text);
+    }
+
+    /* =============================================
+       TEXTAREA
+       ============================================= */
+    .form-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-family: var(--font-family);
+      font-size: var(--font-base);
+      color: var(--color-text);
+      resize: vertical;
+      transition: border-color var(--transition);
+    }
+
+    .form-textarea::placeholder {
+      color: var(--color-label);
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(26,31,54,0.08);
+    }
+
+    /* =============================================
+       COMPLIANCE RESULT BLOCKS
+       ============================================= */
+    .compliance-block {
+      border-radius: var(--radius);
+      padding: var(--space-sm) var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .compliance-block:last-child {
+      margin-bottom: 0;
+    }
+
+    /* PASS */
+    .compliance-block--pass {
+      background: var(--color-pass-bg);
+      border: 1px solid var(--color-pass-border);
+    }
+
+    .compliance-block--pass .compliance-title {
+      color: var(--color-pass-text);
+    }
+
+    /* FLAGGED */
+    .compliance-block--flagged {
+      background: var(--color-flagged-bg);
+      border: 1px solid var(--color-flagged-border);
+    }
+
+    .compliance-block--flagged .compliance-title {
+      color: var(--color-flagged-text);
+    }
+
+    .compliance-title {
+      font-size: var(--font-sm);
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .compliance-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .compliance-note {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    /* Override reason input (FLAGGED only) */
+    .override-input {
+      flex: 1;
+      min-width: 120px;
+      max-width: 260px;
+      padding: 5px var(--space-sm);
+      border: 1px solid var(--color-flagged-border);
+      border-radius: var(--radius);
+      font-family: var(--font-family);
+      font-size: var(--font-sm);
+      color: var(--color-text);
+      background: var(--color-white);
+    }
+
+    .override-input::placeholder {
+      color: var(--color-label);
+    }
+
+    .override-input:focus {
+      outline: none;
+      border-color: var(--color-flagged-text);
+    }
+
+    /* =============================================
+       BUTTONS
+       ============================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      font-family: var(--font-family);
+      font-size: var(--font-sm);
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      transition: opacity var(--transition), background var(--transition);
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Primary — dark */
+    .btn--primary {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+    }
+
+    /* Success — green (dùng cho PASS) */
+    .btn--success {
+      background: var(--color-pass-btn);
+      color: #fff;
+      border-color: var(--color-pass-btn);
+    }
+
+    /* Secondary — outline */
+    .btn--secondary {
+      background: var(--color-white);
+      color: var(--color-text);
+      border-color: var(--color-border);
+    }
+
+    /* =============================================
+       PAGE ACTIONS (Back button area)
+       ============================================= */
+    .page-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+      padding-bottom: var(--space-xl);
+    }
+
+    /* =============================================
+       RESPONSIVE — TABLET (640px – 1023px)
+       Layout giữ nguyên, chỉ giảm padding
+       ============================================= */
+    @media (max-width: 1023px) {
+      .main-container {
+        padding: var(--space-md);
+      }
+    }
+
+    /* =============================================
+       RESPONSIVE — MOBILE (< 640px)
+       ============================================= */
+    @media (max-width: 639px) {
+      /* Navbar: thu nhỏ brand text */
+      .navbar {
+        padding: 0 var(--space-md);
+      }
+
+      .navbar__brand-text {
+        display: none; /* ẩn text dài, chỉ giữ icon */
+      }
+
+      .navbar__brand-text--short {
+        display: inline; /* "EHR — NHMS" rút gọn */
+      }
+
+      /* Steps: hiển thị dọc để đọc rõ hơn trên màn nhỏ */
+      .steps {
+        flex-direction: column;
+      }
+
+      .step {
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        text-align: left;
+        padding: 9px var(--space-md);
+      }
+
+      .step:last-child {
+        border-bottom: none;
+      }
+
+      /* Checkbox: 1 cột thay vì 2 cột */
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs) 0;
+      }
+
+      /* Form card: padding nhỏ hơn */
+      .form-card {
+        padding: var(--space-md);
+      }
+
+      /* Compliance actions: stack dọc */
+      .compliance-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .override-input {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      /* Page actions: full width */
+      .page-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       NAVBAR
+       ============================================= -->
+  <nav class="navbar">
+    <div class="navbar__brand">
+      <span class="navbar__brand-icon">☰</span>
+      <!-- Desktop: full name -->
+      <span class="navbar__brand-text">EHR — Nursing Home Management</span>
+      <!-- Mobile: rút gọn (hiện khi .navbar__brand-text bị ẩn) -->
+      <span class="navbar__brand-text--short" style="display:none;">EHR — NHMS</span>
+    </div>
+    <div class="navbar__user">
+      <span>👤</span>
+      <span>Admin User</span>
+    </div>
+  </nav>
+
+  <!-- =============================================
+       MAIN CONTENT
+       ============================================= -->
+  <main class="main-container">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">New Admission Flow</div>
+
+    <!-- Progress Steps -->
+    <div class="steps" role="list" aria-label="Admission flow steps">
+      <div class="step step--active" role="listitem" aria-current="step">1 Pre-Screening</div>
+      <div class="step" role="listitem">2 Admission Form</div>
+      <div class="step" role="listitem">3 Initial Assessment</div>
+    </div>
+
+    <!-- Page Title -->
+    <h1 class="page-title">Step 1: Pre-Admission Screening</h1>
+    <p class="page-subtitle">Assess clinical needs before proceeding to admission.</p>
+
+    <!-- ---- SECTION 1: Clinical Needs Assessment ---- -->
+    <div class="form-card">
+      <div class="section-label">Clinical Needs Assessment</div>
+      <div class="checkbox-grid">
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="clinical_needs" value="wound_care">
+          <span class="checkbox-item__label">Wound care / pressure ulcer management</span>
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="clinical_needs" value="iv_therapy">
+          <span class="checkbox-item__label">IV therapy or complex medication administration</span>
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="clinical_needs" value="therapy">
+          <span class="checkbox-item__label">Physical / Occupational / Speech therapy</span>
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="clinical_needs" value="ventilator">
+          <span class="checkbox-item__label">Ventilator or respiratory support</span>
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="clinical_needs" value="dementia">
+          <span class="checkbox-item__label">Dementia or behavioral health management</span>
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="clinical_needs" value="hospice">
+          <span class="checkbox-item__label">Hospice or palliative care coordination</span>
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="clinical_needs" value="bariatric">
+          <span class="checkbox-item__label">Bariatric care needs</span>
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="clinical_needs" value="isolation">
+          <span class="checkbox-item__label">Isolation precautions (MRSA, C. diff, etc.)</span>
+        </label>
+
+      </div>
+    </div>
+
+    <!-- ---- SECTION 2: Special Requirements ---- -->
+    <div class="form-card">
+      <div class="section-label">Special Requirements</div>
+      <textarea
+        class="form-textarea"
+        name="special_requirements"
+        placeholder="Enter any additional clinical or dietary requirements..."
+        aria-label="Special requirements"
+      ></textarea>
+    </div>
+
+    <!-- ---- SECTION 3: BR-06 Compliance Check Result ---- -->
+    <div class="form-card">
+      <div class="section-label">BR-06 Compliance Check Result</div>
+
+      <!-- PASS state -->
+      <div class="compliance-block compliance-block--pass">
+        <div class="compliance-title">✓ PASS — Facility can accommodate all identified care needs.</div>
+        <div class="compliance-actions">
+          <button class="btn btn--success" type="button">
+            Proceed to Admission Form →
+          </button>
+          <span class="compliance-note">← shown when PASS</span>
+        </div>
+      </div>
+
+      <!-- FLAGGED state -->
+      <div class="compliance-block compliance-block--flagged">
+        <div class="compliance-title">⚑ FLAGGED — Clinical review required before admission.</div>
+        <div class="compliance-actions">
+          <span style="font-size: 12px; color: var(--color-flagged-text); white-space: nowrap;">
+            Override reason:
+          </span>
+          <input
+            type="text"
+            class="override-input"
+            name="override_reason"
+            placeholder="Enter reason..."
+            aria-label="Override reason"
+          >
+          <button class="btn btn--secondary" type="button">Submit for Review</button>
+          <span class="compliance-note">← shown when FLAGGED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- PAGE ACTIONS ---- -->
+    <div class="page-actions">
+      <button class="btn btn--secondary" type="button">← Back</button>
+    </div>
+
+  </main>
+
+</body>
+</html>

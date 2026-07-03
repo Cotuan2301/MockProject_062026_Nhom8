@@ -64,3 +64,18 @@ def resident_list(request):
         'counts': counts,
     }
     return render(request, 'residents/list.html', context)
+
+
+# ==========================================
+# HÀM MỚI THÊM VÀO CHO PRE-ADMISSION
+# ==========================================
+def pre_admission(request):
+    """
+    Hàm xử lý cho màn hình Pre-Admission.
+    Lưu ý: Đảm bảo bạn có file HTML tương ứng trong thư mục templates.
+    """
+    context = {
+        'page_title': 'Pre-Admission Screening'
+    }
+    # Nếu file HTML của bạn tên khác 'pre_admission.html', hãy đổi tên ở dòng dưới cho khớp
+    return render(request, 'residents/pre_admission.html', context)
