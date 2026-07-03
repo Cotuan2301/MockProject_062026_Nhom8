@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def pre_admission_screening(request):
+    return render(request, 'residents/pre_admission_screening.html')
