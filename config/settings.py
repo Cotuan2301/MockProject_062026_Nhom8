@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.residents',
     'apps.rooms',
     'apps.staff',
+    'apps.incidents',
 ]
 
 MIDDLEWARE = [
@@ -84,21 +85,32 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+# Dùng USE_SQLITE=True trong .env để test layout khi chưa có SQL Server thật
 
-DATABASES = {
-    'default': {
-        "ENGINE": "mssql", # pip install mssql-django
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
-        "OPTIONS": {
-            'driver': 'ODBC Driver 17 for SQL Server', 
-            'extra_params': 'TrustServerCertificate=yes;', 
-        },
+_use_sqlite = os.environ.get('USE_SQLITE', 'False') == 'True'
+
+if _use_sqlite:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db_dev.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            "ENGINE": "mssql", # pip install mssql-django
+            "NAME": os.environ.get("DB_NAME"),
+            "USER": os.environ.get("DB_USER"),
+            "PASSWORD": os.environ.get("DB_PASSWORD"),
+            "HOST": os.environ.get("DB_HOST"),
+            "PORT": os.environ.get("DB_PORT"),
+            "OPTIONS": {
+                'driver': 'ODBC Driver 17 for SQL Server',
+                'extra_params': 'TrustServerCertificate=yes;',
+            },
+        }
+    }
 
 
 # Password validation
