@@ -1,5 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
-
-    
+def activate_account(request):
+    return render(request, "accounts/activate_account.html")
