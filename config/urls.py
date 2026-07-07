@@ -21,12 +21,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('apps.accounts.urls')),
+    path('', include('apps.accounts.urls')),
     path('billing/', include('apps.billing.urls')),
     path('medical/', include('apps.medical.urls')),
     path('residents/', include('apps.residents.urls')),
     path('rooms/', include('apps.rooms.urls')),
     path('staff/', include('apps.staff.urls')),
+    path('incidents/', include('apps.incidents.urls')),
 ]
 
 # Serve media files during development
