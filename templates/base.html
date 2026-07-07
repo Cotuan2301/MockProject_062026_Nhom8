@@ -1,0 +1,35 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Css chung -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <!-- Css riêng từng trang -->
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-left">
+        <span class="header-icon">&#9776;</span>
+        <span class="header-title">EHR — Nursing Home Management</span>
+      </div>
+      <div class="header-right">
+        <span class="header-icon">&#128100;</span>
+        <span>Admin User</span>
+      </div>
+    </div>
+
+    {% block content %} {% endblock %}
+
+    <!-- JS chung -->
+    <script src="{% static 'js/script.js' %}"></script>
+    
+    <!-- JS riêng từng trang -->
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>
