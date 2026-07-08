@@ -1,0 +1,59 @@
+<nav class="admin-sidebar" id="adminSidebar" aria-label="Main navigation">
+    <div class="sidebar-nav">
+
+        <div class="sidebar-group">
+            <a href="#"
+               class="sidebar-link {% if active_menu == 'dashboard' %}active{% endif %}"
+               id="nav-dashboard">
+                <i class="fas fa-house sidebar-icon"></i>
+                Dashboard
+            </a>
+            
+            <a href="{% url 'residents:list' %}"
+               class="sidebar-link {% if active_menu == 'residents' %}active{% endif %}"
+               id="nav-residents">
+                <i class="fas fa-user-group sidebar-icon"></i>
+                Residents
+            </a>
+
+            <a href="{% url 'medical:daily_tasks' %}"
+               class="sidebar-link {% if active_menu == 'care_planning' %}active{% endif %}"
+               id="nav-care-planning">
+                <i class="fas fa-pen-to-square sidebar-icon"></i>
+                Care Planning
+            </a>
+
+            <a href="#"
+               class="sidebar-link {% if active_menu == 'emar' %}active{% endif %}"
+               id="nav-emar">
+                <i class="fas fa-pills sidebar-icon"></i>
+                eMAR <span class="badge badge-soon" style="font-size: 0.6rem; padding: 2px 6px; border-radius: 12px; border: 1px solid #ccc; margin-left: 8px;">soon</span>
+            </a>
+
+            <a href="{% url 'incidents:list' %}"
+               class="sidebar-link {% if active_menu == 'incidents' %}active{% endif %}"
+               id="nav-incidents">
+                <i class="fas fa-shield-halved sidebar-icon"></i>
+                Incident & Risk
+            </a>
+
+            <a href="#"
+               class="sidebar-link {% if active_menu == 'reports' %}active{% endif %}"
+               id="nav-reports">
+                <i class="fas fa-chart-line sidebar-icon"></i>
+                Reports
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ── Footer: Logout ── -->
+    <div class="sidebar-footer">
+        <a href="{% url 'accounts:login' %}"
+           class="sidebar-link"
+           id="nav-logout">
+            <i class="fas fa-right-from-bracket sidebar-icon"></i>
+            Logout
+        </a>
+    </div>
+</nav>

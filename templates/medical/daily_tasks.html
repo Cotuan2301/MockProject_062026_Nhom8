@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Daily Tasks{% endblock %}
+
+{% block sidebar %}
+    {% include 'partials/sidebar_care.html' %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <span class="breadcrumb-separator">›</span>
+    <a href="#" class="breadcrumb-link">Care Planning</a>
+    <span class="breadcrumb-separator">›</span>
+    <span class="breadcrumb-current">Daily Tasks</span>
+{% endblock %}
+
+{% block content %}
+<div class="care-planning-container">
+    <div class="page-header d-flex justify-content-between align-items-end mb-4">
+        <div>
+            <h1 class="page-title">Today's Tasks</h1>
+            <p class="text-muted mb-0">Thursday, 2026-07-02 · Day shift</p>
+        </div>
+        
+        <div class="progress-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="progress-info">
+                    <div class="progress-label">Shift progress</div>
+                    <div class="progress-text"><strong>{{ completed_tasks }} / {{ total_tasks }} tasks done</strong></div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: {% widthratio completed_tasks total_tasks 100 %}%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="resident-task-list">
+        {% for resident in residents_tasks %}
+            <div class="resident-group mb-4">
+                <div class="resident-header d-flex align-items-center mb-3">
+                    <h3 class="resident-name mb-0">{{ resident.resident_name }} · {{ resident.room }}</h3>
+                    {% if resident.status == 'Active' %}
+                        <span class="badge-status active">Active</span>
+                    {% else %}
+                        <span class="badge-status draft">Draft</span>
+                    {% endif %}
+                </div>
+
+                {% if resident.has_active_plan %}
+                    <div class="task-cards">
+                        {% for task in resident.tasks %}
+                            <div class="task-card d-flex justify-content-between align-items-center">
+                                <div class="task-name">{{ task.name }}</div>
+                                <div class="task-actions d-flex align-items-center">
+                                    <div class="task-due text-muted mr-4">
+                                        due {{ task.due }} 
+                                        {% if task.overdue %}
+                                            <i class="fas fa-circle-exclamation text-danger ml-1"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div class="task-buttons">
+                                        <button class="btn-status {% if task.state == 'Done' %}done{% endif %}">Done</button>
+                                        <button class="btn-status {% if task.state == 'Missed' %}missed{% endif %}">Missed</button>
+                                        <button class="btn-status {% if task.state == 'Refused' %}refused{% endif %}">Refused</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="no-tasks-card text-center text-muted">
+                                No tasks available.
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-active-plan-card text-center">
+                        <h4 class="mb-1 text-dark">No active care plan</h4>
+                        <p class="text-muted mb-0">Tasks appear here once the DON approves the plan.</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

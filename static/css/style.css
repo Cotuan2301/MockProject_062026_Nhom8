@@ -20,8 +20,8 @@ body {
     align-items: center;
 }
 
-.header-left,
-.header-right {
+
+@media all {
     * {
         margin: 0;
         padding: 0;
@@ -574,8 +574,8 @@ body {
     }
 
     /* =========================================
-   RESPONSIVE DESIGN (MEDIA QUERIES)
-   ========================================= */
+       RESPONSIVE DESIGN (MEDIA QUERIES)
+       ========================================= */
 
     /* Desktop / Tablet Landscape */
     @media (max-width: 1024px) {
@@ -681,18 +681,18 @@ body {
 
 
     /* =========================================
-   ADMIN LAYOUT SYSTEM â€” NHMS
-   Color tokens (matched from mockup):
-     --primary:       #4361EE   (blue accent â€” active states, highlights)
-     --primary-light: #EEF2FF   (active item background)
-     --text-dark:     #0F172A   (NHMS abbr, headings)
-     --text:          #374151   (body text, sidebar links)
-     --text-muted:    #64748B   (subtitles, secondary text)
-     --text-faint:    #94A3B8   (group labels, placeholders)
-     --border:        #E2E8F0   (all borders)
-     --bg-page:       #F8FAFC   (main content bg)
-     --bg-white:      #FFFFFF   (header, sidebar)
-   ========================================= */
+       ADMIN LAYOUT SYSTEM â€” NHMS
+       Color tokens (matched from mockup):
+         --primary:       #4361EE   (blue accent â€” active states, highlights)
+         --primary-light: #EEF2FF   (active item background)
+         --text-dark:     #0F172A   (NHMS abbr, headings)
+         --text:          #374151   (body text, sidebar links)
+         --text-muted:    #64748B   (subtitles, secondary text)
+         --text-faint:    #94A3B8   (group labels, placeholders)
+         --border:        #E2E8F0   (all borders)
+         --bg-page:       #F8FAFC   (main content bg)
+         --bg-white:      #FFFFFF   (header, sidebar)
+       ========================================= */
 
     /* Override body flex for admin pages */
     body.admin-body {
@@ -1209,8 +1209,8 @@ body {
 
 
     /* =========================================
-   INCIDENT SEVERITY PAGE
-   ========================================= */
+       INCIDENT SEVERITY PAGE
+       ========================================= */
 
     /* Info banner — blue (matches mockup) */
     .info-banner {
@@ -1532,3 +1532,177 @@ body {
             min-width: 120px;
         }
     }
+
+    /* =========================================
+           SC032 - DAILY TASKS UI
+           ========================================= */
+
+    .care-planning-container {
+        padding: 0 10px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #0F172A;
+        margin-bottom: 5px;
+    }
+
+    .text-muted {
+        color: #64748B;
+        font-size: 13px;
+    }
+
+    /* Progress Card */
+    .progress-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        padding: 12px 20px;
+        min-width: 250px;
+    }
+
+    .progress-label {
+        font-size: 11px;
+        color: #64748B;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+    }
+
+    .progress-text {
+        font-size: 14px;
+        color: #0F172A;
+    }
+
+    .progress-bar-container {
+        width: 100px;
+        margin-left: 15px;
+    }
+
+    .progress-bar-bg {
+        height: 12px;
+        background-color: #E2E8F0;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        background-color: #10B981;
+        /* Green success */
+        border-radius: 6px;
+    }
+
+    /* Resident Group */
+    .resident-group {
+        margin-bottom: 30px;
+    }
+
+    .resident-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #0F172A;
+    }
+
+    .badge-status {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 12px;
+        margin-left: 12px;
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid transparent;
+    }
+
+    .badge-status.active {
+        background-color: #D1FAE5;
+        color: #065F46;
+        border-color: #6EE7B7;
+    }
+
+    .badge-status.draft {
+        background-color: #F1F5F9;
+        color: #475569;
+        border-color: #CBD5E1;
+    }
+
+    /* Task Cards */
+    .task-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .task-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 6px;
+        padding: 15px 20px;
+        transition: box-shadow 0.2s;
+    }
+
+    .task-card:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .task-name {
+        font-size: 14px;
+        color: #334155;
+    }
+
+    .task-due {
+        font-size: 12px;
+    }
+
+    .task-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-status {
+        background: #FFFFFF;
+        border: 1px solid #CBD5E1;
+        color: #64748B;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 6px 14px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-status:hover {
+        background: #F8FAFC;
+    }
+
+    /* Active states for buttons */
+    .btn-status.done {
+        background: #D1FAE5;
+        color: #065F46;
+        border-color: #6EE7B7;
+        font-weight: 600;
+    }
+
+    .btn-status.missed {
+        background: #FEE2E2;
+        color: #991B1B;
+        border-color: #FCA5A5;
+        font-weight: 600;
+    }
+
+    .btn-status.refused {
+        background: #FEF3C7;
+        color: #92400E;
+        border-color: #FCD34D;
+        font-weight: 600;
+    }
+
+    /* Empty states */
+    .no-active-plan-card {
+        background: #F8FAFC;
+        border: 1px dashed #CBD5E1;
+        border-radius: 6px;
+        padding: 30px;
+    }}
