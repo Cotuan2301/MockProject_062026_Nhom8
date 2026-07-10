@@ -42,6 +42,7 @@ class Resident(models.Model):
     religion_preference = models.CharField(max_length=100, null=True, blank=True)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
     is_chart_locked = models.BooleanField(default=False)
+    has_dnr = models.BooleanField(default=False)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
     bed = models.ForeignKey('rooms.Bed', on_delete=models.SET_NULL, null=True, blank=True)
     is_deleted = models.BooleanField(default=False)
@@ -99,6 +100,7 @@ class Admission(models.Model):
     resident = models.ForeignKey(Resident, on_delete=models.CASCADE)
     facility = models.ForeignKey('rooms.Facility', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    referral_source = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         db_table = 'admissions'

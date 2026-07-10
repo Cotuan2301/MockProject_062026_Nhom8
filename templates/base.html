@@ -13,18 +13,17 @@
     {% block extra_css %}{% endblock %}
   </head>
   <body>
-    <div class="header">
-      <div class="header-left">
-        <span class="header-icon">&#9776;</span>
-        <span class="header-title">EHR — Nursing Home Management</span>
-      </div>
-      <div class="header-right">
-        <span class="header-icon">&#128100;</span>
-        <span>Admin User</span>
+    <div class="app-container">
+      {% include 'partials/sidebar.html' %}
+      
+      <div class="main-content-wrapper">
+        {% include 'partials/navbar.html' %}
+        
+        <main class="main-content">
+          {% block content %}{% endblock %}
+        </main>
       </div>
     </div>
-
-    {% block content %} {% endblock %}
 
     <!-- JS chung -->
     <script src="{% static 'js/script.js' %}"></script>

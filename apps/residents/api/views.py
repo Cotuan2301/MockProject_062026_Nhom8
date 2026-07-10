@@ -14,7 +14,10 @@ class ResidentDetailAPIView(APIView):
             ).prefetch_related(
                 'residentcontact_set__contact',
                 'residentinsurancepolicy_set__insurance_provider', 
-                'residentcarelevelhistory_set__care_level'
+                'residentcarelevelhistory_set__care_level',
+                'admission_set',
+                'clinicalrecord_set',
+                'assessment_set__confirmed_care_level'
             ), 
             pk=pk
         )

@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from apps.residents.models import Resident, Address, ResidentSensitiveInfo, Contact, ResidentContact
+from apps.residents.models import Resident, Address, ResidentSensitiveInfo, Contact, ResidentContact, Admission
 from apps.rooms.models import Bed, Room
 from apps.billing.models import InsuranceProvider, ResidentInsurancePolicy
-from apps.medical.models import CareLevel, ResidentCareLevelHistory
+from apps.medical.models import CareLevel, ResidentCareLevelHistory, ClinicalRecord, Assessment
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,7 +28,7 @@ class BedSerializer(serializers.ModelSerializer):
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ['first_name', 'last_name', 'phone_primary']
+        fields = ['first_name', 'last_name', 'phone_primary', 'phone_secondary']
 
 class ResidentContactSerializer(serializers.ModelSerializer):
     contact = ContactSerializer(read_only=True)
@@ -45,7 +45,7 @@ class ResidentInsuranceSerializer(serializers.ModelSerializer):
     insurance_provider = InsuranceProviderSerializer(read_only=True)
     class Meta:
         model = ResidentInsurancePolicy
-        fields = ['insurance_provider', 'policy_number_encrypted', 'effective_from', 'effective_to']
+        fields = ['insurance_provider', 'policy_number_encrypted', 'group_number', 'effective_from', 'effective_to']
 
 class CareLevelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -58,6 +58,22 @@ class CareLevelHistorySerializer(serializers.ModelSerializer):
         model = ResidentCareLevelHistory
         fields = ['care_level']
 
+class AdmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Admission
+        fields = ['admission_date', 'discharge_date', 'discharge_reason', 'referral_source']
+
+class ClinicalRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClinicalRecord
+        fields = ['record_type', 'description', 'created_at']
+
+class AssessmentSerializer(serializers.ModelSerializer):
+    confirmed_care_level = CareLevelSerializer(read_only=True)
+    class Meta:
+        model = Assessment
+        fields = ['adl_total_score', 'confirmed_care_level', 'created_at']
+
 
 class ResidentDetailSerializer(serializers.ModelSerializer):
     address = AddressSerializer(read_only=True)
@@ -66,14 +82,18 @@ class ResidentDetailSerializer(serializers.ModelSerializer):
     contacts = serializers.SerializerMethodField()
     insurances = serializers.SerializerMethodField()
     care_level_history = serializers.SerializerMethodField()
+    admissions = serializers.SerializerMethodField()
+    clinical_records = serializers.SerializerMethodField()
+    assessments = serializers.SerializerMethodField()
 
     class Meta:
         model = Resident
         fields = [
             'id', 'first_name', 'middle_name', 'last_name', 
             'date_of_birth', 'gender', 'marital_status', 'status',
-            'confidential_data', 'address', 'bed', 
-            'contacts', 'insurances', 'care_level_history'
+            'has_dnr', 'confidential_data', 'address', 'bed', 
+            'contacts', 'insurances', 'care_level_history',
+            'admissions', 'clinical_records', 'assessments'
         ]
 
     def get_confidential_data(self, obj):
@@ -92,3 +112,15 @@ class ResidentDetailSerializer(serializers.ModelSerializer):
     def get_care_level_history(self, obj):
         qs = obj.residentcarelevelhistory_set.all()
         return CareLevelHistorySerializer(qs, many=True).data
+
+    def get_admissions(self, obj):
+        qs = obj.admission_set.all()
+        return AdmissionSerializer(qs, many=True).data
+
+    def get_clinical_records(self, obj):
+        qs = obj.clinicalrecord_set.all()
+        return ClinicalRecordSerializer(qs, many=True).data
+
+    def get_assessments(self, obj):
+        qs = obj.assessment_set.all()
+        return AssessmentSerializer(qs, many=True).data

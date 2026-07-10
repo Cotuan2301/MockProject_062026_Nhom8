@@ -88,7 +88,7 @@ class Payment(models.Model):
     payment_method = models.CharField(max_length=20, choices=PaymentMethod.choices)
     amount = models.DecimalField(max_digits=18, decimal_places=2)
     payment_token_encrypted = models.CharField(max_length=512, null=True, blank=True)
-    received_by = models.ForeignKey('accounts.User', on_delete=models.PROTECT)
+    received_by = models.ForeignKey('accounts.User', on_delete=models.PROTECT, db_column='received_by')
     paid_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
