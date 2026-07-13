@@ -50,14 +50,8 @@ INSTALLED_APPS = [
     'apps.residents',
     'apps.rooms',
     'apps.staff',
-<<<<<<< Updated upstream
-=======
-    'rest_framework',
     'apps.incidents',
-    # Third-party
->>>>>>> Stashed changes
     'rest_framework',
-    'apps.incidents',
 ]
 
 MIDDLEWARE = [
