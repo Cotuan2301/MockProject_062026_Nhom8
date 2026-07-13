@@ -319,6 +319,14 @@ body {
     color: #888;
     font-size: 13px;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.breadcrumb svg {
+    width: 14px;
+    height: 14px;
+    color: #999;
 }
 .breadcrumb a {
     color: #666;
@@ -414,6 +422,15 @@ body {
     font-size: 13px;
     font-weight: 500;
     color: #333;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+.btn-outline svg {
+    width: 16px;
+    height: 16px;
+    color: #555;
 }
 .btn-outline:hover {
     background: #f9f9f9;
@@ -427,6 +444,14 @@ body {
     cursor: pointer;
     font-size: 13px;
     font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+.btn-primary-blue svg {
+    width: 16px;
+    height: 16px;
 }
 .btn-primary-blue:hover {
     background: #1D4ED8;

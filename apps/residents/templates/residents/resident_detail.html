@@ -3,7 +3,9 @@
 
 {% block content %}
 <div class="breadcrumb">
-  <a href="#">Residents</a> > {{ resident.first_name }} {{ resident.last_name}}
+  <a href="#">Residents</a>
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  <span>{{ resident.first_name }} {{ resident.last_name}}</span>
 </div>
 
 <div class="profile-header-wrap">
@@ -13,7 +15,7 @@
     </div>
     <div class="profile-info">
       <h1> {{ resident.first_name }} {{ resident.last_name}}</h1>
-      <p>DOB {{ resident.date_of_birth|date:"d/m/Y" }} &middot; Room {{ resident.bed.bed_number }} &middot; Resident ID {{ resident.id }}</p>
+      <p>DOB {{ resident.date_of_birth|date:"m/d/Y" }} &middot; Room {{ resident.bed.bed_number }} &middot; Resident ID {{ resident.id }}</p>
       <div class="profile-badges">
         <span class="badge badge-active">{{ resident.status }}</span>
         <span class="badge badge-dnr">{{ resident.has_dnr|yesno:"Yes, No" }} DNR</span>
@@ -24,9 +26,20 @@
   </div>
   
   <div class="profile-actions">
-    <button class="btn-outline">&#9998; Edit Profile</button>
-    <button class="btn-outline">&#9888; Report Incident</button>
-    <button class="btn-primary-blue">+ New Assessment</button>
+    <a href="{% url 'residents:resident_edit' pk=resident.pk %}" style="text-decoration: none;">
+      <button class="btn-outline">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+        Edit Profile
+      </button>
+    </a>
+    <button class="btn-outline">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      Report Incident
+    </button>
+    <button class="btn-primary-blue">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+      New Assessment
+    </button>
   </div>
 </div>
 
@@ -61,11 +74,11 @@
         </div>
         <div class="info-group">
           <label>Date of Birth</label>
-          <p>{{ resident.date_of_birth|date:"d/m/Y" }}</p>
+          <p>{{ resident.date_of_birth|date:"m/d/Y" }}</p>
         </div>
         <div class="info-group">
           <label>Admission Date</label>
-          <p>{{ resident.admission_set.first.admission_date|date:"d/m/Y" }}</p>
+          <p>{{ resident.admission_set.first.admission_date|date:"m/d/Y" }}</p>
         </div>
         <div class="info-group">
           <label>SSN</label>
@@ -89,11 +102,11 @@
         </div>
         <div class="info-group">
           <label>Emergency Contact</label>
-          <p>{{ resident.residentcontact_set.first.contact.first_name }} {{ resident.residentcontact_set.first.contact.last_name }} ({{ resident.residentcontact_set.first.relationship_type }})</p>
+          <p>{{ emergency_contact.contact.first_name }} {{ emergency_contact.contact.last_name }} ({{ emergency_contact.relationship_type }})</p>
         </div>
         <div class="info-group">
           <label>Phone</label>
-          <p>({{ resident.residentcontact_set.first.contact.phone_primary }}) {{ resident.residentcontact_set.first.contact.phone_secondary }}</p>
+          <p>({{ self_contact.contact.phone_primary }}) {{ self_contact.contact.phone_secondary }}</p>
         </div>
         <div class="info-group">
           <label>Payer Source</label>
@@ -110,15 +123,15 @@
       <div class="info-grid">
         <div class="info-group">
           <label>Name</label>
-          <p>{{ resident.residentcontact_set.first.contact.first_name }} {{ resident.residentcontact_set.first.contact.last_name }}</p>
+          <p>{{ poa_contact.contact.first_name }} {{ poa_contact.contact.last_name }}</p>
         </div>
         <div class="info-group">
           <label>Relationship</label>
-          <p>{{ resident.residentcontact_set.first.relationship_type }}</p>
+          <p>{{ poa_contact.relationship_type }}</p>
         </div>
         <div class="info-group">
           <label>Contact</label>
-          <p>({{ resident.residentcontact_set.first.contact.phone_primary }}) {{ resident.residentcontact_set.first.contact.phone_secondary }}</p>
+          <p>({{ poa_contact.contact.phone_primary }}) {{ poa_contact.contact.phone_secondary }}</p>
         </div>
         <div class="info-group">
           <label>DNR Flag</label>
@@ -182,7 +195,7 @@
         </tr>
         <tr>
           <td>Auth Start / End</td>
-          <td>{{ resident.residentinsurancepolicy_set.first.effective_from|date:"d/m/Y" }} / {{ resident.residentinsurancepolicy_set.first.effective_to|date:"d/m/Y" }}</td>
+          <td>{{ resident.residentinsurancepolicy_set.first.effective_from|date:"m/d/Y" }} / {{ resident.residentinsurancepolicy_set.first.effective_to|date:"m/d/Y" }}</td>
         </tr>
       </table>
     </div>

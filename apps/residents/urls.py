@@ -3,7 +3,8 @@ from .views import *
 
 app_name = 'residents'
 urlpatterns = [
-    path('add_resident/', add_resident, name="add_resident"),
-    
+    path('resident_create/', ResidentCreate.as_view(), name="resident_create"),
     path('resident_details/<int:pk>/', ResidentDetail.as_view(), name="resident_detail"),
+    path('resident_edit/<int:pk>/', ResidentEdit.as_view(), name="resident_edit"),
+    path('check_similar/', check_similar_resident, name="check_similar"),
 ]

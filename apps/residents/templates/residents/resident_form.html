@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% block title %}{% if is_edit %}Edit Resident{% else %}Add New Resident{% endif %}{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/resident_form.css' %}">
+
+<div class="edit-container">
+  
+  <div class="breadcrumb">
+    <a href="#">Residents</a> > {% if is_edit %}Edit Resident{% else %}Add New Resident{% endif %}
+  </div>
+  
+  <div class="page-header-wrap">
+    <h1 class="page-title">{% if is_edit %}Edit Resident{% else %}Add New Resident{% endif %}</h1>
+    {% if is_edit %}
+    <span class="badge-{{ resident.status|lower }}">{{ resident.status|title }}</span>
+    {% endif %}
+  </div>
+  {% if is_edit %}
+  <div class="page-subtitle">{{ resident.first_name }} {{ resident.last_name }} &middot; Room {{ resident.bed.room.room_number }}-{{ resident.bed.bed_number|slice:"3:" }}</div>
+  {% endif %}
+
+  <form method="post" action="{% if is_edit %}{% url 'residents:resident_edit' resident.pk %}{% else %}{% url 'residents:resident_create' %}{% endif %}">
+    {% csrf_token %}
+    
+    {% if form.errors %}
+    <div class="alert-warning" style="margin-bottom: 20px;">
+      <strong>Please correct the following errors:</strong>
+      <ul>
+      {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+          <li><b>{{ field|title }}</b>: {{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    
+    <div class="main-grid">
+      <!-- CỘT TRÁI (Main Form) -->
+      <div class="grid-left">
+        
+        <!-- Personal Information -->
+        <div class="section-card">
+          <div class="card-avatar">{% if is_edit %}{{ resident.first_name|slice:":1" }}{{ resident.last_name|slice:":1" }}{% else %}?{% endif %}</div>
+          <h2 class="section-title">Personal Information</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>First Name <span class="required">*</span></label>
+              <input type="text" name="first_name" value="{{ form.first_name.value|default_if_none:'' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name <span class="required">*</span></label>
+              <input type="text" name="last_name" value="{{ form.last_name.value|default_if_none:'' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select name="status">
+                <option value="PENDING" {% if form.status.value == 'PENDING' or not form.status.value %}selected{% endif %}>Pending</option>
+                <option value="ACTIVE" {% if form.status.value == 'ACTIVE' %}selected{% endif %}>Active</option>
+                <option value="DISCHARGED" {% if form.status.value == 'DISCHARGED' %}selected{% endif %}>Discharged</option>
+                <option value="DECEASED" {% if form.status.value == 'DECEASED' %}selected{% endif %}>Deceased</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Date of Birth <span class="required">*</span></label>
+              <input type="date" name="date_of_birth" value="{{ form.date_of_birth.value|date:'Y-m-d'|default_if_none:'' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Gender</label>
+              <select name="gender">
+                <option value="" {% if not form.gender.value %}selected{% endif %}>---</option>
+                <option value="MALE" {% if form.gender.value == 'MALE' %}selected{% endif %}>Male</option>
+                <option value="FEMALE" {% if form.gender.value == 'FEMALE' %}selected{% endif %}>Female</option>
+                <option value="OTHER" {% if form.gender.value == 'OTHER' %}selected{% endif %}>Other</option>
+                <option value="UNDISCLOSED" {% if form.gender.value == 'UNDISCLOSED' %}selected{% endif %}>Undisclosed</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Referral Source <span class="required">*</span></label>
+              <input type="text" name="referral_source" value="{{ form.referral_source.value|default_if_none:'' }}" required />
+            </div>
+
+            <div class="form-group">
+              <label>SSN <span class="required">*</span></label>
+              <input type="text" name="ssn" value="{{ form.ssn.value|default_if_none:'' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Marital Status</label>
+              <input type="text" name="marital_status" value="{{ form.marital_status.value|default_if_none:'' }}" />
+            </div>
+            <div class="form-group">
+              <label>Referring Facility</label>
+              <input type="text" name="referring_facility" value="{{ form.referring_facility.value|default_if_none:'' }}" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact & Address -->
+        <div class="section-card">
+          <h2 class="section-title">Contact & Address</h2>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Phone Primary <span class="required">*</span></label>
+              <input type="text" name="phone_primary" value="{{ form.phone_primary.value|default_if_none:'' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Phone Secondary</label>
+              <input type="text" name="phone_secondary" value="{{ form.phone_secondary.value|default_if_none:'' }}" />
+            </div>
+            <div class="form-group">
+              <label>Address Line 1</label>
+              <input type="text" name="address_line1" value="{{ form.address_line1.value|default_if_none:'' }}" />
+            </div>
+            <div class="form-group">
+              <label>Address Line 2</label>
+              <input type="text" name="address_line2" value="{{ form.address_line2.value|default_if_none:'' }}" />
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" name="address_city" value="{{ form.address_city.value|default_if_none:'' }}" />
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" name="address_state" value="{{ form.address_state.value|default_if_none:'' }}" />
+            </div>
+            <div class="form-group">
+              <label>Zip Code</label>
+              <input type="text" name="address_zip_code" value="{{ form.address_zip_code.value|default_if_none:'' }}" />
+            </div>
+          </div>
+          
+          <h2 class="section-title" style="margin-top: 24px;">Emergency Contact</h2>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>First Name <span class="required">*</span></label>
+              <input type="text" name="emergency_first_name" value="{{ form.emergency_first_name.value|default_if_none:'' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name <span class="required">*</span></label>
+              <input type="text" name="emergency_last_name" value="{{ form.emergency_last_name.value|default_if_none:'' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Phone Primary <span class="required">*</span></label>
+              <input type="text" name="emergency_phone_primary" value="{{ form.emergency_phone_primary.value|default_if_none:'' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Phone Secondary</label>
+              <input type="text" name="emergency_phone_secondary" value="{{ form.emergency_phone_secondary.value|default_if_none:'' }}" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Authorized Representative / POA -->
+        <div class="section-card">
+          <h2 class="section-title">Authorized Representative / POA</h2>
+          <div class="toggle-wrap">
+            <label class="toggle-switch">
+              <input type="checkbox" name="poa_on_file" id="poaToggle" {% if form.poa_on_file.value %}checked{% endif %} />
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" id="poaStatusText">{% if form.poa_on_file.value %}Yes — POA on file{% else %}No — POA not on file{% endif %}</span>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" name="poa_first_name" id="poa_first_name" value="{{ form.poa_first_name.value|default_if_none:'' }}" {% if not form.poa_on_file.value %}disabled{% endif %} />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" name="poa_last_name" id="poa_last_name" value="{{ form.poa_last_name.value|default_if_none:'' }}" {% if not form.poa_on_file.value %}disabled{% endif %} />
+            </div>
+            <div class="form-group">
+              <label>Phone Primary</label>
+              <input type="text" name="poa_phone_primary" id="poa_phone_primary" value="{{ form.poa_phone_primary.value|default_if_none:'' }}" {% if not form.poa_on_file.value %}disabled{% endif %} />
+            </div>
+            <div class="form-group">
+              <label>Phone Secondary</label>
+              <input type="text" name="poa_phone_secondary" id="poa_phone_secondary" value="{{ form.poa_phone_secondary.value|default_if_none:'' }}" {% if not form.poa_on_file.value %}disabled{% endif %} />
+            </div>
+            <div class="form-group">
+              <label>Relationship</label>
+              <input type="text" name="poa_relationship" id="poa_relationship" value="{{ form.poa_relationship.value|default_if_none:'' }}" {% if not form.poa_on_file.value %}disabled{% endif %} />
+            </div>
+          </div>
+        </div>
+
+        <!-- Insurance / Payer -->
+        <div class="section-card">
+          <h2 class="section-title">Insurance / Payer</h2>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Provider Name <span class="required">*</span></label>
+              <input type="text" name="insurance_provider_name" value="{{ form.insurance_provider_name.value|default_if_none:'' }}" required />
+            </div>
+            <div class="form-group">
+              <label>Provider Type</label>
+              <select name="insurance_provider_type">
+                <option value="" {% if not form.insurance_provider_type.value %}selected{% endif %}>---</option>
+                <option value="MEDICARE" {% if form.insurance_provider_type.value == 'MEDICARE' %}selected{% endif %}>Medicare</option>
+                <option value="MEDICAID" {% if form.insurance_provider_type.value == 'MEDICAID' %}selected{% endif %}>Medicaid</option>
+                <option value="PRIVATE" {% if form.insurance_provider_type.value == 'PRIVATE' %}selected{% endif %}>Private</option>
+                <option value="OTHER" {% if form.insurance_provider_type.value == 'OTHER' %}selected{% endif %}>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Policy Number</label>
+              <input type="text" name="policy_number" value="{{ form.policy_number.value|default_if_none:'' }}" />
+            </div>
+            <div class="form-group">
+              <label>Effective From</label>
+              <input type="date" name="policy_effective_from" value="{{ form.policy_effective_from.value|date:'Y-m-d'|default_if_none:'' }}" />
+            </div>
+            <div class="form-group">
+              <label>Effective To</label>
+              <input type="date" name="policy_effective_to" value="{{ form.policy_effective_to.value|date:'Y-m-d'|default_if_none:'' }}" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Do Not Resuscitate (DNR) -->
+        <div class="section-card">
+          <h2 class="section-title">Do Not Resuscitate (DNR)</h2>
+          <div class="toggle-wrap" style="margin-bottom: 0;">
+            <label class="toggle-switch">
+              <input type="checkbox" name="has_dnr" id="dnrToggle" {% if form.has_dnr.value %}checked{% endif %} />
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" id="dnrStatusText">{% if form.has_dnr.value %}Yes — DNR active{% else %}No — DNR not active{% endif %}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CỘT PHẢI (Validation & Info) -->
+      <div class="grid-right">
+        
+        <!-- Warning Alert -->
+        <div id="duplicateWarning" class="alert-warning" style="display: none;">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          <div>
+            <strong>Similar resident name exists.</strong>
+            Please verify before saving.
+          </div>
+        </div>
+
+        <!-- Validation Card -->
+        <div class="section-card">
+          <h2 class="section-title" style="margin-bottom: 16px;">Validation</h2>
+          <ul class="validation-list">
+            <li class="validation-item" id="val-req">
+              <div class="validation-icon">&#10003;</div>
+              Required fields complete
+            </li>
+            <li class="validation-item" id="val-ssn">
+              <div class="validation-icon">&#10003;</div>
+              SSN format valid
+            </li>
+            <li class="validation-item" id="val-em">
+              <div class="validation-icon">&#10003;</div>
+              Emergency contact required
+            </li>
+          </ul>
+        </div>
+
+        <!-- Role Card -->
+        <div class="section-card">
+          <h2 class="section-title" style="margin-bottom: 12px;">Role</h2>
+          <div class="role-title">{{ request.user.groups.first.name|default:'Staff Member'|title }}</div>
+          <div class="role-desc">Can create/edit intake fields.<br/>Clinical fields are read-only here.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Action Bar -->
+    <div class="bottom-bar">
+      <div class="bottom-bar-left">
+        <button type="button" class="btn btn-outline">Discharge</button>
+        <button type="button" class="btn btn-outline">Change Status</button>
+      </div>
+      <div class="bottom-bar-right">
+        <a href="{% url 'residents:resident_detail' resident.pk %}"><button type="button" class="btn btn-outline">Cancel</button></a>
+        <button type="submit" class="btn btn-primary">Save Resident</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<script src="{% static 'js/resident_form.js' %}"></script>
+{% endblock %}
