@@ -1,14 +1,11 @@
-# pyrefly: ignore [missing-import]
 from django.urls import path
 from . import views
 
-app_name = 'residents'
-
+# TODO: Uncomment khi views được implement
 urlpatterns = [
-    path('add_resident/', views.add_resident, name="add_resident"),
-    path('residents/', views.resident_list, name='list')
+    # path('add_resident/', views.add_resident, name="add_resident"),
+    # path('residents/', views.resident_list, name='list'),
 ]
-
 
 
 

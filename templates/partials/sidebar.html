@@ -1,7 +1,7 @@
 <nav class="admin-sidebar" id="adminSidebar" aria-label="Main navigation">
     <div class="sidebar-nav">
 
-        <!-- ── No group: Dashboard ── -->
+        <!-- ── Dashboard ── -->
         <div class="sidebar-group">
             <a href="#"
                class="sidebar-link {% if active_menu == 'dashboard' %}active{% endif %}"
@@ -66,13 +66,6 @@
                 Equipment
             </a>
 
-            <a href="{% url 'incidents:list' %}"
-               class="sidebar-link {% if active_menu == 'incident_severity' %}active{% endif %}"
-               id="nav-incident-severity">
-                <i class="fas fa-shield-halved sidebar-icon"></i>
-                Incident Severity
-            </a>
-
             <a href="#"
                class="sidebar-link {% if active_menu == 'sla_config' %}active{% endif %}"
                id="nav-sla-config">
@@ -109,11 +102,11 @@
             </a>
         </div>
 
-    </div><!-- /sidebar-nav -->
+    </div>
 
     <!-- ── Footer: Logout ── -->
     <div class="sidebar-footer">
-        <a href="{% url 'accounts:login' %}"
+        <a href="#"
            class="sidebar-link"
            id="nav-logout">
             <i class="fas fa-right-from-bracket sidebar-icon"></i>
