@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# Đọc file .env
+# Read .env file
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# lấy DEBUG từ .env
+# Get DEBUG from .env
 DEBUG = os.environ.get('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['*']
@@ -142,12 +142,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# Cấu hình Media (Upload ảnh, file...)
+# Media configuration (Upload images, files...)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Cấu hình Static (File CSS, JS, Images của Django)
+# Static configuration (Django CSS, JS, Images files)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Định nghĩa Model Auto Field
+# Define Model Auto Field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

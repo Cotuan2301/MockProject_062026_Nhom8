@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Step 2: Admission Form{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/screening_form.css' %}">
+<link rel="stylesheet" href="{% static 'css/admission_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="breadcrumb">
+  Residents &gt; New Admission Flow
+</div>
+
+<div class="stepper-container">
+  <div class="step completed">1 Pre-Screening &nbsp; &check;</div>
+  <div class="step active">2 Admission Form</div>
+  <div class="step disabled">3 Initial Assessment</div>
+</div>
+
+<div class="page-header mb-10">
+  <h2>Step 2: Admission Form</h2>
+</div>
+
+<div class="resident-info-box">
+  <div>
+    <div>Resident: {{ resident.first_name }} {{ resident.last_name }} &middot; DOB {{ resident.date_of_birth|date:"m/d/Y" }}</div>
+    <div class="mt-20">Referral: {{ resident.referral_source|default:"N/A" }} &mdash; {{ resident.referral_facility|default:"N/A" }}</div>
+  </div>
+  <div class="read-only-tag">(auto-populated, read-only)</div>
+</div>
+
+<form id="admissionForm">
+  {% csrf_token %}
+  <input type="hidden" id="resident_id" value="{{ resident.id }}">
+  <div id="errorBanner" class="alert-warning mb-20" style="display: none;"></div>
+
+  <div class="split-layout">
+    <!-- Left Column -->
+    <div class="left-col">
+      
+      <!-- Admission Details -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Admission Details</h3>
+        </div>
+        <div class="card-body row">
+          <div class="col-50 form-group">
+            <label>Admission Date <span class="text-danger">*</span></label>
+            <input type="date" id="admission_date" required>
+          </div>
+          <div class="col-50 form-group">
+            <label>Room Assignment <span class="text-danger">*</span></label>
+            <select id="room_assignment" required>
+              <option value="">-- Select Room --</option>
+              {% for bed in beds %}
+                <option value="{{ bed.id }}">{{ bed.room.room_number }}-{{ bed.bed_number }} (available)</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payer Source -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Payer Source</h3>
+        </div>
+        <div class="card-body row">
+          <div class="col-50 form-group mb-0">
+            <label>Payer Source <span class="text-danger">*</span></label>
+            <select id="payer_source" required>
+              <option value="">-- Select Payer --</option>
+              <option value="MEDICARE">Medicare</option>
+              <option value="MEDICAID">Medicaid</option>
+              <option value="PRIVATE">Private Insurance</option>
+              <option value="SELF">Self Pay</option>
+            </select>
+          </div>
+          <div class="col-50 form-group mb-0">
+            <label>Payer Name</label>
+            <input type="text" id="payer_name" placeholder="e.g. Medicare Part A/B">
+          </div>
+        </div>
+      </div>
+
+      <!-- Care Team in Charge -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Care Team in Charge</h3>
+        </div>
+        <div class="card-body row">
+          <div class="col-50 form-group">
+            <label>Physician in Charge <span class="text-danger">*</span></label>
+            <input type="text" id="physician" required placeholder="e.g. Dr. Alan Cho, MD">
+          </div>
+          <div class="col-50 form-group">
+            <label>Nurse in Charge <span class="text-danger">*</span></label>
+            <input type="text" id="nurse" required placeholder="e.g. Anna Lee, RN">
+          </div>
+          <div class="col-50 form-group mb-0">
+            <label>Physician License / NPI</label>
+            <input type="text" id="physician_npi" placeholder="e.g. CA-MD-88231 / 1720493857">
+          </div>
+          <div class="col-50 form-group mb-0">
+            <label>Order Date / Time</label>
+            <input type="datetime-local" id="order_date">
+          </div>
+        </div>
+      </div>
+
+      <!-- Signed Consents -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Signed Consents <span class="text-secondary">(required before submission)</span></h3>
+        </div>
+        <div class="card-body">
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <span style="font-size: 13px; color: #64748b;">Verification method:</span>
+            <div class="radio-group mb-0">
+              <label class="radio-label">
+                <input type="radio" name="verification_method" value="esignature" checked> e-Signature popup
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="verification_method" value="upload"> Upload scanned document
+              </label>
+            </div>
+          </div>
+          
+          <!-- Hidden file input for upload -->
+          <div id="upload_container" class="mt-20" style="display: none;">
+            <label style="font-size: 13px; color: #64748b; margin-bottom: 5px; display: block;">Upload Document (PDF/Image):</label>
+            <input type="file" id="consent_file" name="consent_file" accept=".pdf,image/*" style="border: 1px solid #e2e8f0; padding: 5px; border-radius: 4px; width: 100%;">
+          </div>
+
+          <div class="consent-grid">
+            <label class="consent-label">
+              <input type="checkbox" name="consents" value="Admission Agreement"> 
+              <span style="flex: 1;">Admission Agreement</span>
+              <span class="badge-required">Required</span>
+            </label>
+            <label class="consent-label">
+              <input type="checkbox" name="consents" value="HIPAA Notice"> 
+              <span style="flex: 1;">HIPAA Notice of Privacy Pract...</span>
+              <span class="badge-required">Required</span>
+            </label>
+            <label class="consent-label">
+              <input type="checkbox" name="consents" value="Financial Responsibility"> 
+              <span style="flex: 1;">Financial Responsibility Agree...</span>
+              <span class="badge-required">Required</span>
+            </label>
+            <label class="consent-label">
+              <input type="checkbox" name="consents" value="Advance Directive"> 
+              <span style="flex: 1;">Advance Directive Acknowled...</span>
+              <span class="badge-required">Required</span>
+            </label>
+            <label class="consent-label">
+              <input type="checkbox" name="consents" value="Arbitration Agreement"> 
+              <span style="flex: 1;">Arbitration Agreement</span>
+              <span class="badge-required">Required</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+<!-- e-Signature Modal -->
+<div id="signatureModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h3 class="mt-0">e-Signature</h3>
+    <p class="text-secondary mb-15">Please sign below to confirm all consents.</p>
+    <div class="signature-container">
+      <canvas id="signatureCanvas" width="460" height="200" class="signature-canvas"></canvas>
+    </div>
+    <div class="mt-15" style="display: flex; justify-content: space-between;">
+      <button class="btn btn-secondary" id="btnClearSignature">Clear</button>
+      <div>
+        <button class="btn btn-secondary" id="btnCancelSignature" style="margin-right: 10px;">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveSignature">Save & Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="right-col">
+      <!-- Role -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Role</h3>
+        </div>
+        <div class="card-body">
+          <strong>Admission Staff</strong><br>
+          <span class="text-secondary">Completes admission + consent capture only.</span>
+        </div>
+      </div>
+      
+      <!-- Order Accountability -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Order Accountability (A-21)</h3>
+        </div>
+        <div class="card-body">
+          <div style="font-size: 13px; color: #334155; line-height: 1.6;">
+            Physician: <span id="display_physician_name">--</span><br>
+            State License: <span id="display_physician_license">--</span><br>
+            NPI: <span id="display_physician_npi">--</span><br>
+            <span class="text-secondary" style="font-style: italic;">e-Sign recorded in audit log.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Actions -->
+  <div class="bottom-actions">
+    <a href="{% url 'medical:screening-create' resident.id %}" class="btn-outline">
+      &larr; Back
+    </a>
+    <div style="display: flex; gap: 15px;">
+      <button type="button" class="btn-outline-draft">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+        Save Draft
+      </button>
+      <button type="submit" class="btn-primary-blue" id="btnConfirmAdmission">
+        Confirm Admission
+      </button>
+    </div>
+  </div>
+
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admission_form.js' %}"></script>
+{% endblock %}

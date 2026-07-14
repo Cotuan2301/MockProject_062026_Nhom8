@@ -39,11 +39,23 @@ class PreAdmissionScreening(models.Model):
         DRAFT = 'DRAFT', 'Draft'
         COMPLETED = 'COMPLETED', 'Completed'
         REJECTED = 'REJECTED', 'Rejected'
+        
+    class AcuityLevel(models.TextChoices):
+        LOW = 'LOW', 'Low'
+        MODERATE = 'MODERATE', 'Moderate'
+        HIGH = 'HIGH', 'High'
 
     status = models.CharField(max_length=20, choices=Status.choices)
+    acuity_level = models.CharField(max_length=20, choices=AcuityLevel.choices, null=True, blank=True)
+    estimated_care_hours = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
+    clinical_needs = models.JSONField(default=list, blank=True)
+    special_requirements = models.TextField(null=True, blank=True)
+    compliance_flagged = models.BooleanField(default=False)
+    override_reason = models.TextField(null=True, blank=True)
     resident = models.ForeignKey('residents.Resident', on_delete=models.CASCADE)
     screened_by = models.ForeignKey('accounts.User', on_delete=models.PROTECT, db_column='screened_by')
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'pre_admission_screenings'
