@@ -35,7 +35,9 @@
     <div class="admin-layout">
 
         <!-- Left sidebar -->
+        {% block sidebar %}
         {% include 'partials/sidebar.html' %}
+        {% endblock %}
 
         <!-- Dimmed overlay — mobile only (click to close sidebar) -->
         <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
