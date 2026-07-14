@@ -1,9 +1,10 @@
-/* Reset cơ bản và Fluid Grid */
+/* Basic Reset and Fluid Grid */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -45,7 +46,7 @@ body {
     padding: 20px;
     font-size: 18px;
     font-weight: 700;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-menu {
@@ -65,18 +66,18 @@ body {
 }
 
 .sidebar-menu li:hover {
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-menu li.active {
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     font-weight: 600;
     border-left: 4px solid var(--secondary-color);
 }
 
 .sidebar-footer {
     padding: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
 }
 
@@ -99,7 +100,8 @@ body {
     padding: 0 24px;
 }
 
-.navbar-left, .navbar-right {
+.navbar-left,
+.navbar-right {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -178,7 +180,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* Cảnh báo trùng tên */
+/* Duplicate name warning */
 .alert-warning {
     background-color: #fff8e1;
     border-left: 4px solid #f0ad4e;
@@ -189,7 +191,22 @@ body {
     margin-bottom: 20px;
 }
 
-/* Tiêu đề từng section */
+/* Utilities */
+.d-none {
+    display: none !important;
+}
+.mb-0 { margin-bottom: 0 !important; }
+.mb-10 { margin-bottom: 10px !important; }
+.mb-15 { margin-bottom: 15px !important; }
+.mb-20 { margin-bottom: 20px !important; }
+.mt-20 { margin-top: 20px !important; }
+.text-decoration-none { text-decoration: none !important; }
+.gap-12 { gap: 12px !important; }
+.inline-block { display: inline-block !important; }
+.text-bold { font-weight: 600 !important; }
+.text-secondary { color: #64748b !important; font-size: 13px !important; }
+
+/* Section Titles */
 .section-title {
     font-size: 13px;
     letter-spacing: 0.5px;
@@ -197,6 +214,7 @@ body {
     margin-top: 25px;
     margin-bottom: 8px;
 }
+
 .container hr {
     border: none;
     border-top: 1px solid #e2e2e2;
@@ -205,9 +223,10 @@ body {
 
 .row {
     display: flex;
-    flex-wrap: wrap; 
-    margin: 0 -10px; 
+    flex-wrap: wrap;
+    margin: 0 -10px;
 }
+
 .col-50 {
     width: 50%;
     padding: 0 10px;
@@ -221,41 +240,49 @@ body {
     padding: 0 10px;
     margin-bottom: 15px;
 }
+
 .form-group label {
     margin-bottom: 5px;
     font-size: 14px;
     color: #555;
 }
-.form-group input, .form-group select {
+
+.form-group input,
+.form-group select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
     width: 100%;
 }
-.form-group input:disabled, .form-group select:disabled {
+
+.form-group input:disabled,
+.form-group select:disabled {
     background-color: #f5f5f5;
     color: #aaa;
     cursor: not-allowed;
 }
-.form-group input:focus, .form-group select:focus {
+
+.form-group input:focus,
+.form-group select:focus {
     outline: none;
     border-color: #222;
 }
 
-/* Lỗi validate inline */
+/* Inline validation error */
 .form-group .error-text {
     color: #d9534f;
     font-size: 12px;
     min-height: 14px;
     margin-top: 4px;
 }
+
 .form-group.has-error input,
 .form-group.has-error select {
     border-color: #d9534f;
 }
 
-/* Khối bọc xám cho Emergency Contact */
+/* Gray wrapper for Emergency Contact */
 .section-box {
     background-color: #fafafa;
     border: 1px solid #e5e5e5;
@@ -265,13 +292,14 @@ body {
 }
 
 
-/* Nút bấm */
+/* Buttons */
 .form-actions {
     margin-top: 25px;
     display: flex;
     align-items: center;
     gap: 12px;
 }
+
 .btn-primary {
     background: var(--primary-color);
     color: white;
@@ -281,9 +309,11 @@ body {
     cursor: pointer;
     font-size: 14px;
 }
+
 .btn-primary:hover {
     background: #153427;
 }
+
 .btn-secondary {
     background: #fff;
     color: #333;
@@ -293,18 +323,21 @@ body {
     cursor: pointer;
     font-size: 14px;
 }
+
 .btn-secondary:hover {
     background: #f5f5f5;
 }
+
 .required-note {
     color: #d9534f;
     font-size: 13px;
 }
 
-/* Màn hình Mobile (dưới 768px) */
+/* Mobile Screen (under 768px) */
 @media screen and (max-width: 767px) {
     .col-50 {
-        width: 100%; /* Ép tất cả các cột thành 100% trên điện thoại */
+        width: 100%;
+        /* Force all columns to 100% on mobile */
     }
 
     .form-actions {
@@ -312,9 +345,7 @@ body {
     }
 }
 
-/* ------------------------------------- */
-/* Tùy chỉnh riêng cho Resident Detail  */
-/* ------------------------------------- */
+/* Customization for Resident Detail  */
 .breadcrumb {
     color: #888;
     font-size: 13px;
@@ -323,15 +354,18 @@ body {
     align-items: center;
     gap: 6px;
 }
+
 .breadcrumb svg {
     width: 14px;
     height: 14px;
     color: #999;
 }
+
 .breadcrumb a {
     color: #666;
     text-decoration: none;
 }
+
 .breadcrumb a:hover {
     text-decoration: underline;
 }
@@ -343,11 +377,13 @@ body {
     align-items: flex-start;
     margin-bottom: 24px;
 }
+
 .profile-header-left {
     display: flex;
     gap: 16px;
     align-items: flex-start;
 }
+
 .profile-avatar {
     width: 64px;
     height: 64px;
@@ -361,47 +397,56 @@ body {
     color: #555;
     background-color: #fff;
 }
+
 .profile-info h1 {
     font-size: 24px;
     font-weight: 700;
     margin: 0 0 4px 0;
 }
+
 .profile-info p {
     color: #666;
     font-size: 13px;
     margin: 0 0 8px 0;
 }
+
 .profile-badges {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
 }
+
 .badge {
     padding: 2px 10px;
     border-radius: 12px;
     font-size: 12px;
     font-weight: 500;
 }
+
 .badge-active {
     background-color: #E8F5E9;
     color: #2E7D32;
     border: 1px solid #C8E6C9;
 }
+
 .badge-dnr {
     background-color: #E8F5E9;
     color: #2E7D32;
     border: 1px solid #C8E6C9;
 }
+
 .badge-level {
     background-color: #FFF3E0;
     color: #E65100;
     border: 1px solid #FFE0B2;
 }
+
 .badge-medicaid {
     background-color: #F5F5F5;
     color: #616161;
     border: 1px solid #E0E0E0;
 }
+
 .badge-allergy {
     background-color: #FFEBEE;
     color: #C62828;
@@ -413,6 +458,7 @@ body {
     display: flex;
     gap: 8px;
 }
+
 .btn-outline {
     background: white;
     border: 1px solid #ccc;
@@ -427,34 +473,47 @@ body {
     gap: 6px;
     transition: all 0.2s ease;
 }
+
 .btn-outline svg {
     width: 16px;
     height: 16px;
     color: #555;
 }
+
 .btn-outline:hover {
     background: #f9f9f9;
 }
+
 .btn-primary-blue {
-    background: #2563EB;
-    border: 1px solid #2563EB;
+    background: var(--primary-color);
+    border: 1px solid var(--primary-color);
     color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(30, 74, 56, 0.1);
 }
+
 .btn-primary-blue svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
 }
+
 .btn-primary-blue:hover {
-    background: #1D4ED8;
+    background: #143628; /* Darker green */
+    border-color: #143628;
+    box-shadow: 0 4px 12px rgba(30, 74, 56, 0.2);
+    transform: translateY(-1px);
+}
+.btn-primary-blue:hover svg {
+    transform: translateX(3px);
 }
 
 /* Tabs */
@@ -462,6 +521,7 @@ body {
     border-bottom: 1px solid #e0e0e0;
     margin-bottom: 24px;
 }
+
 .tabs-list {
     display: flex;
     gap: 24px;
@@ -469,12 +529,14 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .tabs-list li {
     padding: 8px 0 12px;
     font-size: 14px;
     color: #666;
     cursor: pointer;
 }
+
 .tabs-list li.active {
     color: #2563EB;
     font-weight: 600;
@@ -496,17 +558,20 @@ body {
     padding: 20px;
     margin-bottom: 20px;
 }
+
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
 }
+
 .card-title {
     font-size: 16px;
     font-weight: 600;
     margin: 0;
 }
+
 .card-subtitle {
     font-size: 11px;
     color: #888;
@@ -518,17 +583,20 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 16px 24px;
 }
+
 .info-group label {
     display: block;
     font-size: 12px;
     color: #666;
     margin-bottom: 4px;
 }
+
 .info-group p {
     font-size: 14px;
     font-weight: 600;
     margin: 0;
 }
+
 .info-group.full-width {
     grid-column: span 2;
 }
@@ -539,11 +607,13 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .diagnosis-list li {
     font-size: 13px;
     color: #333;
     margin-bottom: 8px;
 }
+
 .diagnosis-list li:before {
     content: "•";
     margin-right: 8px;
@@ -555,13 +625,16 @@ body {
     width: 100%;
     border-collapse: collapse;
 }
+
 .info-table td {
     padding: 6px 0;
     font-size: 13px;
 }
+
 .info-table td:first-child {
     color: #666;
 }
+
 .info-table td:last-child {
     font-weight: 600;
     text-align: right;
@@ -576,31 +649,39 @@ body {
     display: inline-block;
     margin-top: 8px;
 }
+
 .loc-link:hover {
     text-decoration: underline;
 }
+
 /* Sidebar Collapsed State */
 .sidebar {
     transition: width 0.3s ease;
 }
+
 .sidebar-collapsed .sidebar {
     width: 64px;
 }
+
 .sidebar-collapsed .sidebar-brand-text {
     opacity: 0;
     pointer-events: none;
-    display: none; /* fallback */
+    display: none;
+    /* fallback */
 }
+
 .sidebar-collapsed .menu-text {
     display: none;
 }
+
 .sidebar-collapsed .menu-text-soon {
     display: none;
 }
+
 .sidebar-collapsed .sidebar-footer {
     justify-content: center;
 }
+
 .sidebar-collapsed .sidebar-footer .menu-text {
     display: none;
 }
-

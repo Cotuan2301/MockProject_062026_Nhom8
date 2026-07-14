@@ -38,7 +38,7 @@
     {% endif %}
     
     <div class="main-grid">
-      <!-- CỘT TRÁI (Main Form) -->
+      <!-- LEFT COLUMN (Main Form) -->
       <div class="grid-left">
         
         <!-- Personal Information -->
@@ -92,8 +92,12 @@
               <input type="text" name="marital_status" value="{{ form.marital_status.value|default_if_none:'' }}" />
             </div>
             <div class="form-group">
-              <label>Referring Facility</label>
-              <input type="text" name="referring_facility" value="{{ form.referring_facility.value|default_if_none:'' }}" />
+              <label>Referral Facility</label>
+              <input type="text" name="referral_facility" value="{{ form.referral_facility.value|default_if_none:'' }}" />
+            </div>
+            <div class="form-group">
+              <label>Referred By</label>
+              <input type="text" name="referred_by" value="{{ form.referred_by.value|default_if_none:'' }}" />
             </div>
           </div>
         </div>
@@ -210,12 +214,16 @@
               <input type="text" name="policy_number" value="{{ form.policy_number.value|default_if_none:'' }}" />
             </div>
             <div class="form-group">
-              <label>Effective From</label>
-              <input type="date" name="policy_effective_from" value="{{ form.policy_effective_from.value|date:'Y-m-d'|default_if_none:'' }}" />
+              <label>Policy Effective From</label>
+              <input type="date" name="policy_effective_from" value="{{ form.policy_effective_from.value|default_if_none:''|date:'Y-m-d' }}" />
             </div>
             <div class="form-group">
-              <label>Effective To</label>
-              <input type="date" name="policy_effective_to" value="{{ form.policy_effective_to.value|date:'Y-m-d'|default_if_none:'' }}" />
+              <label>Policy Effective To</label>
+              <input type="date" name="policy_effective_to" value="{{ form.policy_effective_to.value|default_if_none:''|date:'Y-m-d' }}" />
+            </div>
+            <div class="form-group">
+              <label>Auth Number</label>
+              <input type="text" name="auth_number" value="{{ form.auth_number.value|default_if_none:'' }}" />
             </div>
           </div>
         </div>
@@ -234,7 +242,7 @@
 
       </div>
 
-      <!-- CỘT PHẢI (Validation & Info) -->
+      <!-- RIGHT COLUMN (Validation & Info) -->
       <div class="grid-right">
         
         <!-- Warning Alert -->
@@ -282,7 +290,11 @@
         <button type="button" class="btn btn-outline">Change Status</button>
       </div>
       <div class="bottom-bar-right">
-        <a href="{% url 'residents:resident_detail' resident.pk %}"><button type="button" class="btn btn-outline">Cancel</button></a>
+        {% if resident and resident.pk %}
+          <a href="{% url 'residents:resident_detail' resident.pk %}"><button type="button" class="btn btn-outline">Cancel</button></a>
+        {% else %}
+          <a href="javascript:history.back()"><button type="button" class="btn btn-outline">Cancel</button></a>
+        {% endif %}
         <button type="submit" class="btn btn-primary">Save Resident</button>
       </div>
     </div>

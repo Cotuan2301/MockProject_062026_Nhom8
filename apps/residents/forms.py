@@ -2,10 +2,6 @@ from django import forms
 from .models import Resident
 
 class ResidentForm(forms.ModelForm):
-    # Admission / Facility
-    referral_source = forms.CharField(required=False)
-    referring_facility = forms.CharField(required=False)
-    
     # Sensitive Info
     ssn = forms.CharField(required=False)
     
@@ -40,12 +36,14 @@ class ResidentForm(forms.ModelForm):
     policy_number = forms.CharField(required=False)
     policy_effective_from = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
     policy_effective_to = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    auth_number = forms.CharField(max_length=100, required=False)
     
     class Meta:
         model = Resident
         fields = [
             'first_name', 'last_name', 'status', 'date_of_birth', 
-            'gender', 'marital_status', 'has_dnr'
+            'gender', 'marital_status', 'has_dnr',
+            'referral_source', 'referral_facility', 'referred_by'
         ]
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),

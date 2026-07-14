@@ -127,7 +127,6 @@ class ResidentDetailSerializer(serializers.ModelSerializer):
 
 class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
     ssn = serializers.CharField(write_only=True, required=False, allow_blank=True, allow_null=True)
-    referral_source = serializers.CharField(write_only=True, required=False, allow_blank=True, allow_null=True)
     
     # Address
     address_line1 = serializers.CharField(write_only=True, required=False, allow_blank=True, allow_null=True)
@@ -159,23 +158,25 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
     policy_number = serializers.CharField(write_only=True, required=False, allow_blank=True, allow_null=True)
     policy_effective_from = serializers.DateField(write_only=True, required=False, allow_null=True)
     policy_effective_to = serializers.DateField(write_only=True, required=False, allow_null=True)
+    auth_number = serializers.CharField(write_only=True, required=False, allow_blank=True, allow_null=True)
 
     class Meta:
         model = Resident
         fields = [
             'id', 'first_name', 'last_name', 'date_of_birth', 'gender', 
             'marital_status', 'status', 'has_dnr', 
-            'ssn', 'referral_source', 
+            'ssn', 'referral_source', 'referral_facility', 'referred_by',
             'address_line1', 'address_line2', 'address_city', 'address_state', 'address_zip_code',
             'phone_primary', 'phone_secondary', 
             'emergency_first_name', 'emergency_last_name', 'emergency_phone_primary', 'emergency_phone_secondary',
             'poa_first_name', 'poa_last_name', 'poa_phone_primary', 'poa_phone_secondary', 'poa_relationship',
-            'insurance_provider_name', 'insurance_provider_type', 'policy_number', 'policy_effective_from', 'policy_effective_to'
+            'insurance_provider_name', 'insurance_provider_type', 'policy_number', 'policy_effective_from', 'policy_effective_to',
+            'auth_number'
         ]
 
     def validate(self, data):
-        # Kiểm tra các trường bắt buộc (Dấu * đỏ trên màn hình)
-        if not self.instance: # Chỉ bắt lỗi khi Create (Tạo mới)
+        # Validate required fields (Red * on screen)
+        if not self.instance: # Only validate on Create
             required_custom_fields = {
                 'ssn': 'SSN is required.',
                 'referral_source': 'Referral Source is required.',
@@ -214,13 +215,13 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
         ssn = data.get('ssn', None)
         if ssn:
             import re
-            # Kiểm tra format (VD: 123-45-6789 hoặc XXX-XX-6789)
+            # Check format (e.g.: 123-45-6789 or XXX-XX-6789)
             if not re.match(r'^[\dX]{3}-[\dX]{2}-[\dX]{4}$', ssn, re.IGNORECASE):
                 raise serializers.ValidationError({
                     "ssn": "Invalid SSN format. Expected format: XXX-XX-XXXX."
                 })
             
-            # Kiểm tra trùng lặp SSN
+            # Check SSN duplicate
             ssn_duplicates = ResidentSensitiveInfo.objects.filter(ssn_encrypted=ssn)
             if self.instance:
                 ssn_duplicates = ssn_duplicates.exclude(resident=self.instance)
@@ -244,11 +245,12 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
                 
         return data
 
+    from django.db import transaction
+    @transaction.atomic
     def create(self, validated_data):
         from apps.rooms.models import Facility
         
         ssn = validated_data.pop('ssn', None)
-        referral_source = validated_data.pop('referral_source', None)
         
         address_line1 = validated_data.pop('address_line1', None)
         address_line2 = validated_data.pop('address_line2', None)
@@ -275,6 +277,7 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
         policy_number = validated_data.pop('policy_number', None)
         policy_effective_from = validated_data.pop('policy_effective_from', None)
         policy_effective_to = validated_data.pop('policy_effective_to', None)
+        auth_number = validated_data.pop('auth_number', None)
 
         address_obj = None
         if address_line1 or address_city or address_state:
@@ -292,14 +295,6 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
         
         if ssn:
             ResidentSensitiveInfo.objects.create(resident=resident, ssn_encrypted=ssn)
-            
-        if referral_source:
-            facility = Facility.objects.first()
-            if facility:
-                Admission.objects.create(
-                    resident=resident, facility=facility, 
-                    referral_source=referral_source, admission_date=resident.date_of_birth
-                )
                 
         if phone_primary or phone_secondary:
             c_self = Contact.objects.create(
@@ -341,14 +336,15 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
                     insurance_provider=provider,
                     policy_number_encrypted=policy_number or '',
                     effective_from=policy_effective_from or resident.date_of_birth,
-                    effective_to=policy_effective_to
+                    effective_to=policy_effective_to,
+                    auth_number=auth_number
                 )
-                
         return resident
 
+    from django.db import transaction
+    @transaction.atomic
     def update(self, instance, validated_data):
         ssn = validated_data.pop('ssn', None)
-        referral_source = validated_data.pop('referral_source', None)
         
         address_line1 = validated_data.pop('address_line1', None)
         address_line2 = validated_data.pop('address_line2', None)
@@ -375,6 +371,7 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
         policy_number = validated_data.pop('policy_number', None)
         policy_effective_from = validated_data.pop('policy_effective_from', None)
         policy_effective_to = validated_data.pop('policy_effective_to', None)
+        auth_number = validated_data.pop('auth_number', None)
         
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
@@ -405,7 +402,7 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
                 instance.address = addr
                 instance.save()
                 
-        # Cập nhật số điện thoại cá nhân (Self)
+        # Update self contact (Self)
         if phone_primary is not None or phone_secondary is not None:
             self_rc = instance.residentcontact_set.filter(relationship_type='Self').first()
             if self_rc:
@@ -423,7 +420,7 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
                 )
                 ResidentContact.objects.create(resident=instance, contact=c_self, relationship_type='Self')
                 
-        # Cập nhật Emergency Contact
+        # Update Emergency Contact
         if emergency_first_name is not None or emergency_last_name is not None or emergency_phone_primary is not None:
             em_rc = instance.residentcontact_set.filter(is_emergency_contact=True).first()
             if em_rc:
@@ -443,23 +440,21 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
                 )
                 ResidentContact.objects.create(resident=instance, contact=c_em, relationship_type='Emergency', is_emergency_contact=True)
                 
-        # Cập nhật POA Contact
-        if poa_first_name is not None or poa_last_name is not None:
+        # Update POA Contact
+        if poa_first_name is not None or poa_last_name is not None or poa_phone_primary is not None:
             poa_rc = instance.residentcontact_set.filter(is_guarantor=True).first()
-            if not poa_rc:
-                poa_rc = instance.residentcontact_set.exclude(relationship_type='Self').exclude(is_emergency_contact=True).first()
-            
             if poa_rc:
-                poa_rc.is_guarantor = True
                 if poa_first_name is not None: poa_rc.contact.first_name = poa_first_name
                 if poa_last_name is not None: poa_rc.contact.last_name = poa_last_name
-                if poa_phone_primary is not None: poa_rc.contact.phone_primary = poa_phone_primary
-                if poa_phone_secondary is not None: poa_rc.contact.phone_secondary = poa_phone_secondary
-                if poa_relationship:
-                    poa_rc.relationship_type = poa_relationship
-                poa_rc.save()
+                if poa_phone_primary is not None:
+                    poa_rc.contact.phone_primary = poa_phone_primary
+                if poa_phone_secondary is not None:
+                    poa_rc.contact.phone_secondary = poa_phone_secondary
                 poa_rc.contact.save()
-            else:
+                if poa_relationship is not None:
+                    poa_rc.relationship_type = poa_relationship
+                    poa_rc.save()
+            elif poa_first_name or poa_last_name:
                 c_poa = Contact.objects.create(
                     first_name=poa_first_name or '', 
                     last_name=poa_last_name or '', 
@@ -468,22 +463,7 @@ class ResidentCreateUpdateSerializer(serializers.ModelSerializer):
                 )
                 ResidentContact.objects.create(resident=instance, contact=c_poa, relationship_type=poa_relationship or 'POA', is_guarantor=True)
                 
-        # Cập nhật Admission (Referral Source)
-        if referral_source is not None:
-            from apps.rooms.models import Facility
-            admission = instance.admission_set.first()
-            if admission:
-                admission.referral_source = referral_source
-                admission.save()
-            else:
-                facility = Facility.objects.first()
-                if facility:
-                    Admission.objects.create(
-                        resident=instance, facility=facility, 
-                        referral_source=referral_source, admission_date=instance.date_of_birth
-                    )
-
-        # Cập nhật Payer / Insurance Policy
+        # Update Payer / Insurance Policy
         if insurance_provider_name or policy_number or policy_effective_from or policy_effective_to:
             policy = instance.residentinsurancepolicy_set.first()
             provider = None

@@ -1,5 +1,5 @@
   // ---------- Generic toggle helper ----------
-  // fieldIds: các input/select sẽ được enable/disable theo trạng thái toggle
+  // fieldIds: inputs/selects that will be enabled/disabled based on toggle state
   function setupToggle(toggleId, statusTextId, fieldIds, offLabel, onLabel) {
     const toggle = document.getElementById(toggleId);
     const statusText = document.getElementById(statusTextId);
@@ -18,7 +18,7 @@
   setupToggle('poaToggle', 'poaStatusText',
     ['poa_first_name', 'poa_last_name', 'poa_phone_primary', 'poa_phone_secondary', 'poa_relationship'],
     'No — POA not on file', 'Yes — POA on file');
-  // DNR toggle: đổi màu đỏ + text nhấn mạnh khi bật
+  // DNR toggle: change text color to red and bold when enabled
   const dnrToggle = document.getElementById('dnrToggle');
   const dnrStatusText = document.getElementById('dnrStatusText');
   if (dnrToggle && dnrStatusText) {
@@ -108,7 +108,7 @@
     updateValidationUI(); // initial run
   }
 
-  // ---------- Inline validation khi bấm Save ----------
+  // ---------- Inline validation on Save ----------
   const form = document.querySelector('form');
   if (form) {
     form.addEventListener('submit', (e) => {

@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import *
 from apps.rooms.models import Facility
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 
 # Resident detail
@@ -14,7 +15,7 @@ class ResidentDetail(View):
     def get(self, request, pk):
         resident = Resident.objects.get(pk=pk)
         
-        # phân biệt từng loại Contact
+        # distinguish each type of Contact
         self_contact = resident.residentcontact_set.filter(relationship_type='Self').first()
         if self_contact == None:
             self_contact = resident.residentcontact_set.exclude(relationship_type='POA').first()
@@ -85,6 +86,7 @@ class ResidentEdit(View):
             initial_data['policy_number'] = policy.policy_number_encrypted
             initial_data['policy_effective_from'] = policy.effective_from
             initial_data['policy_effective_to'] = policy.effective_to
+            initial_data['auth_number'] = policy.auth_number
             if policy.insurance_provider:
                 initial_data['insurance_provider_name'] = policy.insurance_provider.provider_name
                 initial_data['insurance_provider_type'] = policy.insurance_provider.provider_type
@@ -129,6 +131,7 @@ class ResidentEdit(View):
             policy_number = form.cleaned_data.get('policy_number')
             policy_effective_from = form.cleaned_data.get('policy_effective_from')
             policy_effective_to = form.cleaned_data.get('policy_effective_to')
+            auth_number = form.cleaned_data.get('auth_number')
 
             # --- UPDATE ADDRESS ---
             if address_line1 is not None or address_city is not None or address_state is not None:
@@ -252,6 +255,7 @@ class ResidentEdit(View):
                     if policy_number is not None: policy.policy_number_encrypted = policy_number
                     if policy_effective_from is not None: policy.effective_from = policy_effective_from
                     if policy_effective_to is not None: policy.effective_to = policy_effective_to
+                    if auth_number is not None: policy.auth_number = auth_number
                     policy.save()
                 elif provider:
                     ResidentInsurancePolicy.objects.create(
@@ -259,7 +263,8 @@ class ResidentEdit(View):
                         insurance_provider=provider,
                         policy_number_encrypted=policy_number or '',
                         effective_from=policy_effective_from or resident.date_of_birth,
-                        effective_to=policy_effective_to
+                        effective_to=policy_effective_to,
+                        auth_number=auth_number
                     )
             messages.success(request, f'Resident {resident.first_name} {resident.last_name} updated successfully.')
             return redirect('residents:resident_detail', pk=resident.pk)
@@ -307,6 +312,7 @@ class ResidentCreate(View):
             policy_number = form.cleaned_data.get('policy_number')
             policy_effective_from = form.cleaned_data.get('policy_effective_from')
             policy_effective_to = form.cleaned_data.get('policy_effective_to')
+            auth_number = form.cleaned_data.get('auth_number')
 
             # --- CREATE ADDRESS ---
             if address_line1 is not None or address_city is not None or address_state is not None:
@@ -383,7 +389,8 @@ class ResidentCreate(View):
                         insurance_provider=provider,
                         policy_number_encrypted=policy_number or '',
                         effective_from=policy_effective_from or resident.date_of_birth,
-                        effective_to=policy_effective_to
+                        effective_to=policy_effective_to,
+                        auth_number=auth_number
                     )
                     
             messages.success(request, f'Resident {resident.first_name} {resident.last_name} created successfully.')
@@ -391,7 +398,7 @@ class ResidentCreate(View):
         
         return render(request, 'residents/resident_form.html', {'form': form, 'is_edit': False})
 
-from django.http import JsonResponse
+
 
 def check_similar_resident(request):
     first_name = request.GET.get('first_name', '').strip()
@@ -403,4 +410,4 @@ def check_similar_resident(request):
         if exclude_id and exclude_id.isdigit():
             qs = qs.exclude(pk=int(exclude_id))
         return JsonResponse({'exists': qs.exists()})
-    return JsonResponse({'exists': False})
+    return JsonResponse({'exists': False})

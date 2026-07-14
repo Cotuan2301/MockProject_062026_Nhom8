@@ -43,6 +43,12 @@ class Resident(models.Model):
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
     is_chart_locked = models.BooleanField(default=False)
     has_dnr = models.BooleanField(default=False)
+    
+    # Referral Information
+    referral_source = models.CharField(max_length=200, null=True, blank=True)
+    referral_facility = models.CharField(max_length=200, null=True, blank=True)
+    referred_by = models.CharField(max_length=200, null=True, blank=True)
+
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
     bed = models.ForeignKey('rooms.Bed', on_delete=models.SET_NULL, null=True, blank=True)
     is_deleted = models.BooleanField(default=False)
@@ -101,6 +107,16 @@ class Admission(models.Model):
     facility = models.ForeignKey('rooms.Facility', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     referral_source = models.CharField(max_length=255, null=True, blank=True)
+    
+    # Consents Verification
+    verification_method = models.CharField(max_length=50, null=True, blank=True, choices=[('esignature', 'e-Signature'), ('upload', 'Upload')])
+    consent_signature = models.TextField(null=True, blank=True) # Base64 string of signature
+    consent_file = models.FileField(upload_to='consents/', null=True, blank=True)
+    
+    # Care Team & Orders
+    admitting_physician = models.ForeignKey('accounts.User', on_delete=models.SET_NULL, null=True, blank=True, related_name='admitted_residents_as_physician')
+    admitting_nurse = models.ForeignKey('accounts.User', on_delete=models.SET_NULL, null=True, blank=True, related_name='admitted_residents_as_nurse')
+    order_date = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         db_table = 'admissions'

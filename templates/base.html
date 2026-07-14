@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock %}</title>
 
-    <!-- Css chung -->
+    <!-- General CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
-    <!-- Css riêng từng trang -->
+    <!-- Custom CSS for specific pages -->
     {% block extra_css %}{% endblock %}
   </head>
   <body>
@@ -25,10 +25,10 @@
       </div>
     </div>
 
-    <!-- JS chung -->
+    <!-- General JS -->
     <script src="{% static 'js/script.js' %}"></script>
     
-    <!-- JS riêng từng trang -->
+    <!-- Custom JS for specific pages -->
     {% block extra_js %}{% endblock %}
   </body>
 </html>
