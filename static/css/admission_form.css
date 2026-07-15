@@ -162,3 +162,47 @@
     cursor: crosshair;
     width: 100%;
 }
+
+.verification-label {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.upload-label {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.upload-input {
+    border: 1px solid #e2e8f0;
+    padding: 5px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.order-accountability-text {
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.6;
+}
+
+.audit-log-italic {
+    font-style: italic;
+}
+
+.flex-gap-15 {
+    display: flex;
+    gap: 15px;
+}
+
+.flex-align-center-gap-15 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}

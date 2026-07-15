@@ -41,6 +41,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+  // Clear File Logic
+  const fileInput = document.getElementById('consent_file');
+  const btnClearFile = document.getElementById('btnClearFile');
+  if (fileInput && btnClearFile) {
+    fileInput.addEventListener('change', function() {
+      if (this.files.length > 0) {
+        btnClearFile.style.display = 'block';
+      } else {
+        btnClearFile.style.display = 'none';
+      }
+    });
+
+    btnClearFile.addEventListener('click', function(e) {
+      e.preventDefault();
+      fileInput.value = '';
+      this.style.display = 'none';
+    });
+  }
   // Signature Canvas Logic
   const signatureModal = document.getElementById('signatureModal');
   const signatureCanvas = document.getElementById('signatureCanvas');
@@ -104,7 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
     btnSaveSignature.addEventListener('click', (e) => {
       e.preventDefault();
       if (!hasSigned) {
-        alert("Please provide a signature before saving.");
+        const errorEl = document.getElementById('signature_error');
+        if (errorEl) errorEl.style.display = 'block';
         return;
       }
       signatureData = signatureCanvas.toDataURL('image/png');
@@ -194,7 +213,8 @@ document.addEventListener('DOMContentLoaded', function() {
       formData.append('consent_signature', signatureData);
     }
 
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const csrfElement = document.querySelector('[name=csrfmiddlewaretoken]');
+    const csrfToken = csrfElement ? csrfElement.value : '';
 
     fetch('/api/v1/medical/admissions/create/', {
       method: 'POST',

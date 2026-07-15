@@ -207,7 +207,9 @@
       <div class="card-header">
         <h2 class="card-title">LOC Summary</h2>
       </div>
-      <span class="badge badge-level inline-block mb-12">{{ resident.residentcarelevelhistory_set.last.care_level.level_name|default:"No Level Set" }}</span>
+      <div class="mb-10">
+        <span class="badge badge-level">{{ resident.residentcarelevelhistory_set.last.care_level.level_name|default:"No Level Set" }}</span>
+      </div>
       <p class="text-bold mb-10" style="font-size: 13px; color: #333;">ADL Score: {{ resident.assessment_set.last.adl_total_score|default:"N/A" }} / 32</p>
       <a href="#" class="loc-link">View LOC History &rarr;</a>
     </div>

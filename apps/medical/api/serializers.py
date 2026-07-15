@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from django.db import transaction
+from django.contrib.auth.hashers import make_password
 from apps.medical.models import PreAdmissionScreening
 from apps.residents.models import Admission, Resident
 from apps.rooms.models import Bed
@@ -58,7 +60,6 @@ class AdmissionCreateSerializer(serializers.ModelSerializer):
             'payer_source', 'payer_name'
         ]
 
-    from django.db import transaction
     @transaction.atomic
     def create(self, validated_data):
         from apps.accounts.models import User, Role
@@ -71,55 +72,10 @@ class AdmissionCreateSerializer(serializers.ModelSerializer):
         payer_source = validated_data.pop('payer_source', None)
         payer_name = validated_data.pop('payer_name', None)
         
-        # 1. Auto-provision Physician
-        physician = None
-        if physician_name:
-            role_doctor, _ = Role.objects.get_or_create(role_name='Doctor')
-            # Assuming format "Dr. Alan Cho, MD" - just use as last_name for simplicity in mock
-            physician = User.objects.filter(last_name=physician_name, npi=physician_npi).first()
-            if not physician:
-                physician = User.objects.create(
-                    employee_code=f"DOC_{physician_npi or 'TEMP'}",
-                    email=f"doc_{physician_npi or 'temp'}@test.com",
-                    password_hash='dummy',
-                    first_name='',
-                    last_name=physician_name,
-                    npi=physician_npi,
-                    role=role_doctor
-                )
-        
-        # 2. Auto-provision Nurse
-        nurse = None
-        if nurse_name:
-            role_nurse, _ = Role.objects.get_or_create(role_name='Nurse')
-            nurse = User.objects.filter(last_name=nurse_name).first()
-            if not nurse:
-                nurse = User.objects.create(
-                    employee_code=f"NUR_{nurse_name.replace(' ', '')}",
-                    email=f"nur_{nurse_name.replace(' ', '')}@test.com",
-                    password_hash='dummy',
-                    first_name='',
-                    last_name=nurse_name,
-                    role=role_nurse
-                )
-                
-        # 3. Auto-provision Insurance
-        if payer_source or payer_name:
-            provider, _ = InsuranceProvider.objects.get_or_create(
-                provider_name=payer_name or payer_source,
-                defaults={'provider_type': payer_source or 'OTHER'}
-            )
-            ResidentInsurancePolicy.objects.get_or_create(
-                resident=validated_data['resident'],
-                insurance_provider=provider,
-                defaults={
-                    'policy_number_encrypted': 'PENDING_AT_ADMISSION',
-                    'effective_from': validated_data['admission_date']
-                }
-            )
+        validated_data['admitting_physician'] = self._provision_physician(physician_name, physician_npi, User, Role)
+        validated_data['admitting_nurse'] = self._provision_nurse(nurse_name, User, Role)
+        self._provision_insurance(validated_data['resident'], payer_name, payer_source, validated_data['admission_date'], InsuranceProvider, ResidentInsurancePolicy)
 
-        validated_data['admitting_physician'] = physician
-        validated_data['admitting_nurse'] = nurse
         
         # Save Admission record
         admission = Admission.objects.create(**validated_data)
@@ -127,7 +83,9 @@ class AdmissionCreateSerializer(serializers.ModelSerializer):
         # Update Bed Status
         bed = None
         if bed_id:
-            bed = Bed.objects.get(pk=bed_id)
+            bed = Bed.objects.filter(pk=bed_id).first()
+            if not bed:
+                raise serializers.ValidationError({'bed_id': 'Invalid bed ID provided.'})
             bed.status = 'OCCUPIED'
             bed.save()
             
@@ -139,3 +97,52 @@ class AdmissionCreateSerializer(serializers.ModelSerializer):
         resident.save()
             
         return admission
+
+    def _provision_physician(self, physician_name, physician_npi, User, Role):
+        if not physician_name:
+            return None
+        role_doctor, _ = Role.objects.get_or_create(role_name='Doctor')
+        physician = User.objects.filter(last_name=physician_name, npi=physician_npi).first()
+        if not physician:
+            physician = User.objects.create(
+                employee_code=f"DOC_{physician_npi or 'TEMP'}",
+                email=f"doc_{physician_npi or 'temp'}@test.com",
+                password_hash=make_password('temp_password_123!'),
+                first_name='',
+                last_name=physician_name,
+                npi=physician_npi,
+                role=role_doctor
+            )
+        return physician
+        
+    def _provision_nurse(self, nurse_name, User, Role):
+        if not nurse_name:
+            return None
+        role_nurse, _ = Role.objects.get_or_create(role_name='Nurse')
+        nurse = User.objects.filter(last_name=nurse_name).first()
+        if not nurse:
+            nurse = User.objects.create(
+                employee_code=f"NUR_{nurse_name.replace(' ', '')}",
+                email=f"nur_{nurse_name.replace(' ', '')}@test.com",
+                password_hash=make_password('temp_password_123!'),
+                first_name='',
+                last_name=nurse_name,
+                role=role_nurse
+            )
+        return nurse
+        
+    def _provision_insurance(self, resident, payer_name, payer_source, admission_date, InsuranceProvider, ResidentInsurancePolicy):
+        if not payer_source and not payer_name:
+            return
+        provider, _ = InsuranceProvider.objects.get_or_create(
+            provider_name=payer_name or payer_source,
+            defaults={'provider_type': payer_source or 'OTHER'}
+        )
+        ResidentInsurancePolicy.objects.get_or_create(
+            resident=resident,
+            insurance_provider=provider,
+            defaults={
+                'policy_number_encrypted': 'PENDING_AT_ADMISSION',
+                'effective_from': admission_date
+            }
+        )

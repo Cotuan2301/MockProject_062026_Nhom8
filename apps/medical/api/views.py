@@ -10,6 +10,7 @@ class PreAdmissionScreeningCreateUpdateAPIView(generics.CreateAPIView, generics.
 
     def perform_create(self, serializer):
         from apps.accounts.models import User, Role
+        from django.contrib.auth.hashers import make_password
         user = None
         if hasattr(self.request.user, 'employee_code'):
             user = self.request.user
@@ -21,7 +22,7 @@ class PreAdmissionScreeningCreateUpdateAPIView(generics.CreateAPIView, generics.
                 user = User.objects.create(
                     employee_code='TEST01',
                     email='test@test.com',
-                    password_hash='dummy',
+                    password_hash=make_password('temp_password_123!'),
                     first_name='Test',
                     last_name='User',
                     role=role

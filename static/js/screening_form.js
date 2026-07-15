@@ -135,9 +135,10 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = `/medical/admission-form/${data.resident}/`;
       } else {
         console.error("Validation Errors:", result);
-        let errorHtml = '<strong>Please correct the following errors:</strong><ul>';
+        let errorHtml = '<strong>Please correct the following errors:</strong><ul class="error-list">';
         for (const [key, val] of Object.entries(result)) {
-          errorHtml += `<li><b>${key.charAt(0).toUpperCase() + key.slice(1)}</b>: ${val}</li>`;
+          const formattedKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+          errorHtml += `<li><b>${formattedKey}</b>: ${val}</li>`;
         }
         errorHtml += '</ul>';
         errorBanner.innerHTML = errorHtml;
