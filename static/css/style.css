@@ -20,8 +20,7 @@ body {
     align-items: center;
 }
 
-.header-left,
-.header-right {
+/* Global Reset (Fixed) */
     * {
         margin: 0;
         padding: 0;
