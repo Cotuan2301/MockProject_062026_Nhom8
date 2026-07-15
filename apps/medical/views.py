@@ -46,3 +46,55 @@ def billing_panel(request):
     }
     
     return render(request, 'medical/billing_panel.html', context)
+
+def care_plan_ack(request):
+    """
+    SC036 - Care Plan Acknowledgment
+    Dummy data based on Figma mockup
+    """
+    context = {
+        'active_menu': 'pending_ack',
+        
+        # Patient & Form info
+        'patient_name': 'Robert Hayes',
+        'submitted_by': 'Anna Lee, RN',
+        'status': 'Pending Review',
+        'submit_date': '2026-07-02',
+        
+        # Goals List
+        'goals': [
+            {
+                'title': 'Mobility',
+                'description': 'Goal: Ambulate 50 ft with walker x2/day.',
+                'task': 'Assist ambulation w/ walker, 2x daily.',
+                'status_badge': 'On Track',
+                'status_class': 'badge-success-outline'
+            },
+            {
+                'title': 'Skin Integrity',
+                'description': 'Goal: Maintain skin integrity (no stage-2 injury).',
+                'task': 'Reposition q2h; skin check each shift.',
+                'status_badge': 'At Risk',
+                'status_class': 'badge-warning-outline'
+            },
+            {
+                'title': 'Nutrition',
+                'description': 'Goal: Maintain fluid intake ≥ 1500 mL/day.',
+                'task': 'Monitor fluid intake; document I/O.',
+                'status_badge': 'On Track',
+                'status_class': 'badge-success-outline'
+            }
+        ],
+        
+        # Role Info
+        'physician_name': 'Dr. Alan Cho, MD',
+        'license': 'CA-MD-88231',
+        'npi': '1720493857',
+        
+        # IDT Acknowledgment Info
+        'dietary_name': 'Grace Liu, RD',
+        'dietary_status': 'Signed',
+        'dietary_date': '2026-07-02 15:30'
+    }
+    
+    return render(request, 'medical/care_plan_ack.html', context)

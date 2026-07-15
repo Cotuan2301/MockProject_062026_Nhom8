@@ -1540,7 +1540,10 @@ body {
         padding: 0 10px;
     }
 
-    /* SC035 Layout Utilities */
+    /* SC036 Layout Utilities & Badges */
+    .badge-success-outline { color: #16A34A !important; border-color: #16A34A !important; }
+    .badge-warning-outline { color: #D97706 !important; border-color: #D97706 !important; }
+    
     .d-flex { display: flex !important; }
     .justify-content-between { justify-content: space-between !important; }
     .justify-content-center { justify-content: center !important; }
