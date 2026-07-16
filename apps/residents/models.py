@@ -12,6 +12,12 @@ class Resident(models.Model):
         FEMALE = 'female', 'Female'
         OTHER = 'other', 'Other'
 
+    class LocTier(models.TextChoices):
+        TIER_1 = 'Tier 1', 'Tier 1'
+        TIER_2 = 'Tier 2', 'Tier 2'
+        TIER_3 = 'Tier 3', 'Tier 3'
+        TIER_4 = 'Tier 4', 'Tier 4'
+
     resident_id = models.CharField(max_length=20, unique=True, verbose_name='Resident ID')
     full_name = models.CharField(max_length=150)
     room_number = models.CharField(max_length=20)
@@ -20,6 +26,7 @@ class Resident(models.Model):
     gender = models.CharField(max_length=10, choices=Gender.choices, default=Gender.OTHER)
     payer_source = models.CharField(max_length=50)
     admission_date = models.DateField()
+    loc_tier = models.CharField(max_length=10, choices=LocTier.choices, default=LocTier.TIER_1)
 
     class Meta:
         ordering = ['full_name']

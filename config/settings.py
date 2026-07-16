@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'apps.staff',
     'rest_framework',
     'apps.incidents',
+    'apps.care_planning',
 ]
 
 MIDDLEWARE = [

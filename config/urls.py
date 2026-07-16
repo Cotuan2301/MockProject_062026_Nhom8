@@ -28,6 +28,7 @@ urlpatterns = [
     path('rooms/', include('apps.rooms.urls')),
     path('staff/', include('apps.staff.urls')),
     path('incidents/', include('apps.incidents.urls')),
+    path('care-planning/', include('apps.care_planning.urls')),
 ]
 
 # Serve media files during development
