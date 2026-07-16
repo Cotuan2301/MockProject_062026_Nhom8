@@ -22,7 +22,12 @@ body {
 
 .header-left,
 .header-right {
-    * {
+    display: flex;
+    align-items: center;
+}
+
+/* Global resets for the new theme */
+* {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
