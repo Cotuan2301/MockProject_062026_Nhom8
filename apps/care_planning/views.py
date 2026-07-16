@@ -46,5 +46,6 @@ class CarePlanListView(ListView):
         context['current_search'] = self.request.GET.get('search', '')
         context['current_status'] = self.request.GET.get('status', 'all')
         context['current_review'] = self.request.GET.get('review', 'all')
+        context['active_menu'] = 'care_planning'
         
         return context
