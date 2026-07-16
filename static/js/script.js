@@ -5,4 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.classList.toggle('sidebar-collapsed');
         });
     }
+
+    // Automatically collapse the sidebar when opened on a mobile phone.
+    if (window.innerWidth < 768) {
+        document.body.classList.add('sidebar-collapsed');
+    }
 });

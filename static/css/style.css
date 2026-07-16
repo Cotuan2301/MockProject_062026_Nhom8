@@ -196,6 +196,7 @@ body {
     margin-bottom: 0;
     padding-left: 20px;
 }
+
 .alert-warning .error-list li {
     margin-bottom: 4px;
 }
@@ -204,16 +205,47 @@ body {
 .d-none {
     display: none !important;
 }
-.mb-0 { margin-bottom: 0 !important; }
-.mb-10 { margin-bottom: 10px !important; }
-.mb-15 { margin-bottom: 15px !important; }
-.mb-20 { margin-bottom: 20px !important; }
-.mt-20 { margin-top: 20px !important; }
-.text-decoration-none { text-decoration: none !important; }
-.gap-12 { gap: 12px !important; }
-.inline-block { display: inline-block !important; }
-.text-bold { font-weight: 600 !important; }
-.text-secondary { color: #64748b !important; font-size: 13px !important; }
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
+.mb-15 {
+    margin-bottom: 15px !important;
+}
+
+.mb-20 {
+    margin-bottom: 20px !important;
+}
+
+.mt-20 {
+    margin-top: 20px !important;
+}
+
+.text-decoration-none {
+    text-decoration: none !important;
+}
+
+.gap-12 {
+    gap: 12px !important;
+}
+
+.inline-block {
+    display: inline-block !important;
+}
+
+.text-bold {
+    font-weight: 600 !important;
+}
+
+.text-secondary {
+    color: #64748b !important;
+    font-size: 13px !important;
+}
 
 /* Section Titles */
 .section-title {
@@ -516,11 +548,13 @@ body {
 }
 
 .btn-primary-blue:hover {
-    background: #143628; /* Darker green */
+    background: #143628;
+    /* Darker green */
     border-color: #143628;
     box-shadow: 0 4px 12px rgba(30, 74, 56, 0.2);
     transform: translateY(-1px);
 }
+
 .btn-primary-blue:hover svg {
     transform: translateX(3px);
 }
@@ -693,4 +727,41 @@ body {
 
 .sidebar-collapsed .sidebar-footer .menu-text {
     display: none;
+}
+
+/* Responsive Fixes for Mobile (< 768px) */
+@media screen and (max-width: 768px) {
+
+    /* Tabs Wrap */
+    .tabs-list {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    /* Header Profile */
+    .profile-header-wrap {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    /* Demographics & Grid layout to single column */
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Table horizontal scroll to prevent breaking layout */
+    .info-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* Hide Navbar User Info Text */
+    .navbar-user .user-info {
+        display: none;
+    }
 }
