@@ -15,7 +15,7 @@
     </div>
     <div class="profile-info">
       <h1> {{ resident.first_name }} {{ resident.last_name}}</h1>
-      <p>DOB {{ resident.date_of_birth|date:"m/d/Y" }} &middot; Room {{ resident.bed.bed_number }} &middot; Resident ID {{ resident.id }}</p>
+      <p>DOB {{ resident.date_of_birth|date:"m/d/Y" }} &middot; Room {{ resident.bed.room.room_number }}{{ resident.bed.bed_number }} &middot; Resident ID {{ resident.id }}</p>
       <div class="profile-badges">
         <span class="badge badge-active">{{ resident.status }}</span>
         <span class="badge badge-dnr">{{ resident.has_dnr|yesno:"Yes, No" }} DNR</span>
@@ -88,7 +88,7 @@
         </div>
         <div class="info-group">
           <label>Room / Bed</label>
-          <p>{{ resident.bed.room.room_number }} / {{ resident.bed.bed_number|slice:"3:" }}</p>
+          <p>{{ resident.bed.room.room_number }} / {{ resident.bed.bed_number }}</p>
         </div>
         <div class="info-group">
           <label>Gender</label>

@@ -18,7 +18,7 @@
     {% endif %}
   </div>
   {% if is_edit %}
-  <div class="page-subtitle">{{ resident.first_name }} {{ resident.last_name }} &middot; Room {{ resident.bed.room.room_number }}-{{ resident.bed.bed_number|slice:"3:" }}</div>
+  <div class="page-subtitle">{{ resident.first_name }} {{ resident.last_name }} &middot; Room {{ resident.bed.room.room_number }}-{{ resident.bed.bed_number }}</div>
   {% endif %}
 
   <form method="post" action="{% if is_edit %}{% url 'residents:resident_edit' resident.pk %}{% else %}{% url 'residents:resident_create' %}{% endif %}">
