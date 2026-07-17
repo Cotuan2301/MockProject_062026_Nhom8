@@ -121,3 +121,49 @@
         </a>
     </div>
 </nav>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-brand" style="display: flex; align-items: center; white-space: nowrap;">
+      <span id="toggle-sidebar-btn" class="header-icon" style="cursor: pointer; font-size: 20px;">&#9776;</span>
+      <div class="sidebar-brand-text" style="display: flex; flex-direction: column; margin-left: 10px; overflow: hidden; transition: opacity 0.3s;">
+        <span style="font-size: 18px; font-weight: 700; line-height: 1;">NHMS</span>
+        <span style="font-weight: 400; color: rgba(255,255,255,0.7); font-size: 11px;">Nursing Home Management System</span>
+      </div>
+    </div>
+  </div>
+  <ul class="sidebar-menu">
+    <li>
+      <span style="font-size: 18px; width: 20px; text-align: center;">&#8962;</span>
+      <span class="menu-text">Dashboard</span>
+    </li>
+    <li class="active">
+      {% comment %} <a href = "{% url 'residents:resident_details' %}"> {% endcomment %}
+        <span style="font-size: 18px; width: 20px; text-align: center;">&#128100;</span>
+        <span class="menu-text">Residents</span>
+      {% comment %} </a> {% endcomment %}
+    </li>
+    <li>
+      <span style="font-size: 18px; width: 20px; text-align: center;">&#128203;</span>
+      <span class="menu-text">Care Planning</span>
+    </li>
+    <li style="opacity: 0.6;">
+      <span style="font-size: 18px; width: 20px; text-align: center;">&#10010;</span>
+      <span class="menu-text">eMAR</span>
+      <span class="menu-text-soon" style="font-size: 10px; border: 1px solid rgba(255,255,255,0.4); border-radius: 10px; padding: 2px 6px; margin-left: auto;">soon</span>
+    </li>
+    <li>
+      <span style="font-size: 18px; width: 20px; text-align: center;">&#9888;</span>
+      <span class="menu-text">Incident & Risk</span>
+    </li>
+    <li>
+      <span style="font-size: 18px; width: 20px; text-align: center;">&#128200;</span>
+      <span class="menu-text">Reports</span>
+    </li>
+  </ul>
+  <div class="sidebar-footer">
+    <span style="font-size: 18px; width: 20px; text-align: center; margin-right: 12px;">&#10145;</span>
+    <span class="menu-text">Logout</span>
+  </div>
+</aside>
+

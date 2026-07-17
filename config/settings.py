@@ -51,7 +51,9 @@ INSTALLED_APPS = [
     'apps.rooms',
     'apps.staff',
     'rest_framework',
+    
     'apps.incidents',
+
 ]
 
 MIDDLEWARE = [
