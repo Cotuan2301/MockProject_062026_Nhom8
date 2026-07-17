@@ -20,6 +20,7 @@ class ResidentInsurancePolicy(models.Model):
     group_number = models.CharField(max_length=100, null=True, blank=True)
     effective_from = models.DateField()
     effective_to = models.DateField(null=True, blank=True)
+    auth_number = models.CharField(max_length=100, null=True, blank=True)
     is_primary = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

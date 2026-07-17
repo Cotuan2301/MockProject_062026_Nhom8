@@ -2,7 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from apps.residents.models import Resident
-from .serializers import ResidentDetailSerializer
+from .serializers import ResidentDetailSerializer, ResidentCreateUpdateSerializer
+from rest_framework import generics
+
 
 class ResidentDetailAPIView(APIView):
     def get(self, request, pk, format=None):
@@ -24,4 +26,9 @@ class ResidentDetailAPIView(APIView):
         
         serializer = ResidentDetailSerializer(resident)
         return Response(serializer.data)
+
+
+class ResidentCreateUpdateAPIView(generics.CreateAPIView, generics.UpdateAPIView):
+    queryset = Resident.objects.all()
+    serializer_class = ResidentCreateUpdateSerializer
 

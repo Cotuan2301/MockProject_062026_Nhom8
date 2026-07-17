@@ -40,6 +40,7 @@ class User(models.Model):
     middle_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100)
     license_number = models.CharField(max_length=100, null=True, blank=True)
+    npi = models.CharField(max_length=50, null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.ACTIVE)
     mfa_enabled = models.BooleanField(default=False)
