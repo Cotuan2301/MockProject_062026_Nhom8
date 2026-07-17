@@ -35,7 +35,9 @@
     <div class="admin-layout">
 
         <!-- Left sidebar -->
-        {% include 'partials/sidebar.html' %}
+        {% block sidebar %}
+            {% include 'partials/sidebar.html' %}
+        {% endblock %}
 
         <!-- Dimmed overlay — mobile only (click to close sidebar) -->
         <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
@@ -45,7 +47,6 @@
 
             <!-- Breadcrumb row -->
             <nav class="admin-breadcrumb" aria-label="Breadcrumb">
-                <span>Admin</span>
                 {% block breadcrumb %}{% endblock %}
             </nav>
 

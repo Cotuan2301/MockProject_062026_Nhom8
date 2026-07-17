@@ -17,3 +17,19 @@ def bedside_vitals(request):
         'recorder_time': '2026-07-02 14:05',
     }
     return render(request, 'medical/bedside_vitals.html', context)
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+import json
+
+@require_POST
+def save_bedside_vitals(request):
+    try:
+        data = json.loads(request.body)
+        # Mocking DB save
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Vitals saved successfully'
+        })
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)

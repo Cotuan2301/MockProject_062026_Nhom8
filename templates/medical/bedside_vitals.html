@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block breadcrumb %}
-<span class="bc-sep">&gt;</span> 
 <span class="bc-sep">Care Planning</span> 
 <span class="bc-sep">&gt;</span> 
 <span class="bc-current">Bedside Vitals</span>
@@ -118,7 +117,60 @@
     <!-- Action Bar -->
     <div class="vitals-action-bar action-bar">
         <button type="button" class="btn-cancel">Cancel</button>
-        <button type="button" class="btn-save btn-primary-blue">Save & Mark Done</button>
+        <button type="button" class="btn-save btn-primary-blue" id="btnSaveVitals">Save & Mark Done</button>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var btnSave = document.getElementById('btnSaveVitals');
+        if (btnSave) {
+            btnSave.addEventListener('click', function() {
+                var btn = this;
+                var originalText = btn.innerText;
+                btn.innerText = 'Saving...';
+                btn.disabled = true;
+
+                fetch('{% url "medical:save_bedside_vitals" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        'bp_sys': document.querySelector('input[name="bp_sys"]').value,
+                        'bp_dia': document.querySelector('input[name="bp_dia"]').value,
+                        'heart_rate': document.querySelector('input[name="heart_rate"]').value,
+                        'spo2': document.querySelector('input[name="spo2"]').value,
+                        'temp': document.querySelector('input[name="temp"]').value,
+                        'notes': document.querySelector('textarea[name="notes"]').value
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        btn.innerText = 'Saved Successfully!';
+                        btn.classList.replace('btn-primary-blue', 'btn-success');
+                        btn.style.backgroundColor = '#10B981'; // Tailwind green-500
+                        
+                        setTimeout(() => {
+                            btn.innerText = originalText;
+                            btn.disabled = false;
+                            btn.style.backgroundColor = '';
+                            btn.classList.replace('btn-success', 'btn-primary-blue');
+                        }, 2000);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error saving vitals:', error);
+                    btn.innerText = 'Error!';
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                    }, 2000);
+                });
+            });
+        }
+    });
+</script>
 {% endblock %}

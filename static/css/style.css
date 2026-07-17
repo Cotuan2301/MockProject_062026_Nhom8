@@ -20,13 +20,13 @@ body {
     align-items: center;
 }
 
-@media all {
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Inter', 'Roboto', sans-serif;
-    }
+/* Removed media all wrapper */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Roboto', sans-serif;
+}
 
     body {
         background-color: #ffffff;
@@ -1795,4 +1795,22 @@ body {
             order: -1; /* Put recorder info on top on mobile */
         }
     }
-}
+
+    /* SC033 Layout Utilities */
+    .d-flex { display: flex !important; }
+    .justify-content-between { justify-content: space-between !important; }
+    .justify-content-center { justify-content: center !important; }
+    .align-items-center { align-items: center !important; }
+    .align-items-end { align-items: flex-end !important; }
+    .text-center { text-align: center !important; }
+
+    .mb-0 { margin-bottom: 0 !important; }
+    .mb-1 { margin-bottom: 4px !important; }
+    .mb-3 { margin-bottom: 16px !important; }
+    .mb-4 { margin-bottom: 24px !important; }
+    .mr-4 { margin-right: 24px !important; }
+    .ml-1 { margin-left: 4px !important; }
+
+    .text-muted { color: #64748B !important; }
+    .text-danger { color: #DC2626 !important; }
+    .text-dark { color: #0F172A !important; }
