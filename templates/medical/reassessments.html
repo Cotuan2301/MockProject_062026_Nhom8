@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <span class="breadcrumb-separator">›</span>
     <a href="#" class="breadcrumb-link">Care Planning</a>
     <span class="breadcrumb-separator">›</span>
     <span class="breadcrumb-current">Reassessments</span>
@@ -61,7 +60,7 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="#" class="action-link">{{ item.action }}</a>
+                        <a href="#" class="action-link {% if item.action == 'Start' %}btn-start{% endif %}" data-resident="{{ item.resident }}">{{ item.action }}</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -82,4 +81,45 @@
     {% endfor %}
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var startBtns = document.querySelectorAll('.btn-start');
+        
+        startBtns.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var residentName = this.getAttribute('data-resident');
+                var btnEl = this;
+                var originalText = btnEl.innerText;
+                
+                btnEl.innerText = 'Starting...';
+                btnEl.style.pointerEvents = 'none';
+                
+                fetch('{% url "medical:start_reassessment" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        'resident': residentName
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        btnEl.innerText = 'Started';
+                        btnEl.style.color = '#10B981'; // green
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    btnEl.innerText = originalText;
+                    btnEl.style.pointerEvents = 'auto';
+                });
+            });
+        });
+    });
+</script>
 {% endblock %}

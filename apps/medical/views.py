@@ -57,3 +57,19 @@ def reassessments(request):
         'total_overdue': 1,
     }
     return render(request, 'medical/reassessments.html', context)
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+import json
+
+@require_POST
+def start_reassessment(request):
+    try:
+        data = json.loads(request.body)
+        # Mocking DB operation
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Reassessment started'
+        })
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
