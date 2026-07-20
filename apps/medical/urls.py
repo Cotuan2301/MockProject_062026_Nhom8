@@ -1,5 +1,16 @@
 from django.urls import path, include
 from . import views
+from apps.medical.views import (
+    CareLevelListCreateView,
+    CareLevelDetailView,
+    CarePlanListCreateView,
+    CarePlanDetailView,
+    CareGoalListCreateView,
+    CareGoalDetailView,
+    care_plan_create_page,
+    care_plan_locked_page,
+    care_plan_detail_page,
+)
 
 app_name = "medical"
 
