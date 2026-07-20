@@ -1,70 +1,73 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
+from .models import Assessment, LOCClassification
 from apps.residents.models import Resident
-from apps.medical.models import ResidentCareLevelHistory
-import datetime
+from apps.billing.models import LOCRate
 
-class ResidentCareLevelHistoryTests(TestCase):
+class LOCClassificationTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(username='nurse_anna', password='password123')
-        self.user.first_name = "Anna"
-        self.user.last_name = "Lee"
-        self.user.save()
-
+        self.user = User.objects.create_user(username='nurse', password='password')
         self.resident = Resident.objects.create(
-            resident_id='RES-00089',
-            full_name='Robert Hayes',
-            room_number='204B',
-            date_of_birth=datetime.date(1943, 4, 15),
-            admission_date=datetime.date(2025, 1, 1)
+            resident_id='RES_TEST',
+            full_name='Test Resident',
+            room_number='101',
+            date_of_birth='1950-01-01',
+            admission_date='2025-01-01'
         )
-
-        self.history1 = ResidentCareLevelHistory.objects.create(
+        self.assessment = Assessment.objects.create(
             resident=self.resident,
-            action='Overridden',
-            previous_tier='Level 1',
-            new_tier='Level 2',
-            actor=self.user,
-            note='Post-fall mobility decline'
+            total_adl_score=20
         )
+        LOCRate.objects.create(loc_level='Level 3', daily_rate='248.00')
 
-        self.history2 = ResidentCareLevelHistory.objects.create(
-            resident=self.resident,
-            action='Confirmed',
-            previous_tier='Level 2',
-            new_tier='Level 3',
-            actor=self.user,
-            note='Suggested tier accepted'
-        )
-
-    def test_history_list_api(self):
-        url = reverse('medical:loc-history-list', args=[self.resident.id])
-        response = self.client.get(url)
+    def test_loc_detail_view(self):
+        self.client.login(username='nurse', password='password')
+        response = self.client.get(reverse('medical:loc_detail', args=[self.assessment.id]))
         self.assertEqual(response.status_code, 200)
-        data = response.json()
-        self.assertEqual(len(data), 2)
-        # Should be ordered by date descending
-        self.assertEqual(data[0]['action'], 'Confirmed')
-        self.assertEqual(data[1]['action'], 'Overridden')
-        self.assertEqual(data[0]['actor_name'], 'Anna Lee')
+        self.assertContains(response, '20 / 32')
+        self.assertContains(response, 'Level 3')
 
-    def test_history_export_api(self):
-        url = reverse('medical:loc-history-export', args=[self.resident.id])
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'text/csv')
+    def test_loc_confirm(self):
+        self.client.login(username='nurse', password='password')
+        self.client.get(reverse('medical:loc_detail', args=[self.assessment.id])) # Trigger get_or_create
+        response = self.client.post(reverse('medical:loc_confirm', args=[self.assessment.id]))
+        self.assertEqual(response.status_code, 302)
         
-        content = response.content.decode('utf-8')
-        self.assertIn('Date,Action,Previous Tier,New Tier,Actor,Note', content)
-        self.assertIn('Confirmed,Level 2,Level 3,Anna Lee,Suggested tier accepted', content)
-        self.assertIn('Overridden,Level 1,Level 2,Anna Lee,Post-fall mobility decline', content)
+        loc = LOCClassification.objects.get(assessment=self.assessment)
+        self.assertEqual(loc.status, 'Confirmed')
+        self.assertEqual(loc.final_loc, 'Level 3')
 
-    def test_loc_history_view(self):
-        url = reverse('medical:loc-history', args=[self.resident.id])
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Robert Hayes')
-        self.assertContains(response, 'RES-00089')
-        self.assertContains(response, 'Print/Export')
+    def test_loc_override(self):
+        self.client.login(username='nurse', password='password')
+        self.client.get(reverse('medical:loc_detail', args=[self.assessment.id])) # Trigger get_or_create
+        response = self.client.post(reverse('medical:loc_override', args=[self.assessment.id]), {
+            'override_loc': 'Level 4',
+            'override_reason': 'Needs more help'
+        })
+        self.assertEqual(response.status_code, 302)
+        
+        loc = LOCClassification.objects.get(assessment=self.assessment)
+        self.assertEqual(loc.status, 'Confirmed')
+        self.assertTrue(loc.is_overridden)
+        self.assertEqual(loc.final_loc, 'Level 4')
+
+    def test_loc_chart_lock(self):
+        LOCClassification.objects.create(
+            assessment=self.assessment,
+            calculated_score=20,
+            suggested_loc='Level 3',
+            final_loc='Level 3',
+            status='Confirmed'
+        )
+        
+        self.client.login(username='nurse', password='password')
+        response = self.client.post(reverse('medical:loc_confirm', args=[self.assessment.id]))
+        self.assertEqual(response.status_code, 400) 
+
+        response = self.client.post(reverse('medical:loc_override', args=[self.assessment.id]), {
+            'override_loc': 'Level 4',
+            'override_reason': 'test'
+        })
+        self.assertEqual(response.status_code, 400)

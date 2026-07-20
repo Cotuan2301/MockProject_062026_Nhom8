@@ -18,6 +18,7 @@ class ResidentCareLevelHistory(models.Model):
 
     class Meta:
         ordering = ['-date']
+        db_table = 'resident_loc_history' # Bổ sung db_table cho chuẩn conventions của dev
 
     def __str__(self):
         return f"{self.resident.full_name} - {self.action} to {self.new_tier} on {self.date.strftime('%Y-%m-%d')}"
@@ -101,16 +102,49 @@ class ClinicalRecord(models.Model):
         db_table = 'clinical_records'
 
 class Assessment(models.Model):
+    # --- Cấu trúc nền tảng từ dev ---
     adl_total_score = models.IntegerField()
     is_overridden = models.BooleanField(default=False)
     suggested_care_level = models.ForeignKey(CareLevel, on_delete=models.PROTECT, related_name='+')
     confirmed_care_level = models.ForeignKey(CareLevel, on_delete=models.PROTECT, related_name='+')
-    resident = models.ForeignKey('residents.Resident', on_delete=models.CASCADE)
+    resident = models.ForeignKey('residents.Resident', on_delete=models.CASCADE, related_name='assessments')
     assessed_by = models.ForeignKey('accounts.User', on_delete=models.PROTECT, db_column='assessed_by')
+    
+    # --- Tích hợp các thuộc tính quản lý từ nhánh thành viên ---
+    version = models.IntegerField(default=1)
+    assessment_type = models.CharField(max_length=50, default='initial')
+    is_locked = models.BooleanField(default=False)
+    
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True) # Thêm updated_at từ thành viên
 
     class Meta:
         db_table = 'assessments'
+
+    def __str__(self):
+        return f"Assessment v{self.version} - {self.resident}"
+
+# --- Model mới từ nhánh thành viên: Quản lý workflow duyệt LOC ---
+class LOCClassification(models.Model):
+    class Status(models.TextChoices):
+        PENDING = 'PENDING', 'Pending'
+        CONFIRMED = 'CONFIRMED', 'Confirmed'
+
+    assessment = models.OneToOneField(Assessment, on_delete=models.CASCADE, related_name='loc_classification')
+    calculated_score = models.IntegerField()
+    suggested_loc = models.CharField(max_length=50)
+    final_loc = models.CharField(max_length=50, null=True, blank=True)
+    is_overridden = models.BooleanField(default=False)
+    override_reason = models.TextField(null=True, blank=True)
+    confirmed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    confirmed_at = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+
+    class Meta:
+        db_table = 'loc_classifications'
+
+    def __str__(self):
+        return f"LOC for {self.assessment.resident} - {self.status}"
 
 class AssessmentMetric(models.Model):
     class Category(models.TextChoices):
@@ -307,4 +341,3 @@ class ChartLockEvent(models.Model):
 
     class Meta:
         db_table = 'chart_lock_events'
-
