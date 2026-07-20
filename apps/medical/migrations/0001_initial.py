@@ -32,6 +32,9 @@ class Migration(migrations.Migration):
             ],
             options={
                 'ordering': ['-date'],
+            },
+        ),
+        migrations.CreateModel(
             name='ClinicalRecord',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
