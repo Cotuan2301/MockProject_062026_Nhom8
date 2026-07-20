@@ -129,7 +129,6 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
-from django.utils import timezone
 from rest_framework import generics
 
 from apps.medical.models import (
@@ -159,6 +158,9 @@ def care_plan_create_page(request):
         resident_id = request.POST.get("resident_id", 1)
         action = request.POST.get("action", "save_draft")
 
+        status = "DRAFT" if action == "save_draft" else "PENDING_REVIEW"
+
+        # 1. Tạo Care Plan
         # Sử dụng DRAFT hoặc ACTIVE để khớp 100% với STATUS_CHOICES trong models.py
         status = "DRAFT" if action == "save_draft" else "ACTIVE"
 
@@ -177,6 +179,7 @@ def care_plan_create_page(request):
                 goal=goal_text,
                 measure=request.POST.get("measure", ""),
                 task=request.POST.get("task", ""),
+                status="IN_PROGRESS"
                 status="IN_PROGRESS"  # Khớp với STATUS_CHOICES trong CareGoal model
             )
 
@@ -192,6 +195,7 @@ def care_plan_create_page(request):
     except ValueError:
         target_date = date(2026, 9, 2)
 
+    # Đã map db_column='HolidayDate' chuẩn trong model -> Query trực tiếp cực ngắn gọn
     # Query kiểm tra trùng ngày lễ từ SQL Server
     is_holiday_conflict = Holiday.objects.filter(holiday_date=target_date).exists()
 
@@ -249,6 +253,7 @@ def care_plan_create_page(request):
 def care_plan_locked_page(request):
     target_date = date(2026, 9, 2)
     
+    # Query trực tiếp sạch đẹp
     is_holiday_conflict = Holiday.objects.filter(holiday_date=target_date).exists()
 
     context = {
@@ -266,16 +271,64 @@ def care_plan_locked_page(request):
 
 
 # ==========================
+# Care Level API
+# ==========================
+
+class CareLevelListCreateView(generics.ListCreateAPIView):
+    queryset = CareLevel.objects.filter(is_deleted=False)
+    serializer_class = CareLevelSerializer
+
+
+class CareLevelDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CareLevel.objects.all()
+    serializer_class = CareLevelSerializer
+
+
+# ==========================
+# Care Plan API (DRF Views)
+# ==========================
+
+class CarePlanListCreateView(generics.ListCreateAPIView):
+    queryset = CarePlan.objects.filter(is_deleted=False)
+    serializer_class = CarePlanSerializer
+
+
+class CarePlanDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CarePlan.objects.all()
+    serializer_class = CarePlanSerializer
+
+
+# ==========================
+# Care Goal API (DRF Views)
+# ==========================
+
+class CareGoalListCreateView(generics.ListCreateAPIView):
+    queryset = CareGoal.objects.all()
+    serializer_class = CareGoalSerializer
+
+
+class CareGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CareGoal.objects.all()
+    serializer_class = CareGoalSerializer
+
+
+
+# ==========================
 # SC029 UI Page View (Care Plan Detail with Holiday Notice)
 # ==========================
 
 def care_plan_detail_page(request):
+    # Ngày review tiếp theo của kế hoạch
+    next_review_due = date(2026, 7, 4)  # Mẫu ngày 04/07/2026 (Federal Holiday)
+
+    # Truy vấn tên ngày lễ từ SQL Server DB
     next_review_due = date(2026, 7, 4)
 
     holiday_info = Holiday.objects.filter(holiday_date=next_review_due).first()
     
     holiday_notice = None
     if holiday_info:
+        # Định dạng chuỗi thông báo: "Scheduled on: July 4 - Federal Holiday"
         formatted_date = next_review_due.strftime("%B %d").replace(" 0", " ")
         holiday_notice = f"Scheduled on: {formatted_date} - {holiday_info.holiday_name}"
 
@@ -290,6 +343,7 @@ def care_plan_detail_page(request):
         "room_rate": 185.00,
         "estimated_daily": 433.00,
         "estimated_monthly": 13163.00,
+        "holiday_notice": holiday_notice,  # Biến truyền ra giao diện
         "holiday_notice": holiday_notice,
     }
 
@@ -297,6 +351,7 @@ def care_plan_detail_page(request):
         request,
         "medical/care_plan_detail.html",
         context
+    )
     )
 
 
@@ -449,6 +504,7 @@ class CarePlanDetailView(generics.RetrieveUpdateDestroyAPIView):
 class CareGoalListCreateView(generics.ListCreateAPIView):
     queryset = CareGoal.objects.all()
     serializer_class = CareGoalSerializer
+
 
 
 class CareGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
