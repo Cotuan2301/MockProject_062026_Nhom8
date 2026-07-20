@@ -9,6 +9,12 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 
 
+def add_resident(request):
+    return render(request, "residents/add_resident.html")
+
+def resident_list(request):
+    return render(request, "residents/resident_list.html")
+
 # Resident detail
 class ResidentDetail(View):
 
@@ -411,3 +417,4 @@ def check_similar_resident(request):
             qs = qs.exclude(pk=int(exclude_id))
         return JsonResponse({'exists': qs.exists()})
     return JsonResponse({'exists': False})
+

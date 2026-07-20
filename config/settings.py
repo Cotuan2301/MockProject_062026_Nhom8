@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import mimetypes
+
+mimetypes.add_type("text/css", ".css", True)
 from dotenv import load_dotenv
 
 # Read .env file
@@ -51,6 +54,8 @@ INSTALLED_APPS = [
     'apps.rooms',
     'apps.staff',
     'rest_framework',
+
+    'apps.care_planning',
 ]
 
 MIDDLEWARE = [
@@ -148,7 +153,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]

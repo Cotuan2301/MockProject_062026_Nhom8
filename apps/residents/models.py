@@ -33,6 +33,15 @@ class Resident(models.Model):
         DISCHARGED = 'DISCHARGED', 'Discharged'
         DECEASED = 'DECEASED', 'Deceased'
 
+    # Thêm từ nhánh thành viên: Mức độ chăm sóc (Level of Care)
+    class LocTier(models.TextChoices):
+        TIER_1 = 'Tier 1', 'Tier 1'
+        TIER_2 = 'Tier 2', 'Tier 2'
+        TIER_3 = 'Tier 3', 'Tier 3'
+        TIER_4 = 'Tier 4', 'Tier 4'
+
+    # --- Định danh và Thông tin cá nhân ---
+    resident_id = models.CharField(max_length=20, unique=True, null=True, blank=True, verbose_name='Resident ID') # Thêm từ thành viên (để null=True tạm thời tránh lỗi migration dữ liệu cũ)
     first_name = models.CharField(max_length=100)
     middle_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100)
@@ -40,24 +49,28 @@ class Resident(models.Model):
     gender = models.CharField(max_length=20, choices=Gender.choices, null=True, blank=True)
     marital_status = models.CharField(max_length=20, null=True, blank=True)
     religion_preference = models.CharField(max_length=100, null=True, blank=True)
+    
+    # --- Trạng thái & Nghiệp vụ ---
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+    loc_tier = models.CharField(max_length=10, choices=LocTier.choices, default=LocTier.TIER_1) # Thêm từ thành viên
+    payer_source = models.CharField(max_length=50, null=True, blank=True) # Thêm từ thành viên
     is_chart_locked = models.BooleanField(default=False)
     has_dnr = models.BooleanField(default=False)
     
-    # Referral Information
+    # --- Thông tin giới thiệu (Referral) ---
     referral_source = models.CharField(max_length=200, null=True, blank=True)
     referral_facility = models.CharField(max_length=200, null=True, blank=True)
     referred_by = models.CharField(max_length=200, null=True, blank=True)
 
+    # --- Liên kết khóa ngoại ---
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
     bed = models.ForeignKey('rooms.Bed', on_delete=models.SET_NULL, null=True, blank=True)
+    
+    # --- Audit / Soft Delete ---
     is_deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'residents'
 
 class ResidentSensitiveInfo(models.Model):
     resident = models.OneToOneField(Resident, on_delete=models.CASCADE)
