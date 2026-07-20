@@ -18,8 +18,11 @@ from apps.medical.views import (
 
 app_name = "medical"
 
-
 urlpatterns = [
+    # SC034
+    path('reassessments/', views.reassessments, name='reassessments'),
+    path('api/start-reassessment/', views.start_reassessment, name='start_reassessment'),
+
     path(
         "assessments/<int:assessment_id>/loc/",
         views.loc_classification_detail,

@@ -1,0 +1,45 @@
+<nav class="admin-sidebar" id="adminSidebar" aria-label="Main navigation">
+    <div class="sidebar-nav">
+
+        <div class="sidebar-group">
+            <a href="#" class="sidebar-link {% if active_menu == 'dashboard' %}active{% endif %}" id="nav-dashboard">
+                <i class="fa-solid fa-house sidebar-icon"></i>
+                Dashboard
+            </a>
+            
+            <a href="#" class="sidebar-link {% if active_menu == 'residents' %}active{% endif %}" id="nav-residents">
+                <i class="fa-solid fa-user-group sidebar-icon"></i>
+                Residents
+            </a>
+            
+            <a href="#" class="sidebar-link {% if active_menu == 'care_planning' %}active{% endif %}" id="nav-care-planning">
+                <i class="fa-solid fa-pen-to-square sidebar-icon"></i>
+                Care Planning
+            </a>
+            
+            <a href="#" class="sidebar-link disabled" id="nav-emar">
+                <i class="fa-solid fa-pills sidebar-icon"></i>
+                eMAR <span class="badge-soon">soon</span>
+            </a>
+            
+            <a href="#" class="sidebar-link {% if active_menu == 'incident_risk' %}active{% endif %}" id="nav-incident">
+                <i class="fa-solid fa-shield-halved sidebar-icon"></i>
+                Incident &amp; Risk
+            </a>
+            
+            <a href="#" class="sidebar-link {% if active_menu == 'reports' %}active{% endif %}" id="nav-reports">
+                <i class="fa-solid fa-chart-line sidebar-icon"></i>
+                Reports
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ── LOGOUT AT BOTTOM ── -->
+    <div class="sidebar-footer">
+        <a href="#" class="sidebar-link text-danger" id="nav-logout">
+            <i class="fa-solid fa-arrow-right-from-bracket sidebar-icon"></i>
+            Logout
+        </a>
+    </div>
+</nav>
