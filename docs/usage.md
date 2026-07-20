@@ -81,9 +81,22 @@ Toàn bộ tài liệu phân tích, thiết kế và phát hành phải được
   3. Commit thứ hai dành riêng cho file Lịch sử & Release.
 
 ### Bước 7: Push Mã Nguồn & Rà Soát Tổng Thể (Senior DevOps & Lead)
+
 * **Mục tiêu:** Đưa mã nguồn lên Remote Repository và mở Pull Request.
 * **Tác vụ:**
   1. Rà soát lại toàn bộ vòng đời xem có vi phạm Quality Gate không.
   2. Thực thi lệnh đẩy mã nguồn: `git push origin [tên-nhánh]` (hoặc push qua fork).
   3. Tạo Pull Request với tên chuẩn theo mục 1.2.
+
+* **Mục tiêu:** Đưa mã nguồn lên Remote Repository và mở Pull Request an toàn (không push trực tiếp vào origin).
+* **Tác vụ:**
+  1. Rà soát lại toàn bộ vòng đời xem có vi phạm Quality Gate không.
+  2. Cấu hình fork (nếu chưa có): `gh repo fork --remote=true` (hoặc `git remote add fork [URL]`).
+  3. Thực thi lệnh đẩy mã nguồn lên nhánh fork: `git push fork [tên-nhánh]`.
+
+  4. Tạo Pull Request bằng lệnh GitHub CLI: `gh pr create -t "[Title]" -F pr_body.md -B dev`.
+
+  4. Tạo Pull Request bằng lệnh GitHub CLI: `gh pr create -t "[Title]" -F pr_body.md -B dev --head [tên-user-fork]:[tên-nhánh]` (Lưu ý: Bắt buộc dùng cờ `--head` vì ta đang push lên fork thay vì origin).
+
+
 * **Kết xuất:** Mã nguồn có mặt trên Git Server, Pull Request sẵn sàng review. Ticket chính thức đóng lại (Closed).
