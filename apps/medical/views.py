@@ -176,3 +176,42 @@ class CareGoalListCreateView(generics.ListCreateAPIView):
 class CareGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CareGoal.objects.all()
     serializer_class = CareGoalSerializer
+
+
+
+# ==========================
+# SC029 UI Page View (Care Plan Detail with Holiday Notice)
+# ==========================
+
+def care_plan_detail_page(request):
+    # Ngày review tiếp theo của kế hoạch
+    next_review_due = date(2026, 7, 4)  # Mẫu ngày 04/07/2026 (Federal Holiday)
+
+    # Truy vấn tên ngày lễ từ SQL Server DB
+    holiday_info = Holiday.objects.filter(holiday_date=next_review_due).first()
+    
+    holiday_notice = None
+    if holiday_info:
+        # Định dạng chuỗi thông báo: "Scheduled on: July 4 - Federal Holiday"
+        formatted_date = next_review_due.strftime("%B %d").replace(" 0", " ")
+        holiday_notice = f"Scheduled on: {formatted_date} - {holiday_info.holiday_name}"
+
+    context = {
+        "resident_name": "Robert Hayes",
+        "room": "Room 204B",
+        "loc_tier": "LOC Tier 3",
+        "next_review": next_review_due.strftime("%Y-%m-%d"),
+        "last_reviewed": "2026-04-08",
+        "cycle_days": "90 days",
+        "loc_rate": 248.00,
+        "room_rate": 185.00,
+        "estimated_daily": 433.00,
+        "estimated_monthly": 13163.00,
+        "holiday_notice": holiday_notice,  # Biến truyền ra giao diện
+    }
+
+    return render(
+        request,
+        "medical/care_plan_detail.html",
+        context
+    )

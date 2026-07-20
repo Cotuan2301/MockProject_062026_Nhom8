@@ -12,6 +12,7 @@ from apps.medical.views import (
 
     care_plan_create_page,
     care_plan_locked_page,
+    care_plan_detail_page,
 )
 
 
@@ -90,6 +91,11 @@ urlpatterns = [
     "care-plans/locked/",
     care_plan_locked_page,
     name="care_plan_locked",
+),
+    path(
+    "care-plans/detail/",
+    care_plan_detail_page, 
+    name="care_plan_detail",
 ),
 
 ]
