@@ -9,6 +9,47 @@
             </a>
         </div>
 
+
+        <div class="sidebar-divider"></div>
+
+        <!-- ── CLINICAL MANAGEMENT ── -->
+        <div class="sidebar-group">
+            <div class="sidebar-group-label">Clinical Management</div>
+
+            <a href="#"
+               class="sidebar-link {% if active_menu == 'residents' %}active{% endif %}"
+               id="nav-residents">
+                <i class="fas fa-user-injured sidebar-icon"></i>
+                Residents
+            </a>
+
+            <a href="#"
+               class="sidebar-link {% if active_menu == 'care_planning' %}active{% endif %}"
+               id="nav-care-planning">
+                <i class="fas fa-clipboard-list sidebar-icon"></i>
+                Care Planning
+            </a>
+
+            <a href="#"
+               class="sidebar-link disabled"
+               id="nav-emar">
+                <i class="fas fa-pills sidebar-icon"></i>
+                eMAR <span style="font-size: 10px; color: #888; margin-left: 5px;">soon</span>
+            </a>
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <!-- ── RISK & REPORTS ── -->
+        <div class="sidebar-group">
+            <div class="sidebar-group-label">Risk &amp; Reports</div>
+
+            <a href="{% url 'incidents:list' %}"
+               class="sidebar-link {% if active_menu == 'incident_severity' %}active{% endif %}"
+               id="nav-incident-severity">
+                <i class="fas fa-shield-halved sidebar-icon"></i>
+                Incident & Risk
+
         <div class="sidebar-group">
             <a href="{% url 'residents:list' %}" class="sidebar-link {% if active_menu == 'residents' %}active{% endif %}" id="nav-residents">
                 <i class="fa-regular fa-user sidebar-icon"></i>
@@ -20,8 +61,15 @@
             <a href="{% url 'care_planning:care_plan_list' %}" class="sidebar-link {% if active_menu == 'care_planning' %}active{% endif %}" id="nav-care-planning">
                 <i class="fa-regular fa-pen-to-square sidebar-icon"></i>
                 Care Planning
+
             </a>
         </div>
+
+
+            <a href="#"
+               class="sidebar-link {% if active_menu == 'reports' %}active{% endif %}"
+               id="nav-reports">
+                <i class="fas fa-chart-pie sidebar-icon"></i>
 
         <div class="sidebar-group">
             <a href="#" class="sidebar-link" id="nav-emar" style="opacity: 0.5; pointer-events: none;">
@@ -40,6 +88,7 @@
         <div class="sidebar-group">
             <a href="#" class="sidebar-link {% if active_menu == 'reports' %}active{% endif %}" id="nav-reports">
                 <i class="fa-solid fa-chart-line sidebar-icon"></i>
+
                 Reports
             </a>
         </div>

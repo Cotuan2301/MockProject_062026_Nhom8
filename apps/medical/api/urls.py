@@ -1,4 +1,12 @@
 from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('residents/<int:resident_id>/loc-history/', views.ResidentCareLevelHistoryListView.as_view(), name='loc-history-list'),
+    path('residents/<int:resident_id>/loc-history/export/', views.ResidentCareLevelHistoryExportView.as_view(), name='loc-history-export'),
+]
+
 from .views import (
     PreAdmissionScreeningDetailAPIView, 
     PreAdmissionScreeningCreateUpdateAPIView, 
@@ -15,3 +23,4 @@ urlpatterns = [
     path('screenings/compliance-check/', ComplianceCheckAPIView.as_view(), name='screening-compliance-check'),
     path('admissions/create/', AdmissionCreateAPIView.as_view(), name='admission-create'),
 ]
+
