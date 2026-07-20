@@ -20,3 +20,4 @@ media/
 # Static files
 static/images/
 staticfiles/
+.ast-graph/
