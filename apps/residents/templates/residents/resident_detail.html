@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% block title %}Resident Profile{% endblock %} 
+
+{% block content %}
+<div class="breadcrumb">
+  <a href="#">Residents</a>
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  <span>{{ resident.first_name }} {{ resident.last_name}}</span>
+</div>
+
+<div class="profile-header-wrap">
+  <div class="profile-header-left">
+    <div class="profile-avatar">
+      {{ resident.first_name|slice:":1" }}{{ resident.last_name|slice:":1" }}
+    </div>
+    <div class="profile-info">
+      <h1> {{ resident.first_name }} {{ resident.last_name}}</h1>
+      <p>DOB {{ resident.date_of_birth|date:"m/d/Y" }} &middot; Room {{ resident.bed.room.room_number }}{{ resident.bed.bed_number }} &middot; Resident ID {{ resident.id }}</p>
+      <div class="profile-badges">
+        <span class="badge badge-active">{{ resident.status }}</span>
+        <span class="badge badge-dnr">{{ resident.has_dnr|yesno:"Yes, No" }} DNR</span>
+        <span class="badge badge-level">{{ resident.residentcarelevelhistory_set.last.care_level.level_name }}</span>
+        <span class="badge badge-medicaid">{{ resident.residentinsurancepolicy_set.first.insurance_provider.provider_name }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="profile-actions">
+    <a href="{% url 'residents:resident_edit' pk=resident.pk %}" class="text-decoration-none">
+      <button class="btn-outline">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+        Edit Profile
+      </button>
+    </a>
+    <button class="btn-outline">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      Report Incident
+    </button>
+    <a href="{% url 'medical:screening-create' resident.id %}" class="text-decoration-none">
+      <button class="btn-primary-blue">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        New Assessment
+      </button>
+    </a>
+  </div>
+</div>
+
+<div class="tabs-container">
+  <ul class="tabs-list">
+    <li class="active">Overview</li>
+    <li>Assessments</li>
+    <li>Care Plan</li>
+    <li>eMAR</li>
+    <li>LOC</li>
+    <li>Audit Log</li>
+  </ul>
+</div>
+
+<div class="profile-grid">
+  <!-- LEFT COLUMN -->
+  <div class="grid-left">
+    <!-- Demographics Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Demographics</h2>
+        <span class="card-subtitle">Role: Nurse — view + edit clinical fields</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-group">
+          <label>Legal Name</label>
+          <p>{{ resident.first_name }} {{ resident.middle_name }} {{ resident.last_name}}</p>
+        </div>
+        <div class="info-group">
+          <label>Address</label>
+          <p>{{ resident.address.street_line1 }}, {{ resident.address.city }}, {{ resident.address.state }}</p>
+        </div>
+        <div class="info-group">
+          <label>Date of Birth</label>
+          <p>{{ resident.date_of_birth|date:"m/d/Y" }}</p>
+        </div>
+        <div class="info-group">
+          <label>Admission Date</label>
+          <p>{{ resident.admission_set.first.admission_date|date:"m/d/Y"|default:"N/A" }}</p>
+        </div>
+        <div class="info-group">
+          <label>SSN</label>
+          <p>{{ resident.residentsensitiveinfo.ssn_encrypted  }}</p>
+        </div>
+        <div class="info-group">
+          <label>Room / Bed</label>
+          <p>{{ resident.bed.room.room_number }} / {{ resident.bed.bed_number }}</p>
+        </div>
+        <div class="info-group">
+          <label>Gender</label>
+          <p>{{ resident.gender }}</p>
+        </div>
+        <div class="info-group">
+          <label>Referral Source</label>
+          <p>{{ resident.admission_set.first.referral_source|default:"N/A" }}</p>
+        </div>
+        <div class="info-group">
+          <label>Marital Status</label>
+          <p>{{ resident.marital_status }}</p>
+        </div>
+        <div class="info-group">
+          <label>Emergency Contact</label>
+          <p>{{ emergency_contact.contact.first_name }} {{ emergency_contact.contact.last_name }} ({{ emergency_contact.relationship_type }})</p>
+        </div>
+        <div class="info-group">
+          <label>Phone</label>
+          <p>({{ self_contact.contact.phone_primary }}) {{ self_contact.contact.phone_secondary }}</p>
+        </div>
+        <div class="info-group">
+          <label>Payer Source</label>
+          <p>{{ resident.residentinsurancepolicy_set.first.insurance_provider.provider_name }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Authorized Representative / POA Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Authorized Representative / POA</h2>
+      </div>
+      <div class="info-grid">
+        <div class="info-group">
+          <label>Name</label>
+          <p>{{ poa_contact.contact.first_name }} {{ poa_contact.contact.last_name }}</p>
+        </div>
+        <div class="info-group">
+          <label>Relationship</label>
+          <p>{{ poa_contact.relationship_type }}</p>
+        </div>
+        <div class="info-group">
+          <label>Contact</label>
+          <p>({{ poa_contact.contact.phone_primary }}) {{ poa_contact.contact.phone_secondary }}</p>
+        </div>
+        <div class="info-group">
+          <label>DNR Flag</label>
+          <p>{{ resident.has_dnr|yesno:"Yes, No" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="grid-right">
+    <!-- Diagnosis Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Diagnosis (ICD-10)</h2>
+      </div>
+      <ul class="diagnosis-list">
+        {% for record in resident.clinicalrecord_set.all %}
+            {% if record.record_type == "DIAGNOSIS" %}
+                <li>{{ record.description }}</li>
+            {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Allergies Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Allergies</h2>
+      </div>
+      <div class="profile-badges gap-12">
+        {% for record in resident.clinicalrecord_set.all %}
+            {% if record.record_type == "ALLERGY" %}
+                <span class="badge badge-allergy">{{ record.description }}</span>
+            {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Insurance / Payer Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Insurance / Payer</h2>
+      </div>
+      <table class="info-table">
+        <tr>
+          <td>Medicare Number</td>
+          <td>{{ resident.residentinsurancepolicy_set.first.policy_number_encrypted|default:"Not on file" }}</td>
+        </tr>
+        <tr>
+          <td>Insurance Provider</td>
+          <td>{{ resident.residentinsurancepolicy_set.first.insurance_provider.provider_name|default:"Not on file" }}</td>
+        </tr>
+        <tr>
+          <td>Payer Name</td>
+          <td>{{ resident.residentinsurancepolicy_set.first.insurance_provider.get_provider_type_display|default:"Not on file" }}</td>
+        </tr>
+        <tr>
+          <td>Auth Number</td>
+          <td>{{ resident.residentinsurancepolicy_set.first.auth_number|default:"Not on file" }}</td>
+        </tr>
+        <tr>
+          <td>Auth Start / End</td>
+          <td>{{ resident.residentinsurancepolicy_set.first.effective_from|date:"m/d/Y"|default:"N/A" }} / {{ resident.residentinsurancepolicy_set.first.effective_to|date:"m/d/Y"|default:"N/A" }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- LOC Summary Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">LOC Summary</h2>
+      </div>
+      <div class="mb-10">
+        <span class="badge badge-level">{{ resident.residentcarelevelhistory_set.last.care_level.level_name|default:"No Level Set" }}</span>
+      </div>
+      <p class="text-bold mb-10" style="font-size: 13px; color: #333;">ADL Score: {{ resident.assessment_set.last.adl_total_score|default:"N/A" }} / 32</p>
+      <a href="#" class="loc-link">View LOC History &rarr;</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
