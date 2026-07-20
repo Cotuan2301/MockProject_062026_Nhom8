@@ -35,7 +35,10 @@ urlpatterns = [
 
     path('api/v1/medical/', include('apps.medical.api.urls')),
 
+    path('incidents/', include('apps.incidents.urls')),
+    
 ]
+
 
 # Serve media files during development
 if settings.DEBUG:

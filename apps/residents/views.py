@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+from django.shortcuts import render
+
+def add_resident(request):
+    return render(request, "residents/add_resident.html")
+
+
+def resident_list(request):
+    return render(request, "residents/list.html")
+=======
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
@@ -420,3 +430,4 @@ def check_similar_resident(request):
     return JsonResponse({'exists': False})
 
 
+>>>>>>> dev

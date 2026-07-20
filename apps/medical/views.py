@@ -159,10 +159,9 @@ def care_plan_create_page(request):
         resident_id = request.POST.get("resident_id", 1)
         action = request.POST.get("action", "save_draft")
 
-        # Sử dụng DRAFT hoặc ACTIVE để khớp 100% với STATUS_CHOICES trong models.py
-        status = "DRAFT" if action == "save_draft" else "ACTIVE"
+        status = "DRAFT" if action == "save_draft" else "PENDING_REVIEW"
 
-        # 1. Tạo Care Plan trong DB SQL Server
+        # 1. Tạo Care Plan
         care_plan = CarePlan.objects.create(
             resident_id=resident_id,
             status=status,
@@ -177,7 +176,7 @@ def care_plan_create_page(request):
                 goal=goal_text,
                 measure=request.POST.get("measure", ""),
                 task=request.POST.get("task", ""),
-                status="IN_PROGRESS"  # Khớp với STATUS_CHOICES trong CareGoal model
+                status="IN_PROGRESS"
             )
 
         messages.success(request, f"Care Plan created successfully with status: {status}")
@@ -192,7 +191,7 @@ def care_plan_create_page(request):
     except ValueError:
         target_date = date(2026, 9, 2)
 
-    # Query kiểm tra trùng ngày lễ từ SQL Server
+    # Đã map db_column='HolidayDate' chuẩn trong model -> Query trực tiếp cực ngắn gọn
     is_holiday_conflict = Holiday.objects.filter(holiday_date=target_date).exists()
 
     care_areas = [
@@ -249,6 +248,7 @@ def care_plan_create_page(request):
 def care_plan_locked_page(request):
     target_date = date(2026, 9, 2)
     
+    # Query trực tiếp sạch đẹp
     is_holiday_conflict = Holiday.objects.filter(holiday_date=target_date).exists()
 
     context = {
@@ -266,156 +266,7 @@ def care_plan_locked_page(request):
 
 
 # ==========================
-# SC029 UI Page View (Care Plan Detail with Holiday Notice)
-# ==========================
-
-def care_plan_detail_page(request):
-    next_review_due = date(2026, 7, 4)
-
-    holiday_info = Holiday.objects.filter(holiday_date=next_review_due).first()
-    
-    holiday_notice = None
-    if holiday_info:
-        formatted_date = next_review_due.strftime("%B %d").replace(" 0", " ")
-        holiday_notice = f"Scheduled on: {formatted_date} - {holiday_info.holiday_name}"
-
-    context = {
-        "resident_name": "Robert Hayes",
-        "room": "Room 204B",
-        "loc_tier": "LOC Tier 3",
-        "next_review": next_review_due.strftime("%Y-%m-%d"),
-        "last_reviewed": "2026-04-08",
-        "cycle_days": "90 days",
-        "loc_rate": 248.00,
-        "room_rate": 185.00,
-        "estimated_daily": 433.00,
-        "estimated_monthly": 13163.00,
-        "holiday_notice": holiday_notice,
-    }
-
-    return render(
-        request,
-        "medical/care_plan_detail.html",
-        context
-    )
-
-
-# ==========================
-# SC030 UI Page View (Review Care Plan)
-# ==========================
-
-def care_plan_review_page(request, pk=None):
-    care_plan = CarePlan.objects.filter(pk=pk).first() if pk else None
-
-    # Dynamic check trùng ngày lễ cho banner warning
-    holiday_warning = None
-    holiday_check = Holiday.objects.filter(holiday_date=date(2026, 7, 30)).first()
-    if holiday_check:
-        holiday_warning = f"The plan includes a date that coincides with a public holiday ({holiday_check.holiday_name})."
-    else:
-        holiday_warning = "The plan includes a date that coincides with a public holiday (July 30th)."
-
-    context = {
-        "care_plan": care_plan,
-        "resident_name": care_plan.resident.full_name if care_plan and hasattr(care_plan, 'resident') else "Robert Hayes",
-        "room": getattr(care_plan, 'room', "Room 204B"),
-        "loc_tier": getattr(care_plan, 'loc_tier', "LOC Tier 3"),
-        "submitted_by": getattr(care_plan, 'submitted_by', "Anna Lee, RN"),
-        "submitted_date": care_plan.created_at.strftime("%Y-%m-%d") if care_plan and hasattr(care_plan, 'created_at') else "2026-07-02",
-        "status": getattr(care_plan, 'status', "Pending Review"),
-        
-        # Author info
-        "author_name": "Anna Lee, RN",
-        "license_no": "RN-482913 (CA)",
-        "prepared_date": "2026-07-02 16:40",
-        
-        # IDT Acknowledgment
-        "physician_name": "Dr. Alan Cho, MD",
-        "physician_signed_at": "2026-07-02 14:10",
-        "dietary_name": "Grace Liu, RD",
-        "dietary_signed_at": "2026-07-02 15:30",
-
-        # Holiday warning
-        "holiday_warning": holiday_warning,
-    }
-    return render(request, "medical/care_plan_review.html", context)
-
-
-# ==========================
-# SC030 / SC031 API: Approve & e-Sign (With Password Check)
-# ==========================
-
-@csrf_exempt
-@require_POST
-def approve_care_plan(request, pk=None):
-    try:
-        password = request.POST.get("password", "").strip()
-
-        # Xác thực mật khẩu chữ ký điện tử nếu user đã đăng nhập
-        if request.user.is_authenticated and password:
-            if not request.user.check_password(password):
-                return JsonResponse({
-                    "status": "error",
-                    "message": "Invalid re-authentication password. Please try again."
-                }, status=400)
-
-        # Xử lý cập nhật DB
-        if pk:
-            care_plan = CarePlan.objects.filter(pk=pk).first()
-            if care_plan:
-                if hasattr(care_plan, 'status'):
-                    care_plan.status = "ACTIVE"
-                if hasattr(care_plan, 'approved_at'):
-                    care_plan.approved_at = timezone.now()
-                if hasattr(care_plan, 'approved_by'):
-                    care_plan.approved_by = request.user if request.user.is_authenticated else None
-                care_plan.save()
-                return JsonResponse({
-                    "status": "success",
-                    "message": "Care Plan approved and e-signed successfully!"
-                })
-
-        return JsonResponse({
-            "status": "success",
-            "message": "Care Plan approved and e-signed (Simulated)!"
-        })
-    except Exception as e:
-        return JsonResponse({"status": "error", "message": f"Server Error: {str(e)}"}, status=500)
-
-
-# ==========================
-# SC030 API: Reject & Return
-# ==========================
-
-@csrf_exempt
-@require_POST
-def reject_care_plan(request, pk=None):
-    try:
-        reason = request.POST.get("rejection_reason", "").strip()
-
-        if not reason:
-            return JsonResponse(
-                {"status": "error", "message": "Rejection reason is required when returning a plan to Draft."},
-                status=400
-            )
-
-        if pk:
-            care_plan = CarePlan.objects.filter(pk=pk).first()
-            if care_plan:
-                if hasattr(care_plan, 'status'):
-                    care_plan.status = "DRAFT"
-                if hasattr(care_plan, 'rejection_reason'):
-                    care_plan.rejection_reason = reason
-                care_plan.save()
-                return JsonResponse({"status": "success", "message": "Care Plan rejected and returned to Draft!"})
-
-        return JsonResponse({"status": "success", "message": "Care Plan rejected and returned as Draft (Simulated)!"})
-    except Exception as e:
-        return JsonResponse({"status": "error", "message": f"Server Error: {str(e)}"}, status=500)
-
-
-# ==========================
-# Care Level API (DRF Views)
+# Care Level API
 # ==========================
 
 class CareLevelListCreateView(generics.ListCreateAPIView):
@@ -453,4 +304,44 @@ class CareGoalListCreateView(generics.ListCreateAPIView):
 
 class CareGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CareGoal.objects.all()
+    serializer_class = CareGoalSerializer
+
+
+
+# ==========================
+# SC029 UI Page View (Care Plan Detail with Holiday Notice)
+# ==========================
+
+def care_plan_detail_page(request):
+    # Ngày review tiếp theo của kế hoạch
+    next_review_due = date(2026, 7, 4)  # Mẫu ngày 04/07/2026 (Federal Holiday)
+
+    # Truy vấn tên ngày lễ từ SQL Server DB
+    holiday_info = Holiday.objects.filter(holiday_date=next_review_due).first()
+    
+    holiday_notice = None
+    if holiday_info:
+        # Định dạng chuỗi thông báo: "Scheduled on: July 4 - Federal Holiday"
+        formatted_date = next_review_due.strftime("%B %d").replace(" 0", " ")
+        holiday_notice = f"Scheduled on: {formatted_date} - {holiday_info.holiday_name}"
+
+    context = {
+        "resident_name": "Robert Hayes",
+        "room": "Room 204B",
+        "loc_tier": "LOC Tier 3",
+        "next_review": next_review_due.strftime("%Y-%m-%d"),
+        "last_reviewed": "2026-04-08",
+        "cycle_days": "90 days",
+        "loc_rate": 248.00,
+        "room_rate": 185.00,
+        "estimated_daily": 433.00,
+        "estimated_monthly": 13163.00,
+        "holiday_notice": holiday_notice,  # Biến truyền ra giao diện
+    }
+
+    return render(
+        request,
+        "medical/care_plan_detail.html",
+        context
+    )
     serializer_class = CareGoalSerializer
