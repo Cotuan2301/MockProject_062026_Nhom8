@@ -12,9 +12,12 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import mimetypes
+
+mimetypes.add_type("text/css", ".css", True)
 from dotenv import load_dotenv
 
-# Đọc file .env
+# Read .env file
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# lấy DEBUG từ .env
+# Get DEBUG from .env
 DEBUG = os.environ.get('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['*']
@@ -50,7 +53,9 @@ INSTALLED_APPS = [
     'apps.residents',
     'apps.rooms',
     'apps.staff',
-    'apps.incidents',
+    'rest_framework',
+
+    'apps.care_planning',
 ]
 
 MIDDLEWARE = [
@@ -148,17 +153,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# Cấu hình Media (Upload ảnh, file...)
+# Media configuration (Upload images, files...)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Cấu hình Static (File CSS, JS, Images của Django)
+# Static configuration (Django CSS, JS, Images files)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Định nghĩa Model Auto Field
+# Define Model Auto Field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
