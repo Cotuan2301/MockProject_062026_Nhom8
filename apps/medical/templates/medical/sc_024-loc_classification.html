@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+
+{% block title %}LOC Classification Result{% endblock %}
+
+{% block breadcrumb %}
+&gt; <a href="#">Residents</a> &gt; <a href="#">{{ assessment.resident.full_name }}</a> &gt; LOC
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 1000px;">
+    <h1>LOC Classification Result — {{ assessment.resident.full_name }}</h1>
+    <p class="breadcrumb" style="margin-bottom: 20px;">From Assessment v{{ assessment.version }} &middot; {{
+        assessment.created_at|date:"Y-m-d" }}</p>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-50">
+            <div class="section-box"
+                style="text-align: center; padding: 25px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h3 style="color: #666; margin-bottom: 15px; font-weight: normal;">ADL Score</h3>
+                <div style="font-size: 40px; font-weight: bold; color: #111827;">{{ loc.calculated_score }} / 32</div>
+            </div>
+        </div>
+        <div class="col-50">
+            {% with level=loc.suggested_loc %}
+            <div class="section-box" style="text-align: center; padding: 25px; height: 100%; display: flex; flex-direction: column; justify-content: center;
+                {% if level == 'Level 1' %}background-color: #dcfce7; border-color: #bbf7d0;
+                {% elif level == 'Level 2' %}background-color: #dbeafe; border-color: #bfdbfe;
+                {% elif level == 'Level 3' %}background-color: #fef9c3; border-color: #fef08a;
+                {% else %}background-color: #fee2e2; border-color: #fecaca;{% endif %}
+            ">
+                <h3 style="color: #666; margin-bottom: 15px; font-weight: normal;">Suggested LOC</h3>
+                <div style="font-size: 24px; font-weight: bold; color: #111827;">
+                    {{ loc.suggested_loc }}
+                    {% if loc.suggested_loc == 'Level 1' %}— Independent
+                    {% elif loc.suggested_loc == 'Level 2' %}— Limited Assist
+                    {% elif loc.suggested_loc == 'Level 3' %}— Extensive Assistance
+                    {% else %}— Total Assistance{% endif %}
+                </div>
+            </div>
+            {% endwith %}
+        </div>
+    </div>
+
+    <!-- ADL Item Breakdown -->
+    <div class="section-box" style="margin-bottom: 20px; padding: 25px;">
+        <h3 style="margin-bottom: 15px; font-size: 16px;">ADL Item Breakdown</h3>
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+            <thead>
+                <tr style="border-bottom: 2px solid #e5e7eb; color: #6b7280;">
+                    <th style="padding: 12px 10px;">Activity</th>
+                    <th style="padding: 12px 10px;">Score</th>
+                    <th style="padding: 12px 10px;">Source</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 10px;">Bed Mobility</td>
+                    <td style="padding: 12px 10px; font-weight: bold;">{{ assessment.adl_bed_mobility }} / 4</td>
+                    <td style="padding: 12px 10px; color: #9ca3af;">Initial Assessment v{{ assessment.version }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 10px;">Transfer</td>
+                    <td style="padding: 12px 10px; font-weight: bold;">{{ assessment.adl_transfer }} / 4</td>
+                    <td style="padding: 12px 10px; color: #9ca3af;">Initial Assessment v{{ assessment.version }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 10px;">Locomotion (Walk)</td>
+                    <td style="padding: 12px 10px; font-weight: bold;">{{ assessment.adl_locomotion }} / 4</td>
+                    <td style="padding: 12px 10px; color: #9ca3af;">Initial Assessment v{{ assessment.version }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 10px;">Dressing</td>
+                    <td style="padding: 12px 10px; font-weight: bold;">{{ assessment.adl_dressing }} / 4</td>
+                    <td style="padding: 12px 10px; color: #9ca3af;">Initial Assessment v{{ assessment.version }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 10px;">Eating</td>
+                    <td style="padding: 12px 10px; font-weight: bold;">{{ assessment.adl_eating }} / 4</td>
+                    <td style="padding: 12px 10px; color: #9ca3af;">Initial Assessment v{{ assessment.version }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 10px;">Toilet Use</td>
+                    <td style="padding: 12px 10px; font-weight: bold;">{{ assessment.adl_toilet_use }} / 4</td>
+                    <td style="padding: 12px 10px; color: #9ca3af;">Initial Assessment v{{ assessment.version }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 10px;">Personal Hygiene</td>
+                    <td style="padding: 12px 10px; font-weight: bold;">{{ assessment.adl_personal_hygiene }} / 4</td>
+                    <td style="padding: 12px 10px; color: #9ca3af;">Initial Assessment v{{ assessment.version }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 10px;">Bathing</td>
+                    <td style="padding: 12px 10px; font-weight: bold;">{{ assessment.adl_bathing }} / 4</td>
+                    <td style="padding: 12px 10px; color: #9ca3af;">Initial Assessment v{{ assessment.version }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- LOC Level Reference -->
+    <div class="section-box" style="margin-bottom: 20px; padding: 25px;">
+        <h3 style="margin-bottom: 15px; font-size: 14px; color: #6b7280;">LOC Level Reference (fixed - not editable
+            here)</h3>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <div
+                style="flex: 1; padding: 15px; border-radius: 6px; background-color: #dcfce7; border: 1px solid #bbf7d0; min-width: 150px;">
+                <div style="font-weight: bold; color: #166534; margin-bottom: 5px;">Level 1</div>
+                <div style="font-size: 12px; color: #166534;">0-8 &middot; Independent</div>
+            </div>
+            <div
+                style="flex: 1; padding: 15px; border-radius: 6px; background-color: #dbeafe; border: 1px solid #bfdbfe; min-width: 150px;">
+                <div style="font-weight: bold; color: #1e40af; margin-bottom: 5px;">Level 2</div>
+                <div style="font-size: 12px; color: #1e40af;">9-16 &middot; Limited Assist.</div>
+            </div>
+            <div
+                style="flex: 1; padding: 15px; border-radius: 6px; background-color: #fef9c3; border: 1px solid #fef08a; min-width: 150px;">
+                <div style="font-weight: bold; color: #854d0e; margin-bottom: 5px;">Level 3</div>
+                <div style="font-size: 12px; color: #854d0e;">17-24 &middot; Extensive Assist.</div>
+            </div>
+            <div
+                style="flex: 1; padding: 15px; border-radius: 6px; background-color: #fee2e2; border: 1px solid #fecaca; min-width: 150px;">
+                <div style="font-weight: bold; color: #991b1b; margin-bottom: 5px;">Level 4</div>
+                <div style="font-size: 12px; color: #991b1b;">25-32 &middot; Total Assistance</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rate -->
+    <div class="section-box" style="margin-bottom: 25px; padding: 25px;">
+        <h3 style="font-size: 14px; color: #6b7280; font-weight: normal;">Estimated Daily Rate ({% if loc.final_loc %}{{
+            loc.final_loc }}{% else %}{{ loc.suggested_loc }}{% endif %})</h3>
+        <div style="font-size: 20px; margin-top: 10px; font-weight: bold; color: #111827;">
+            {% if loc_rate %}
+            ${{ loc_rate.daily_rate }} / day <span
+                style="color: #6b7280; font-size: 14px; font-weight: normal; margin-left: 5px;">(from LOC Rate Table,
+                read-only)</span>
+            {% else %}
+            <span style="color: #9ca3af;">Rate not configured</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 30px;">
+        {% if loc.status != 'Confirmed' %}
+        <form method="POST" action="{% url 'medical:loc_confirm' assessment.id %}">
+            {% csrf_token %}
+            <button type="submit"
+                style="background-color: #2563eb; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-weight: 500; cursor: pointer; font-size: 15px;">
+                <i class="fa fa-check" style="margin-right: 8px;"></i> Confirm LOC
+            </button>
+        </form>
+
+        <button type="button"
+            style="background-color: white; color: #374151; padding: 11px 24px; border: 1px solid #d1d5db; border-radius: 6px; font-weight: 500; cursor: pointer; font-size: 15px;"
+            onclick="document.getElementById('overrideModal').style.display='flex'">
+            <i class="fa fa-pencil" style="margin-right: 8px; color: #6b7280;"></i> Override
+        </button>
+        {% else %}
+        <div
+            style="background-color: #f3f4f6; color: #374151; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 15px; border: 1px solid #e5e7eb;">
+            <i class="fa fa-lock" style="margin-right: 8px; color: #9ca3af;"></i> LOC Confirmed (Read-only)
+        </div>
+        {% endif %}
+
+        <a href="#"
+            style="margin-left: auto; color: #2563eb; font-weight: 500; text-decoration: none; font-size: 15px;">
+            View LOC History &rarr;
+        </a>
+    </div>
+
+    <!-- Audit Log -->
+    {% if history %}
+    <div
+        style="background-color: #f9fafb; padding: 15px 20px; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 13px; color: #4b5563; margin-top: 20px;">
+        {% with last_log=history.0 %}
+        <div style="margin-bottom: 8px;">
+            <strong>Confirmed by:</strong> {% if last_log.action_by %}{{ last_log.action_by.username }}{% else
+            %}System{% endif %} &middot;
+            {{ last_log.action_at|date:"Y-m-d H:i" }} &middot;
+            <strong>Action:</strong> {{ last_log.action }} ({% if loc.final_loc %}{{ loc.final_loc }}{% else %}{{
+            loc.suggested_loc }}{% endif %})
+        </div>
+        {% endwith %}
+        <div style="color: #6b7280;">Next step: Care Plan reassessment link (M2-US-07) available from this tier change.
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Modal Override -->
+<div id="overrideModal"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
+    <div
+        style="background: white; width: 100%; max-width: 500px; padding: 30px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+        <h3 style="margin-bottom: 20px; font-size: 18px; border-bottom: 1px solid #eee; padding-bottom: 10px;">Override
+            LOC</h3>
+        <form method="POST" action="{% url 'medical:loc_override' assessment.id %}">
+            {% csrf_token %}
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #374151;">Select New LOC
+                    Level:</label>
+                <select name="override_loc"
+                    style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; outline: none;"
+                    required>
+                    <option value="">-- Select Level --</option>
+                    <option value="Level 1">Level 1 — Independent</option>
+                    <option value="Level 2">Level 2 — Limited Assist</option>
+                    <option value="Level 3">Level 3 — Extensive Assistance</option>
+                    <option value="Level 4">Level 4 — Total Assistance</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #374151;">Reason for Override
+                    <span style="color: #ef4444;">*</span>:</label>
+                <textarea name="override_reason" rows="4"
+                    style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; outline: none; resize: vertical;"
+                    required
+                    placeholder="Please provide justification for overriding the system suggested LOC..."></textarea>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button type="button"
+                    style="padding: 10px 20px; background: white; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer; font-weight: 500;"
+                    onclick="document.getElementById('overrideModal').style.display='none'">Cancel</button>
+                <button type="submit"
+                    style="padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Confirm
+                    Override</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
