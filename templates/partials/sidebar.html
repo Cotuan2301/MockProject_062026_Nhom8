@@ -1,15 +1,14 @@
+
 <nav class="admin-sidebar" id="adminSidebar" aria-label="Main navigation">
     <div class="sidebar-nav">
 
-        <!-- ── No group: Dashboard ── -->
         <div class="sidebar-group">
-            <a href="#"
-               class="sidebar-link {% if active_menu == 'dashboard' %}active{% endif %}"
-               id="nav-dashboard">
-                <i class="fas fa-gauge-high sidebar-icon"></i>
+            <a href="#" class="sidebar-link {% if active_menu == 'dashboard' %}active{% endif %}" id="nav-dashboard">
+                <i class="fa-solid fa-house sidebar-icon"></i>
                 Dashboard
             </a>
         </div>
+
 
         <div class="sidebar-divider"></div>
 
@@ -50,12 +49,46 @@
                id="nav-incident-severity">
                 <i class="fas fa-shield-halved sidebar-icon"></i>
                 Incident & Risk
+
+        <div class="sidebar-group">
+            <a href="{% url 'residents:list' %}" class="sidebar-link {% if active_menu == 'residents' %}active{% endif %}" id="nav-residents">
+                <i class="fa-regular fa-user sidebar-icon"></i>
+                Residents
             </a>
+        </div>
+
+        <div class="sidebar-group">
+            <a href="{% url 'care_planning:care_plan_list' %}" class="sidebar-link {% if active_menu == 'care_planning' %}active{% endif %}" id="nav-care-planning">
+                <i class="fa-regular fa-pen-to-square sidebar-icon"></i>
+                Care Planning
+
+            </a>
+        </div>
+
 
             <a href="#"
                class="sidebar-link {% if active_menu == 'reports' %}active{% endif %}"
                id="nav-reports">
                 <i class="fas fa-chart-pie sidebar-icon"></i>
+
+        <div class="sidebar-group">
+            <a href="#" class="sidebar-link" id="nav-emar" style="opacity: 0.5; pointer-events: none;">
+                <i class="fa-solid fa-pills sidebar-icon"></i>
+                eMAR <span class="badge" style="margin-left:auto; background:#f3f4f6; color:#6b7280; font-size:10px;">soon</span>
+            </a>
+        </div>
+
+        <div class="sidebar-group">
+            <a href="#" class="sidebar-link {% if active_menu == 'incident_risk' %}active{% endif %}" id="nav-incident">
+                <i class="fa-solid fa-shield-halved sidebar-icon"></i>
+                Incident & Risk
+            </a>
+        </div>
+
+        <div class="sidebar-group">
+            <a href="#" class="sidebar-link {% if active_menu == 'reports' %}active{% endif %}" id="nav-reports">
+                <i class="fa-solid fa-chart-line sidebar-icon"></i>
+
                 Reports
             </a>
         </div>
@@ -64,11 +97,68 @@
 
     <!-- ── Footer: Logout ── -->
     <div class="sidebar-footer">
-        <a href="{% url 'accounts:login' %}"
-           class="sidebar-link"
-           id="nav-logout">
+        <a href="#" class="sidebar-link" id="nav-logout">
             <i class="fas fa-right-from-bracket sidebar-icon"></i>
             Logout
         </a>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-brand" style="display: flex; align-items: center; white-space: nowrap;">
+      <span id="toggle-sidebar-btn" class="header-icon" style="cursor: pointer; font-size: 20px;">&#9776;</span>
+      <div class="sidebar-brand-text" style="display: flex; flex-direction: column; margin-left: 10px; overflow: hidden; transition: opacity 0.3s;">
+        <span style="font-size: 18px; font-weight: 700; line-height: 1;">NHMS</span>
+        <span style="font-weight: 400; color: rgba(255,255,255,0.7); font-size: 11px;">Nursing Home Management System</span>
+      </div>
+
     </div>
-</nav>
+  </div>
+  <ul class="sidebar-menu">
+    <li>
+      <span style="width: 24px; display: flex; justify-content: center; margin-right: 8px;">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      </span>
+      <span class="menu-text">Dashboard</span>
+    </li>
+    <li class="active">
+      {% comment %} <a href = "{% url 'residents:resident_details' %}"> {% endcomment %}
+        <span style="width: 24px; display: flex; justify-content: center; margin-right: 8px;">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </span>
+        <span class="menu-text">Residents</span>
+      {% comment %} </a> {% endcomment %}
+    </li>
+
+    <li>
+      <span style="width: 24px; display: flex; justify-content: center; margin-right: 8px;">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+      </span>
+      <span class="menu-text">Care Planning</span>
+    </li>
+    <li style="opacity: 0.6;">
+      <span style="width: 24px; display: flex; justify-content: center; margin-right: 8px;">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </span>
+      <span class="menu-text">eMAR</span>
+      <span class="menu-text-soon" style="font-size: 10px; border: 1px solid rgba(255,255,255,0.4); border-radius: 10px; padding: 2px 6px; margin-left: auto;">soon</span>
+    </li>
+    <li>
+      <span style="width: 24px; display: flex; justify-content: center; margin-right: 8px;">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </span>
+      <span class="menu-text">Incident & Risk</span>
+    </li>
+    <li>
+      <span style="width: 24px; display: flex; justify-content: center; margin-right: 8px;">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      </span>
+      <span class="menu-text">Reports</span>
+    </li>
+  </ul>
+  <div class="sidebar-footer">
+    <span style="width: 24px; display: flex; justify-content: center; margin-right: 8px;">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+    </span>
+    <span class="menu-text">Logout</span>
+  </div>
+</aside>
