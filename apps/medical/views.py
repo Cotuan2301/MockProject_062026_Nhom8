@@ -126,6 +126,10 @@ class AdmissionFormView(View):
 from datetime import date, datetime
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 from rest_framework import generics
 
 from apps.medical.models import (
@@ -164,7 +168,7 @@ def care_plan_create_page(request):
             significant_change_flag=False
         )
 
-        # 2. Tạo Care Goal
+        # 2. Tạo Care Goal đi kèm
         goal_text = request.POST.get("goal")
         if goal_text:
             CareGoal.objects.create(
@@ -276,7 +280,7 @@ class CareLevelDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 # ==========================
-# Care Plan API
+# Care Plan API (DRF Views)
 # ==========================
 
 class CarePlanListCreateView(generics.ListCreateAPIView):
@@ -290,7 +294,7 @@ class CarePlanDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 # ==========================
-# Care Goal API
+# Care Goal API (DRF Views)
 # ==========================
 
 class CareGoalListCreateView(generics.ListCreateAPIView):
@@ -340,3 +344,4 @@ def care_plan_detail_page(request):
         "medical/care_plan_detail.html",
         context
     )
+    serializer_class = CareGoalSerializer
