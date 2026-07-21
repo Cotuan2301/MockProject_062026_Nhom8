@@ -1,52 +1,51 @@
-<header class="admin-header">
-    <!-- Left: hamburger + logo -->
-    <div class="admin-header__left">
-        <button class="hamburger-btn" id="sidebarToggle" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="admin-logo">
-            <span class="admin-logo__abbr">NHMS</span>
-            <span class="admin-logo__full">Nursing Home Management System</span>
-        </div>
-    </div>
-
-    <!-- Right: notification, help, user -->
+<header class="navbar">
+  <div class="navbar-left">
+    <h2 style="margin: 0; font-size: 20px; color: #1e293b;">{% block navbar_title %}Dashboard{% endblock %}</h2>
+  </div>
+  <div class="navbar-right">
     <div class="admin-header__right">
         <!-- Notification bell -->
-        <button class="header-icon-btn" id="btnNotifications" aria-label="Notifications" title="Notifications">
+        <button class="header-icon-btn" id="btnNotifications" aria-label="Notifications" title="Notifications" style="background: none; border: none; font-size: 18px; color: #64748b; cursor: pointer; position: relative;">
             <i class="fas fa-bell"></i>
-            <span class="notif-badge">3</span>
+            <span class="notif-badge" style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 10px; padding: 2px 5px; border-radius: 10px; font-weight: bold;">3</span>
         </button>
 
         <!-- Help -->
-        <button class="header-icon-btn" id="btnHelp" aria-label="Help" title="Help & Documentation">
+        <button class="header-icon-btn" id="btnHelp" aria-label="Help" title="Help & Documentation" style="background: none; border: none; font-size: 18px; color: #64748b; cursor: pointer; margin: 0 15px;">
             <i class="fas fa-circle-question"></i>
         </button>
 
         <!-- User menu -->
-        <div class="user-menu" id="userMenuToggle" role="button" aria-haspopup="true" aria-expanded="false">
-            <div class="user-avatar">
-                <i class="fas fa-user"></i>
+        <div class="user-menu" id="userMenuToggle" role="button" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center; cursor: pointer; position: relative; gap: 10px;">
+            <div class="user-avatar" style="width: 32px; height: 32px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #475569; font-weight: bold; font-size: 14px;">
+                AL
             </div>
-            <div class="user-info">
-                <span class="user-name">Victor Alvarez</span>
-                <span class="user-role">System Admin</span>
+            <div class="user-info" style="display: flex; flex-direction: column;">
+                <span class="user-name" style="font-size: 14px; font-weight: 600; color: #1e293b; line-height: 1;">Anna Lee</span>
+                <span class="user-role" style="font-size: 12px; color: #64748b;">Nurse</span>
             </div>
-            <i class="fas fa-chevron-down user-chevron"></i>
+            <i class="fas fa-chevron-down user-chevron" style="font-size: 12px; color: #94a3b8;"></i>
 
             <!-- Dropdown menu -->
-            <div class="user-dropdown" id="userDropdown" role="menu">
-                <a href="#" role="menuitem">
-                    <i class="fas fa-user-circle"></i> My Profile
+            <div class="user-dropdown" id="userDropdown" role="menu" style="display: none; position: absolute; top: 100%; right: 0; background: white; border: 1px solid #e2e8f0; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 200px; padding: 8px 0; z-index: 1000; margin-top: 10px;">
+                <a href="#" role="menuitem" style="display: block; padding: 8px 16px; color: #475569; text-decoration: none; font-size: 14px;">
+                    <i class="fas fa-user-circle" style="width: 20px;"></i> My Profile
                 </a>
-                <a href="#" role="menuitem">
-                    <i class="fas fa-gear"></i> Account Settings
+                <a href="#" role="menuitem" style="display: block; padding: 8px 16px; color: #475569; text-decoration: none; font-size: 14px;">
+                    <i class="fas fa-gear" style="width: 20px;"></i> Account Settings
                 </a>
-                <div class="dropdown-divider"></div>
-                <a href="{% url 'accounts:login' %}" class="logout-link" role="menuitem">
-                    <i class="fas fa-right-from-bracket"></i> Sign Out
+                <div class="dropdown-divider" style="height: 1px; background: #e2e8f0; margin: 8px 0;"></div>
+                <a href="{% url 'accounts:login' %}" class="logout-link" role="menuitem" style="display: block; padding: 8px 16px; color: #ef4444; text-decoration: none; font-size: 14px;">
+                    <i class="fas fa-right-from-bracket" style="width: 20px;"></i> Sign Out
                 </a>
             </div>
         </div>
     </div>
+  </div>
 </header>
+<script>
+    document.getElementById('userMenuToggle').addEventListener('click', function() {
+        var dropdown = document.getElementById('userDropdown');
+        dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    });
+</script>

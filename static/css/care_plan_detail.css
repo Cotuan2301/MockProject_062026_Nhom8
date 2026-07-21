@@ -1,0 +1,162 @@
+/* ==========================================
+   1. LAYOUT & CONTAINER CHÍNH
+   ========================================== */
+.care-plan-detail-container, .main-page-content {
+    max-width: 100% !important;
+    padding: 24px 32px !important;
+    box-sizing: border-box;
+}
+
+/* Cấu trúc Grid chia 2 cột: Trái dãn tự do, Phải 380px */
+.content-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 380px !important;
+    gap: 32px !important;
+    width: 100% !important;
+}
+
+/* ==========================================
+   2. TIÊU ĐỀ BẢNG & TÊN VÙNG CHĂM SÓC
+   ========================================== */
+.section-title {
+    font-size: 18px !important;     /* TIÊU ĐỀ TO: Care Areas, Activity... */
+    font-weight: 700 !important;    /* ĐẬM */
+    color: #0f172a !important;
+    margin-bottom: 16px;
+}
+
+.care-area-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.care-area-name {
+    font-size: 17px !important;     /* TÊN VÙNG: Mobility, Skin... TO & ĐẬM */
+    font-weight: 700 !important;
+    color: #0f172a !important;
+}
+
+.status-badge.on-track { background: #dcfce7; color: #166534; font-weight: 600; }
+.status-badge.at-risk { background: #fef3c7; color: #92400e; font-weight: 600; }
+
+.card-goal { 
+    font-size: 15px !important;     /* CHỮ GOAL TO & RÕ */
+    color: #1e293b !important; 
+    margin-bottom: 8px; 
+}
+
+.card-task { 
+    font-size: 14.5px !important;   /* CHỮ TASK TO & RÕ */
+    font-weight: 500 !important;
+    color: #334155 !important; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+
+.dot-blue { width: 6px; height: 6px; background: #2563eb; border-radius: 50%; display: inline-block; }
+
+/* ==========================================
+   3. CỘT PHẢI: COST ESTIMATE & REVIEW CYCLE
+   ========================================== */
+.side-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.side-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.side-card-title {
+    font-size: 18px !important;     /* TIÊU ĐỀ THẺ PHẢI TO & ĐẬM */
+    font-weight: 700 !important;
+    color: #0f172a !important;
+}
+
+.tag-readonly {
+    font-size: 11px;
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.cost-row, .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px !important;     /* CHỮ THÔNG TIN GIÁ & CYCLE TO */
+    margin-bottom: 12px;
+    color: #334155 !important;
+}
+
+.cost-row strong, .info-value {
+    font-weight: 700 !important;    /* GIÁ TRỊ VÀ SỐ TIỀN ĐẬM RÕ */
+    color: #0f172a !important;
+}
+
+.cost-row.total {
+    font-weight: 800 !important;    /* TỔNG TIỀN ĐẬM HƠN */
+    color: #0f172a !important;
+    font-size: 16px !important;     /* SỐ TỔNG TO */
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 16px 0;
+}
+
+.cost-footnote {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 12px;
+    text-align: center;
+}
+
+/* THÔNG BÁO NGÀY LỄ CỦA SC029 */
+.holiday-schedule-notice {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed #cbd5e1;
+    font-size: 15px !important;      /* CHỮ CẢNH BÁO TO */
+    font-weight: 800 !important;     /* RẤT ĐẬM */
+    color: #0f172a !important;
+    text-align: right;
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* ==========================================
+   4. TIMELINE HOẠT ĐỘNG
+   ========================================== */
+.timeline { position: relative; padding-left: 12px; }
+.timeline-item { position: relative; padding-left: 24px; padding-bottom: 20px; border-left: 2px solid #e2e8f0; }
+.timeline-item:last-child { border-left: 2px solid transparent; }
+.timeline-dot { position: absolute; left: -6px; top: 2px; width: 10px; height: 10px; border-radius: 50%; background: #ffffff; border: 2px solid #94a3b8; }
+.timeline-dot.filled { background: #2563eb; border-color: #2563eb; }
+
+.timeline-title { 
+    font-size: 15px !important;     /* TIÊU ĐỀ TIMELINE TO & ĐẬM */
+    font-weight: 700 !important; 
+    color: #0f172a !important;
+}
+
+.timeline-meta { 
+    font-size: 13px !important;     /* NGÀY GIỜ VÀ NGƯỜI THỰC HIỆN RÕ RÀNG */
+    color: #475569 !important; 
+    font-weight: 500 !important;
+    margin-top: 2px; 
+}

@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Step 1: Pre-Admission Screening{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/screening_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  Residents &gt; New Admission Flow
+</div>
+
+<!-- Stepper -->
+<div class="stepper-container">
+  <div class="step active">1 Pre-Screening</div>
+  <div class="step">2 Admission Form</div>
+  <div class="step disabled">3 Initial Assessment</div>
+</div>
+
+<!-- Header -->
+<div class="page-header mb-10">
+  <h2>Step 1: Pre-Admission Screening</h2>
+</div>
+<div class="subtitle">
+  {{ resident.first_name }} {{ resident.last_name }} &middot; Referral: {{ resident.referral_source|default:"N/A" }} &mdash; {{ resident.referral_facility|default:"N/A" }}
+</div>
+
+<!-- Main Form Area -->
+<form id="screeningForm">
+  {% csrf_token %}
+  <input type="hidden" id="resident_id" value="{{ resident.id }}">
+  <input type="hidden" id="status" value="COMPLETED">
+
+  <!-- Error Banner -->
+  <div id="errorBanner" class="alert-warning mb-20" style="display: none;"></div>
+
+  <div class="split-layout">
+    <!-- Left Column -->
+    <div class="left-col">
+      
+      <!-- Clinical Needs Assessment -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Clinical Needs Assessment</h3>
+        </div>
+        <div class="card-body">
+          <div class="checkbox-grid">
+            <label class="checkbox-label"><input type="checkbox" name="clinical_needs" value="Wound care / pressure ulcer management"> Wound care / pressure ulcer management</label>
+            <label class="checkbox-label"><input type="checkbox" name="clinical_needs" value="IV therapy or complex medication administration"> IV therapy or complex medication administration</label>
+            <label class="checkbox-label"><input type="checkbox" name="clinical_needs" value="Physical / Occupational / Speech therapy"> Physical / Occupational / Speech therapy</label>
+            <label class="checkbox-label"><input type="checkbox" name="clinical_needs" value="Ventilator or respiratory support"> Ventilator or respiratory support</label>
+            <label class="checkbox-label"><input type="checkbox" name="clinical_needs" value="Dementia or behavioral health management"> Dementia or behavioral health management</label>
+            <label class="checkbox-label"><input type="checkbox" name="clinical_needs" value="Hospice or palliative care coordination"> Hospice or palliative care coordination</label>
+            <label class="checkbox-label"><input type="checkbox" name="clinical_needs" value="Bariatric care needs"> Bariatric care needs</label>
+            <label class="checkbox-label"><input type="checkbox" name="clinical_needs" value="Isolation precautions (MRSA, C. diff, etc.)"> Isolation precautions (MRSA, C. diff, etc.)</label>
+          </div>
+          <div id="complianceSuccess" class="compliance-success">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            <span id="successText">Facility capability check: selected needs are supported (see AD-05 -> Clinical Capability)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acuity Assessment -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Acuity Assessment</h3>
+        </div>
+        <div class="card-body row">
+          <div class="col-50 form-group">
+            <label>Acuity Level <span class="text-danger">*</span></label>
+            <select id="acuity_level" required>
+              <option value="LOW">Low</option>
+              <option value="MODERATE">Moderate</option>
+              <option value="HIGH">High</option>
+            </select>
+          </div>
+          <div class="col-50 form-group">
+            <label>Estimated Care Hours / Day</label>
+            <div class="input-with-suffix">
+              <input type="number" step="0.1" id="estimated_care_hours" placeholder="e.g. 3.5">
+              <span class="suffix">hrs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Special Requirements -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Special Requirements</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group mb-0">
+            <textarea id="special_requirements" rows="2" placeholder="Low-sodium diet; prefers female CNA for bathing assistance."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compliance Check Result (Hidden by default) -->
+      <div id="complianceWarningContainer" style="display: none;">
+        <div class="section-title">BR-06 Compliance Check Result</div>
+        <div class="compliance-warning">
+          <div class="warning-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          </div>
+          <div class="warning-text">
+            <strong>FLAGGED — Clinical review required before admission.</strong><br>
+            <span id="warningSubtext">Facility acuity capacity for Moderate tier is at 90% — needs DON sign-off.</span>
+          </div>
+        </div>
+
+        <!-- Override Reason -->
+        <div class="card override-card">
+          <div class="card-body">
+            <div class="form-group mb-0">
+              <label>Override Reason <span class="text-secondary">(required, min 20 characters)</span></label>
+              <textarea id="override_reason" rows="2" placeholder="DON reviewed capacity — approved with additional PT hours allocated."></textarea>
+              <div id="override_error" class="error-text" style="display: none;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-col">
+      <!-- Referral -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Referral</h3>
+        </div>
+        <div class="card-body">
+          <div class="info-row"><span class="info-label">Source</span><span class="info-val">{{ resident.referral_source|default:"N/A" }}</span></div>
+          <div class="info-row"><span class="info-label">Facility</span><span class="info-val">{{ resident.referral_facility|default:"N/A" }}</span></div>
+          <div class="info-row"><span class="info-label">Referred by</span><span class="info-val">{{ resident.referred_by|default:"N/A" }}</span></div>
+        </div>
+      </div>
+
+      <!-- Role -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Role</h3>
+        </div>
+        <div class="card-body">
+          <strong>Admission Staff</strong><br>
+          <span class="text-secondary">Enters intake + screening only.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Actions -->
+  <div class="bottom-actions">
+    <a href="{% url 'residents:resident_detail' resident.id %}" class="btn-outline">
+      &larr; Back
+    </a>
+    <button type="submit" class="btn-primary-blue" id="btnSubmitScreening">
+      Next Step &rarr;
+    </button>
+  </div>
+
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/screening_form.js' %}"></script>
+{% endblock %}

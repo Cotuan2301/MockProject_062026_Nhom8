@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHMS - Care Plan Locked</title>
+
+    {% load static %}
+    <!-- File CSS chung của dự án -->
+    <link rel="stylesheet" href="{% static 'css/care_plan_create.css' %}">
+    <!-- File CSS riêng cho màn hình khóa -->
+    <link rel="stylesheet" href="{% static 'css/care_plan_locked.css' %}">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div>
+            <div class="brand">
+                <i class="bi bi-heart-pulse-fill icon-primary"></i>
+                <div>
+                    <h2>NHMS</h2>
+                    <small>Nursing Home System</small>
+                </div>
+            </div>
+
+            <nav>
+                <a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a href="#"><i class="bi bi-people"></i> Residents</a>
+                <a href="#" class="active"><i class="bi bi-clipboard2-pulse"></i> Care Planning</a>
+                <a href="#" class="disabled"><i class="bi bi-capsule"></i> eMAR <span>soon</span></a>
+                <a href="#"><i class="bi bi-exclamation-triangle"></i> Incident & Risk</a>
+                <a href="#"><i class="bi bi-graph-up-arrow"></i> Reports</a>
+            </nav>
+        </div>
+
+        <a href="#" class="logout">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-left">
+                <i class="bi bi-line-split text-muted"></i>
+                <span class="header-title">NHMS — Nursing Home Management System</span>
+            </div>
+
+            <div class="header-right">
+                <div class="notification">
+                    <i class="bi bi-bell"></i>
+                    <span>3</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">AL</div>
+                    <div class="user-info">
+                        <strong>Anna Lee</strong>
+                        <small>Nurse</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- CONTENT WRAPPER -->
+        <div class="content">
+
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="#">Care Planning</a>
+                <i class="bi bi-chevron-right"></i>
+                <span class="active">New Care Plan</span>
+            </nav>
+
+
+            <!-- Page Heading -->
+            <div class="page-heading">
+                <div class="page-heading-left">
+                    <h1>New Care Plan</h1>
+                    <p>{{ resident_name|default:"Elena Ramos" }} • {{ room|default:"Room 106A" }}
+                        <span class="status-badge" style="background: #fef3c7; color: #d97706; font-size: 11px; margin-left: 8px;">
+                            {{ loc_tier|default:"LOC: Suggested (Tier 1)" }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+
+            <!-- Cảnh báo 1: Level of Care not confirmed -->
+            <div class="alert-loc-warning">
+                <i class="bi bi-exclamation-circle"></i>
+                <span>Level of Care is not yet Confirmed for this resident.</span>
+            </div>
+
+
+            <!-- Cảnh báo 2: Deadline coincides with holiday (Hình 2 - Check từ SQL Server) -->
+            {% if is_holiday_conflict %}
+            <div class="alert-holiday-warning">
+                Deadline coincides with holiday.
+            </div>
+            {% endif %}
+
+
+            <!-- Locked Card Box -->
+            <div class="locked-card">
+                <div class="locked-icon">
+                    <i class="bi bi-lock"></i>
+                </div>
+                <h3 class="locked-title">Care plan creation is locked</h3>
+                <p class="locked-desc">
+                    A resident's Level of Care must be Confirmed before<br>
+                    a care plan can be created for them (gate LC-G4).
+                </p>
+
+                <!-- Tooltip black label -->
+                <div class="tooltip-black">Confirm LOC classification first.</div>
+
+                <!-- Disabled Create Button -->
+                <button class="btn-disabled-gray" disabled>Create Care Plan</button>
+
+                <!-- Action Button -->
+                <a href="#" class="btn-blue-primary">Go to LOC Classification →</a>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
