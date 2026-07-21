@@ -7,10 +7,35 @@ from django.core.exceptions import ValidationError
 from .models import Assessment, AssessmentDiagnosis, AssessmentDetail
 
 
-# ─── Hằng số dùng chung ───────────────────────────────────────────────
-ADL_ITEMS = AssessmentDetail.ADL_ITEMS  # [(key, label), ...]
-IADL_ITEMS = AssessmentDetail.IADL_ITEMS
-VITAL_SIGN_ITEMS = AssessmentDetail.VITAL_SIGN_ITEMS  # [(key, label, unit), ...]
+# ─── Hằng số dùng chung ───
+ADL_ITEMS = [
+    ('bathing', 'Bathing'),
+    ('dressing', 'Dressing'),
+    ('toileting', 'Toileting'),
+    ('transferring', 'Transferring'),
+    ('continence', 'Continence'),
+    ('feeding', 'Feeding'),
+    ('mobility', 'Mobility'),
+]
+
+IADL_ITEMS = [
+    ('phone', 'Using Telephone'),
+    ('shopping', 'Shopping'),
+    ('food_prep', 'Food Preparation'),
+    ('housekeeping', 'Housekeeping'),
+    ('laundry', 'Laundry'),
+    ('transportation', 'Transportation'),
+    ('medications', 'Medications'),
+    ('finances', 'Finances'),
+]
+
+VITAL_SIGN_ITEMS = [
+    ('blood_pressure', 'Blood Pressure', 'mmHg'),
+    ('heart_rate', 'Heart Rate', 'bpm'),
+    ('temperature', 'Temperature', '°F'),
+    ('respiratory_rate', 'Respiratory Rate', 'bpm'),
+    ('oxygen_saturation', 'Oxygen Saturation', '%'),
+]
 
 ADL_SCORE_CHOICES = [
     (0, '0 – Total Dependence'),
@@ -28,7 +53,7 @@ IADL_SCORE_CHOICES = [
 COGNITIVE_CHOICES = Assessment.COGNITIVE_STATUS_CHOICES
 
 
-# ─── Form chính ────────────────────────────────────────────────────────
+# ─── Form chính ───
 class AssessmentForm(forms.ModelForm):
     """Form cho phần thông tin tổng quan của Assessment"""
 

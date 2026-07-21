@@ -746,6 +746,43 @@ def reject_care_plan(request, pk=None):
         return JsonResponse({"status": "error", "message": f"Server Error: {str(e)}"}, status=500)
 
 
+# ==========================
+# Care Level API (DRF Views)
+# ==========================
+
+class CareLevelListCreateView(generics.ListCreateAPIView):
+    queryset = CareLevel.objects.filter(is_deleted=False)
+    serializer_class = CareLevelSerializer
+
+
+class CareLevelDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CareLevel.objects.all()
+    serializer_class = CareLevelSerializer
+
+
+# ==========================
+# Care Plan API (DRF Views)
+# ==========================
+
+class CarePlanListCreateView(generics.ListCreateAPIView):
+    queryset = CarePlan.objects.filter(is_deleted=False)
+    serializer_class = CarePlanSerializer
+
+
+class CarePlanDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CarePlan.objects.all()
+    serializer_class = CarePlanSerializer
+
+
+# ==========================
+# Care Goal API (DRF Views)
+# ==========================
+
+class CareGoalListCreateView(generics.ListCreateAPIView):
+    queryset = CareGoal.objects.all()
+    serializer_class = CareGoalSerializer
+
+    
 def billing_panel(request):
     """
     SC035 - Cost / Billing Panel
@@ -761,6 +798,213 @@ def billing_panel(request):
     days_in_month = 30
     holiday_days = 1 # e.g. July 4th
     standard_days = days_in_month - holiday_days # 29
+
+    
+    # Holiday Surcharge (assumed $100 per holiday)
+    holiday_surcharge_per_day = 100.00
+    total_holiday_surcharge = holiday_days * holiday_surcharge_per_day # 100.00
+
+    # Monthly calculation
+    estimated_monthly = (standard_days * subtotal_per_day) + (holiday_days * (subtotal_per_day + holiday_surcharge_per_day))
+
+    context = {
+        'active_menu': 'care_planning',
+        
+        # Breakdown data
+        'loc_daily_rate': f"{loc_daily_rate:.2f}",
+        'room_rate': f"{room_rate:.2f}",
+        'medication_est': f"{medication_est:.2f}",
+        'subtotal_per_day': f"{subtotal_per_day:.2f}",
+        
+        # Holiday data
+        'holiday_days': holiday_days,
+        'holiday_surcharge_per_day': f"{holiday_surcharge_per_day:.2f}",
+        'total_holiday_surcharge': f"{total_holiday_surcharge:.2f}",
+        
+        # Top cards data
+        'estimated_day': f"{subtotal_per_day:.2f}",
+        'estimated_month': f"{estimated_monthly:,.2f}",
+    }
+    
+    return render(request, 'medical/billing_panel.html', context)
+
+def care_plan_ack(request):
+    """
+    SC036 - Care Plan Acknowledgment
+    Dummy data based on Figma mockup
+    """
+    context = {
+        'active_menu': 'pending_ack',
+        
+        # Patient & Form info
+        'patient_name': 'Robert Hayes',
+        'submitted_by': 'Anna Lee, RN',
+        'status': 'Pending Review',
+        'submit_date': '2026-07-02',
+        
+        # Goals List
+        'goals': [
+            {
+                'title': 'Mobility',
+                'description': 'Goal: Ambulate 50 ft with walker x2/day.',
+                'task': 'Assist ambulation w/ walker, 2x daily.',
+                'status_badge': 'On Track',
+                'status_class': 'badge-success-outline'
+            },
+            {
+                'title': 'Skin Integrity',
+                'description': 'Goal: Maintain skin integrity (no stage-2 injury).',
+                'task': 'Reposition q2h; skin check each shift.',
+                'status_badge': 'At Risk',
+                'status_class': 'badge-warning-outline'
+            },
+            {
+                'title': 'Nutrition',
+                'description': 'Goal: Maintain fluid intake ≥ 1500 mL/day.',
+                'task': 'Monitor fluid intake; document I/O.',
+                'status_badge': 'On Track',
+                'status_class': 'badge-success-outline'
+            }
+        ],
+        
+        # Role Info
+        'physician_name': 'Dr. Alan Cho, MD',
+        'license': 'CA-MD-88231',
+        'npi': '1720493857',
+        
+        # IDT Acknowledgment Info
+        'dietary_name': 'Grace Liu, RD',
+        'dietary_status': 'Signed',
+        'dietary_date': '2026-07-02 15:30'
+    }
+    
+    return render(request, 'medical/care_plan_ack.html', context)
+
+
+
+class CareGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CareGoal.objects.all()
+    serializer_class = CareGoalSerializer
+from datetime import date, datetime
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from rest_framework import generics
+
+from apps.medical.models import (
+    CareLevel,
+    CarePlan,
+    CareGoal,
+    Holiday
+)
+
+from apps.medical.api.serializers import (
+    CareLevelSerializer,
+    CarePlanSerializer,
+    CareGoalSerializer
+)
+
+
+# ==========================
+# SC027 UI Page View (Create Care Plan + Holiday Check)
+# ==========================
+
+def care_plan_create_page(request):
+
+    # =====================
+    # SUBMIT FORM (POST)
+    # =====================
+    if request.method == "POST":
+        resident_id = request.POST.get("resident_id", 1)
+        action = request.POST.get("action", "save_draft")
+
+        status = "DRAFT" if action == "save_draft" else "PENDING_REVIEW"
+
+        # 1. Tạo Care Plan
+        care_plan = CarePlan.objects.create(
+            resident_id=resident_id,
+            status=status,
+            significant_change_flag=False
+        )
+
+        # 2. Tạo Care Goal
+        goal_text = request.POST.get("goal")
+        if goal_text:
+            CareGoal.objects.create(
+                care_plan=care_plan,
+                goal=goal_text,
+                measure=request.POST.get("measure", ""),
+                task=request.POST.get("task", ""),
+                status="IN_PROGRESS"
+            )
+
+        messages.success(request, f"Care Plan created successfully with status: {status}")
+        return redirect("care_plan_create")
+
+    # =====================
+    # DISPLAY PAGE (GET) & HOLIDAY CHECK LOGIC
+    # =====================
+    review_date_input = request.GET.get("review_date", "2026-09-02")
+    try:
+        target_date = datetime.strptime(review_date_input, "%Y-%m-%d").date()
+    except ValueError:
+        target_date = date(2026, 9, 2)
+
+    # Đã map db_column='HolidayDate' chuẩn trong model -> Query trực tiếp cực ngắn gọn
+    is_holiday_conflict = Holiday.objects.filter(holiday_date=target_date).exists()
+
+    care_areas = [
+        {
+            "name": "Mobility",
+            "suggested": True,
+            "goal": "Resident will ambulate 50 ft with walker x2/day by 2026-07-30.",
+            "measure": "Distance log",
+            "target": "2026-07-30",
+            "task": "Assist ambulation with front-wheel walker, twice daily."
+        },
+        {
+            "name": "Skin Integrity",
+            "suggested": True,
+            "goal": "Maintain skin integrity.",
+            "measure": "Braden score",
+            "target": "2026-10-07",
+            "task": "Reposition every 2 hours."
+        },
+        {
+            "name": "Nutrition",
+            "suggested": False,
+            "goal": "Maintain hydration ≥1500 ml/day.",
+            "measure": "I/O log",
+            "target": "Ongoing",
+            "task": "Monitor daily fluid intake."
+        }
+    ]
+
+    context = {
+        "resident_id": 1,
+        "resident_name": "Robert Hayes",
+        "room": "204B",
+        "loc_tier": "LOC Tier 3",
+        "loc_rate": 248.00,
+        "room_rate": 185.00,
+        "estimated_daily": 433.00,
+        "estimated_monthly": 13163.00,
+        "is_holiday_conflict": is_holiday_conflict,
+        "care_areas": care_areas
+    }
+
+    return render(
+        request,
+        "medical/care_plan_create.html",
+        context
+    )
+
+
+# ==========================
+# SC028 UI Page View (Care Plan Locked Page)
+# ==========================
+
+def care_plan_locked_page(request):
+    target_date = date(2026, 9, 2)
     
     # Holiday Surcharge (assumed $100 per holiday)
     holiday_surcharge_per_day = 100.00
@@ -879,4 +1123,5 @@ def save_bedside_vitals(request):
         })
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
 

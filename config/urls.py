@@ -1,16 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.accounts.urls')),
 
-    path('residents/', include(('apps.residents.urls', 'residents'), namespace='residents')),
-    path('rooms/', include(('apps.rooms.urls', 'rooms'), namespace='rooms')),
-    path('staff/', include(('apps.staff.urls', 'staff'), namespace='staff')),
-    path('billing/', include(('apps.billing.urls', 'billing'), namespace='billing')),
-    path('incidents/', include(('apps.incidents.urls', 'incidents'), namespace='incidents')),
-    path('medical/', include(('apps.medical.urls', 'medical'), namespace='medical')),
 
     path('billing/', include('apps.billing.urls')),
     path('medical/', include('apps.medical.urls')),
@@ -25,7 +20,6 @@ urlpatterns = [
 
     path('api/v1/medical/', include('apps.medical.api.urls')),
 
-    path('incidents/', include('apps.incidents.urls')),
     
 ]
 
