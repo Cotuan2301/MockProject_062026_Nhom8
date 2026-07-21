@@ -1,6 +1,8 @@
 from django.urls import path, include
 from . import views
 
+from django.urls import path
+
 from apps.medical.views import (
     CareLevelListCreateView,
     CareLevelDetailView,
@@ -13,13 +15,25 @@ from apps.medical.views import (
     care_plan_detail_page,
 )
 
-app_name = "medical"
 
+
+app_name = "medical"
 
 urlpatterns = [
     # SC035 & SC036
     path('cost-billing/', views.billing_panel, name='cost_billing_panel'),
     path('acknowledgment/', views.care_plan_ack, name='care_plan_ack'),
+    # SC032
+    path('daily-tasks/', views.daily_tasks, name='daily_tasks'),
+    path('api/update-task/', views.update_task_status, name='update_task_status'),
+
+    # SC033
+    path('bedside-vitals/', views.bedside_vitals, name='bedside_vitals'),
+    path('api/save-vitals/', views.save_bedside_vitals, name='save_bedside_vitals'),
+
+    # SC034
+    path('reassessments/', views.reassessments, name='reassessments'),
+    path('api/start-reassessment/', views.start_reassessment, name='start_reassessment'),
 
     path(
         "assessments/<int:assessment_id>/loc/",
@@ -37,25 +51,10 @@ urlpatterns = [
         name="loc_override",
     ),
 
-    path("api/", include("apps.medical.api.urls")),
+    # ==========================
+    # SC027 - UI
+    # ==========================
 
-    path(
-        "residents/<int:resident_id>/loc-history/",
-        views.loc_history_view,
-        name="loc-history",
-    ),
-    path(
-        "screenings/create/<int:resident_id>/",
-        views.ScreeningCreate.as_view(),
-        name="screening-create",
-    ),
-    path(
-        "admission-form/<int:resident_id>/",
-        views.AdmissionFormView.as_view(),
-        name="admission-form",
-    ),
-
-    # SC027
     path(
         "care-plans/create/",
         care_plan_create_page,
@@ -110,5 +109,36 @@ urlpatterns = [
         "api/care-goals/<int:pk>/",
         CareGoalDetailView.as_view(),
         name="caregoal-detail",
+    ),
+    path(
+        "care-plans/locked/",
+        care_plan_locked_page,
+        name="care_plan_locked",
+    ),
+    path(
+        "care-plans/detail/",
+        care_plan_detail_page, 
+        name="care_plan_detail",
+    ),
+
+    path(
+        'initial-assessment/<int:pk>/',
+        views.initial_assessment,
+        name='initial_assessment',
+    ),
+    path(
+        'initial-assessment/<int:pk>/<int:assessment_id>/',
+        views.initial_assessment,
+        name='initial_assessment',
+    ),
+    path(
+        'api/assessment/<int:assessment_id>/diagnosis/add/',
+        views.api_add_diagnosis,
+        name='api_add_diagnosis',
+    ),
+    path(
+        'api/assessment/<int:assessment_id>/diagnosis/<int:diagnosis_id>/remove/',
+        views.api_remove_diagnosis,
+        name='api_remove_diagnosis',
     ),
 ]
