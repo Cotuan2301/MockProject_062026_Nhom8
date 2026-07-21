@@ -7,12 +7,6 @@ from apps.medical.views import (
     CarePlanDetailView,
     CareGoalListCreateView,
     CareGoalDetailView,
-    care_plan_create_page,
-    care_plan_locked_page,
-    care_plan_detail_page,
-    care_plan_review_page,
-    approve_care_plan,
-    reject_care_plan,
 )
 
 
@@ -20,9 +14,6 @@ from apps.medical.views import (
 app_name = "medical"
 
 urlpatterns = [
-    # SC035 & SC036
-    path('cost-billing/', views.billing_panel, name='cost_billing_panel'),
-    path('acknowledgment/', views.care_plan_ack, name='care_plan_ack'),
     # SC032
     path('daily-tasks/', views.daily_tasks, name='daily_tasks'),
     path('api/update-task/', views.update_task_status, name='update_task_status'),
@@ -35,8 +26,6 @@ urlpatterns = [
     path('reassessments/', views.reassessments, name='reassessments'),
     path('api/start-reassessment/', views.start_reassessment, name='start_reassessment'),
     
-    # SC035
-    path('cost-billing/', views.billing_panel, name='cost_billing_panel'),
 
     # SC027 LOC Classification
     path(
@@ -70,30 +59,8 @@ urlpatterns = [
         views.AdmissionFormView.as_view(),
         name="admission-form",
     ),
-    # ==========================
-    # Care Plan UI Pages
-    # ==========================
 
-    path(
-        "care-plans/create/",
-        care_plan_create_page,
-        name="care_plan_create",
-    ),
-    path(
-        "care-plans/locked/",
-        care_plan_locked_page,
-        name="care_plan_locked",
-    ),
-    path(
-        "care-plans/detail/",
-        care_plan_detail_page,
-        name="care_plan_detail",
-    ),
-    path(
-        "care-plans/<int:pk>/review/",
-        care_plan_review_page,
-        name="care_plan_review",
-    ),
+
 
     # ==========================
     # API endpoints
@@ -123,16 +90,6 @@ urlpatterns = [
         CarePlanDetailView.as_view(),
         name="careplan-detail",
     ),
-    path(
-        "api/care-plans/<int:pk>/approve/",
-        approve_care_plan,
-        name="approve_care_plan",
-    ),
-    path(
-        "api/care-plans/<int:pk>/reject/",
-        reject_care_plan,
-        name="reject_care_plan",
-    ),
 
     # Care Goal API
     path(
@@ -144,16 +101,6 @@ urlpatterns = [
         "api/care-goals/<int:pk>/",
         CareGoalDetailView.as_view(),
         name="caregoal-detail",
-    ),
-    path(
-        "care-plans/locked/",
-        care_plan_locked_page,
-        name="care_plan_locked",
-    ),
-    path(
-        "care-plans/detail/",
-        care_plan_detail_page, 
-        name="care_plan_detail",
     ),
 
     path(
