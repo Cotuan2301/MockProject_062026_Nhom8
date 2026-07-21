@@ -20,6 +20,9 @@ from apps.medical.views import (
 app_name = "medical"
 
 urlpatterns = [
+    # SC035 & SC036
+    path('cost-billing/', views.billing_panel, name='cost_billing_panel'),
+    path('acknowledgment/', views.care_plan_ack, name='care_plan_ack'),
     # SC032
     path('daily-tasks/', views.daily_tasks, name='daily_tasks'),
     path('api/update-task/', views.update_task_status, name='update_task_status'),
