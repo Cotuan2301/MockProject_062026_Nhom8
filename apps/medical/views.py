@@ -459,7 +459,6 @@ def care_plan_create_page(request):
                 goal=goal_text,
                 measure=request.POST.get("measure", ""),
                 task=request.POST.get("task", ""),
-                status="IN_PROGRESS"
                 status="IN_PROGRESS"  # Khớp với STATUS_CHOICES trong CareGoal model
             )
 
@@ -631,7 +630,6 @@ def care_plan_detail_page(request):
         request,
         "medical/care_plan_detail.html",
         context
-    )
     )
 
 

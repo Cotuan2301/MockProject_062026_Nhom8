@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import *
 
+app_name = 'residents'
+
 # TODO: Uncomment khi views được implement
 urlpatterns = [
 

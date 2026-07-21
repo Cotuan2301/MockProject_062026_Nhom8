@@ -60,8 +60,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
 
-    'rest_framework',
-
     'apps.care_planning',
 
 ]

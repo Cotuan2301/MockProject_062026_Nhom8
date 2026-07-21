@@ -357,7 +357,7 @@ class CarePlan(models.Model):
 
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
     significant_change_flag = models.BooleanField(default=False)
-    resident = models.ForeignKey('residents.Resident', on_delete=models.CASCADE, related_name='care_plans')
+    resident = models.ForeignKey('residents.Resident', on_delete=models.CASCADE, related_name='medical_care_plans')
     is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

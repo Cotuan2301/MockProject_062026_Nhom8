@@ -43,5 +43,5 @@ class AssessmentAdmin(admin.ModelAdmin):
 
 @admin.register(CareLevel)
 class CareLevelAdmin(admin.ModelAdmin):
-    list_display = ['code', 'name', 'sort_order', 'min_adl_ratio', 'max_adl_ratio']
+    list_display = ['level_code', 'level_name', 'sort_order', 'min_adl_ratio', 'max_adl_ratio']
     ordering = ['sort_order']
