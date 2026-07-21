@@ -632,7 +632,6 @@ def care_plan_detail_page(request):
         context
     )
 
-
 # ==========================
 # SC030 UI Page View (Review Care Plan)
 # ==========================
@@ -799,6 +798,7 @@ def billing_panel(request):
     days_in_month = 30
     holiday_days = 1 # e.g. July 4th
     standard_days = days_in_month - holiday_days # 29
+
     
     # Holiday Surcharge (assumed $100 per holiday)
     holiday_surcharge_per_day = 100.00
@@ -1006,102 +1006,33 @@ def care_plan_create_page(request):
 def care_plan_locked_page(request):
     target_date = date(2026, 9, 2)
     
-    # Query trực tiếp sạch đẹp
-    is_holiday_conflict = Holiday.objects.filter(holiday_date=target_date).exists()
+    # Holiday Surcharge (assumed $100 per holiday)
+    holiday_surcharge_per_day = 100.00
+    total_holiday_surcharge = holiday_days * holiday_surcharge_per_day # 100.00
+
+    # Monthly calculation
+    estimated_monthly = (standard_days * subtotal_per_day) + (holiday_days * (subtotal_per_day + holiday_surcharge_per_day))
 
     context = {
-        "resident_name": "Elena Ramos",
-        "room": "Room 106A",
-        "loc_tier": "LOC: Suggested (Tier 1)",
-        "is_holiday_conflict": is_holiday_conflict,
+        'active_menu': 'care_planning',
+        
+        # Breakdown data
+        'loc_daily_rate': f"{loc_daily_rate:.2f}",
+        'room_rate': f"{room_rate:.2f}",
+        'medication_est': f"{medication_est:.2f}",
+        'subtotal_per_day': f"{subtotal_per_day:.2f}",
+        
+        # Holiday data
+        'holiday_days': holiday_days,
+        'holiday_surcharge_per_day': f"{holiday_surcharge_per_day:.2f}",
+        'total_holiday_surcharge': f"{total_holiday_surcharge:.2f}",
+        
+        # Top cards data
+        'estimated_day': f"{subtotal_per_day:.2f}",
+        'estimated_month': f"{estimated_monthly:,.2f}",
     }
-
-    return render(
-        request,
-        "medical/care_plan_locked.html",
-        context
-    )
-
-
-# ==========================
-# Care Level API
-# ==========================
-
-class CareLevelListCreateView(generics.ListCreateAPIView):
-    queryset = CareLevel.objects.filter(is_deleted=False)
-    serializer_class = CareLevelSerializer
-
-
-class CareLevelDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CareLevel.objects.all()
-    serializer_class = CareLevelSerializer
-
-
-# ==========================
-# Care Plan API
-# ==========================
-
-class CarePlanListCreateView(generics.ListCreateAPIView):
-    queryset = CarePlan.objects.filter(is_deleted=False)
-    serializer_class = CarePlanSerializer
-
-
-class CarePlanDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CarePlan.objects.all()
-    serializer_class = CarePlanSerializer
-
-
-# ==========================
-# Care Goal API
-# ==========================
-
-class CareGoalListCreateView(generics.ListCreateAPIView):
-    queryset = CareGoal.objects.all()
-    serializer_class = CareGoalSerializer
-
-
-class CareGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CareGoal.objects.all()
-    serializer_class = CareGoalSerializer
-
-
-
-# ==========================
-# SC029 UI Page View (Care Plan Detail with Holiday Notice)
-# ==========================
-
-def care_plan_detail_page(request):
-    # Ngày review tiếp theo của kế hoạch
-    next_review_due = date(2026, 7, 4)  # Mẫu ngày 04/07/2026 (Federal Holiday)
-
-    # Truy vấn tên ngày lễ từ SQL Server DB
-    holiday_info = Holiday.objects.filter(holiday_date=next_review_due).first()
     
-    holiday_notice = None
-    if holiday_info:
-        # Định dạng chuỗi thông báo: "Scheduled on: July 4 - Federal Holiday"
-        formatted_date = next_review_due.strftime("%B %d").replace(" 0", " ")
-        holiday_notice = f"Scheduled on: {formatted_date} - {holiday_info.holiday_name}"
-
-    context = {
-        "resident_name": "Robert Hayes",
-        "room": "Room 204B",
-        "loc_tier": "LOC Tier 3",
-        "next_review": next_review_due.strftime("%Y-%m-%d"),
-        "last_reviewed": "2026-04-08",
-        "cycle_days": "90 days",
-        "loc_rate": 248.00,
-        "room_rate": 185.00,
-        "estimated_daily": 433.00,
-        "estimated_monthly": 13163.00,
-        "holiday_notice": holiday_notice,  # Biến truyền ra giao diện
-    }
-
-    return render(
-        request,
-        "medical/care_plan_detail.html",
-        context
-    )
+    return render(request, 'medical/billing_panel.html', context)
 
 def bedside_vitals(request):
     """
@@ -1118,10 +1049,6 @@ def bedside_vitals(request):
         'recorder_time': '2026-07-02 14:05',
     }
     return render(request, 'medical/bedside_vitals.html', context)
-
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-import json
 
 def daily_tasks(request):
     # Dummy data based on the Figma mockup for SC032

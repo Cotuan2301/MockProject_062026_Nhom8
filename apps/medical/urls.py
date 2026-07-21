@@ -1,8 +1,5 @@
 from django.urls import path, include
 from . import views
-
-from django.urls import path
-
 from apps.medical.views import (
     CareLevelListCreateView,
     CareLevelDetailView,
@@ -13,6 +10,9 @@ from apps.medical.views import (
     care_plan_create_page,
     care_plan_locked_page,
     care_plan_detail_page,
+    care_plan_review_page,
+    approve_care_plan,
+    reject_care_plan,
 )
 
 
@@ -34,7 +34,11 @@ urlpatterns = [
     # SC034
     path('reassessments/', views.reassessments, name='reassessments'),
     path('api/start-reassessment/', views.start_reassessment, name='start_reassessment'),
+    
+    # SC035
+    path('cost-billing/', views.billing_panel, name='cost_billing_panel'),
 
+    # SC027 LOC Classification
     path(
         "assessments/<int:assessment_id>/loc/",
         views.loc_classification_detail,
@@ -50,9 +54,24 @@ urlpatterns = [
         views.loc_classification_override,
         name="loc_override",
     ),
+    path(
+        "residents/<int:resident_id>/loc-history/",
+        views.loc_history_view,
+        name="loc-history",
+    ),
 
+    path(
+        "screenings/create/<int:resident_id>/",
+        views.ScreeningCreate.as_view(),
+        name="screening-create",
+    ),
+    path(
+        "admission-form/<int:resident_id>/",
+        views.AdmissionFormView.as_view(),
+        name="admission-form",
+    ),
     # ==========================
-    # SC027 - UI
+    # Care Plan UI Pages
     # ==========================
 
     path(
@@ -60,20 +79,26 @@ urlpatterns = [
         care_plan_create_page,
         name="care_plan_create",
     ),
-
-    # SC028
     path(
         "care-plans/locked/",
         care_plan_locked_page,
         name="care_plan_locked",
     ),
-
-    # SC029
     path(
         "care-plans/detail/",
         care_plan_detail_page,
         name="care_plan_detail",
     ),
+    path(
+        "care-plans/<int:pk>/review/",
+        care_plan_review_page,
+        name="care_plan_review",
+    ),
+
+    # ==========================
+    # API endpoints
+    # ==========================
+    path("api/", include("apps.medical.api.urls")),
 
     # Care Level API
     path(
@@ -97,6 +122,16 @@ urlpatterns = [
         "api/care-plans/<int:pk>/",
         CarePlanDetailView.as_view(),
         name="careplan-detail",
+    ),
+    path(
+        "api/care-plans/<int:pk>/approve/",
+        approve_care_plan,
+        name="approve_care_plan",
+    ),
+    path(
+        "api/care-plans/<int:pk>/reject/",
+        reject_care_plan,
+        name="reject_care_plan",
     ),
 
     # Care Goal API
