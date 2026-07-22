@@ -1,128 +1,490 @@
-{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment History — {{ resident.full_name }}</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --sidebar-width: 240px;
+            --header-height: 64px;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
 
-{% block title %}Assessment History — {{ resident.full_name }}{% endblock %}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body { background-color: var(--bg-color); color: var(--text-main); display: flex; min-height: 100vh; }
 
-{% block breadcrumb %}
-<a href="#" style="color:#64748b;text-decoration:none">Residents</a> <span style="margin:0 8px;color:#cbd5e1">></span> 
-<span style="color:#64748b">{{ resident.full_name }}</span> <span style="margin:0 8px;color:#cbd5e1">></span>
-<span style="color:#0f172a">Assessments</span>
-{% endblock %}
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #ffffff;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 50;
+        }
+        
+        .sidebar-header {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .sidebar-header i.fa-bars { font-size: 18px; color: #475569; margin-right: 16px; cursor: pointer; }
+        .logo-text { font-weight: 800; font-size: 18px; letter-spacing: -0.5px; }
+        .logo-sub { font-size: 10px; color: var(--text-muted); line-height: 1; margin-top: 2px; }
 
-{% block extra_css %}
-<style>
-  .sc023-wrap { max-width: 1000px; margin: 0 auto; padding-bottom: 80px; }
-  
-  /* Header */
-  .page-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; }
-  .header-left h1 { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
-  .header-left p { font-size: 13px; color: #64748b; margin: 0; }
-  .header-right { display: flex; gap: 12px; }
-  
-  .btn-outline { border: 1px solid #cbd5e1; background: #fff; color: #475569; padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; }
-  .btn-primary { background: #3b82f6; border: 1px solid #3b82f6; color: #fff; padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; }
-  
-  /* Table */
-  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin-bottom: 24px; }
-  .history-table { width: 100%; border-collapse: collapse; }
-  .history-table th { background: #f8fafc; padding: 16px; text-align: left; font-size: 12px; font-weight: 600; color: #64748b; border-bottom: 1px solid #e2e8f0; }
-  .history-table td { padding: 16px; border-bottom: 1px solid #f1f5f9; font-size: 14px; color: #334155; vertical-align: middle; }
-  .history-table tr:last-child td { border-bottom: none; }
-  
-  .font-bold { font-weight: 700; color: #0f172a; }
-  
-  /* Badges */
-  .badge { padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block; }
-  .badge-initial { background: #eff6ff; color: #3b82f6; border: 1px solid #bfdbfe; }
-  .badge-reassessment { background: #faf5ff; color: #a855f7; border: 1px solid #e9d5ff; }
-  
-  .loc-badge { padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; border: 1px solid transparent; }
-  .loc-level-3 { background: #fffbeb; color: #d97706; border-color: #fde68a; }
-  .loc-level-2 { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
-  .loc-level-1 { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
-  
-  /* Actions */
-  .action-link { color: #3b82f6; font-weight: 600; text-decoration: none; font-size: 13px; }
-  .action-link:hover { text-decoration: underline; }
-  
-  /* Info Box */
-  .info-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; }
-  .info-box h4 { margin: 0 0 8px 0; font-size: 14px; color: #334155; }
-  .info-box p { margin: 0; font-size: 13px; color: #94a3b8; }
-</style>
-{% endblock %}
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            color: #475569;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .nav-item i { width: 24px; font-size: 16px; opacity: 0.7; }
+        .nav-item:hover { background: #f1f5f9; color: var(--text-main); }
+        .nav-item.active {
+            background: #eff6ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .nav-item.active i { color: var(--primary); opacity: 1; }
+        
+        .badge-soon {
+            margin-left: auto;
+            font-size: 10px;
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 2px 8px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            font-weight: 600;
+        }
 
-{% block content %}
-<div class="sc023-wrap">
-  <div class="page-header">
-    <div class="header-left">
-      <h1>Assessment History — {{ resident.full_name }}</h1>
-      <p>{{ assessments|length }} assessments on record · sorted newest first</p>
+        .sidebar-footer { padding: 16px 12px; border-top: 1px solid var(--border-color); }
+
+        /* --- TOP HEADER --- */
+        .main-wrapper {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .top-header {
+            height: var(--header-height);
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+        
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .header-icon { color: #64748b; font-size: 18px; cursor: pointer; }
+        .header-icon:hover { color: var(--text-main); }
+        
+        .user-profile { display: flex; align-items: center; gap: 12px; cursor: pointer; border-left: 1px solid var(--border-color); padding-left: 20px; }
+        .user-avatar { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: center; color: #64748b; }
+        .user-info { display: flex; flex-direction: column; }
+        .user-name { font-size: 13px; font-weight: 600; color: var(--text-main); }
+        .user-role { font-size: 11px; color: var(--text-muted); }
+        .user-profile i.fa-chevron-down { font-size: 12px; color: #94a3b8; margin-left: 4px; }
+
+        /* --- PAGE CONTENT --- */
+        .page-content { padding: 32px; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+        /* Breadcrumb */
+        .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+        .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+        .breadcrumb span { margin: 0 8px; color: #cbd5e1; }
+
+        /* Resident Header Card */
+        .resident-header {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        
+        .rh-avatar {
+            width: 80px;
+            height: 80px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #475569;
+        }
+        
+        .rh-info h2 { font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+        .rh-meta { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+        
+        .rh-tags { display: flex; gap: 8px; }
+        .tag { padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; border: 1px solid transparent; }
+        .tag-active { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+        .tag-dnr { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+        .tag-level { background: #fef9c3; color: #854d0e; border-color: #fef08a; }
+        .tag-medicaid { background: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 32px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+        }
+        .tab {
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab:hover { color: var(--text-main); }
+        .tab.active { color: var(--primary); font-weight: 600; }
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .toolbar-text { font-size: 14px; color: var(--text-muted); }
+        .toolbar-actions { display: flex; gap: 12px; }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-outline {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        .btn-outline:hover { background: #f8fafc; }
+        .btn-primary {
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+
+        /* Table */
+        .table-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th {
+            background: #ffffff;
+            padding: 16px 24px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+        td {
+            padding: 16px 24px;
+            font-size: 14px;
+            color: var(--text-main);
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+        tr:last-child td { border-bottom: none; }
+        
+        .version-text { font-weight: 600; }
+        
+        /* Badges in Table */
+        .badge-type {
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .type-reassessment { background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+        .type-initial { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+        
+        .loc-badge {
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+        .loc-3 { background: #fef9c3; color: #a16207; border-color: #fef08a; }
+        .loc-2 { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+        .loc-1 { background: #dcfce7; color: #15803d; border-color: #bbf7d0; }
+
+        .action-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .action-link:hover { text-decoration: underline; }
+
+        /* Info Box */
+        .info-box {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px 24px;
+        }
+        .info-box h4 { margin: 0 0 8px 0; font-size: 14px; color: var(--text-main); }
+        .info-box p { margin: 0; font-size: 13px; color: var(--text-muted); }
+
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-bars"></i>
+            <div>
+                <div class="logo-text">NHMS</div>
+                <div class="logo-sub">Nursing Home Management System</div>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="far fa-user"></i> Residents
+            </a>
+            <a href="#" class="nav-item">
+                <i class="far fa-clipboard"></i> Care Planning
+            </a>
+            <a href="#" class="nav-item" style="pointer-events: none; opacity: 0.7;">
+                <i class="fas fa-briefcase-medical"></i> eMAR
+                <span class="badge-soon">soon</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-triangle-exclamation"></i> Incident & Risk
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-line"></i> Reports
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <!-- TOP HEADER -->
+        <header class="top-header">
+            <div class="header-actions">
+                <i class="far fa-bell header-icon"></i>
+                <i class="far fa-question-circle header-icon"></i>
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">Anna Lee</span>
+                        <span class="user-role">Nurse</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <main class="page-content">
+            
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="#">Residents</a> <span>></span>
+                <a href="#">{{ resident.full_name|default:"Robert Hayes" }}</a> <span>></span>
+                Assessments
+            </div>
+
+            <!-- Resident Header -->
+            <div class="resident-header">
+                <div class="rh-avatar">
+                    {% if resident.first_name %}{{ resident.first_name|first }}{% else %}R{% endif %}{% if resident.last_name %}{{ resident.last_name|first }}{% else %}H{% endif %}
+                </div>
+                <div class="rh-info">
+                    <h2>{{ resident.full_name|default:"Robert Hayes" }}</h2>
+                    <div class="rh-meta">DOB {{ resident.date_of_birth|date:"m/d/Y"|default:"04/15/1943" }} · Room {{ resident.room_number|default:"204B" }} · Resident ID {{ resident.resident_id|default:"RES-00089" }}</div>
+                    <div class="rh-tags">
+                        <span class="tag tag-active">Active</span>
+                        <span class="tag tag-dnr">No DNR</span>
+                        <span class="tag tag-level">Level 3</span>
+                        <span class="tag tag-medicaid">Medicaid</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <a href="#" class="tab">Overview</a>
+                <a href="#" class="tab active">Assessments</a>
+                <a href="#" class="tab">Care Plan</a>
+                <div class="tab" style="opacity: 0.5; cursor: default;">eMAR <span class="badge-soon" style="margin-left: 4px;">soon</span></div>
+                <a href="#" class="tab">LOC</a>
+                <div class="tab" style="opacity: 0.5; cursor: default;">Audit <span class="badge-soon" style="margin-left: 4px;">soon</span></div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <div class="toolbar-text">{{ assessments|length }} assessments on record · sorted newest first</div>
+                <div class="toolbar-actions">
+                    <button class="btn btn-outline">Select 2 to Compare</button>
+                    <form method="POST" action="{% url 'medical:create_reassessment' resident.resident_id|default:'RES001' %}" style="margin:0;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">
+                            + New
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Version</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Author</th>
+                            <th>ADL Score</th>
+                            <th>LOC Tier</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for a in assessments %}
+                        <tr>
+                            <td class="version-text">v{{ a.version }}</td>
+                            <td>
+                                {% if a.assessment_type == 'initial' %}
+                                    <span class="badge-type type-initial">Initial</span>
+                                {% else %}
+                                    <span class="badge-type type-reassessment">Reassessment</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ a.assessment_date|default:a.created_at|date:"m/d/Y" }}</td>
+                            <td>{% if a.assessed_by.first_name or a.assessed_by.last_name %}{{ a.assessed_by.first_name }} {{ a.assessed_by.last_name }}{% else %}Anna Lee{% endif %}, RN</td>
+                            <td>{{ a.total_adl_score }} / 32</td>
+                            <td>
+                                {% if a.care_level == 'Level 3' %}
+                                    <span class="loc-badge loc-3">Level 3</span>
+                                {% elif a.care_level == 'Level 2' %}
+                                    <span class="loc-badge loc-2">Level 2</span>
+                                {% else %}
+                                    <span class="loc-badge loc-1">{{ a.care_level|default:"Level 1" }}</span>
+                                {% endif %}
+                            </td>
+                            <td style="text-align: right;">
+                                {% if forloop.first %}
+                                    <a href="#" class="action-link">Current • View</a>
+                                {% else %}
+                                    <a href="#" class="action-link">View • Compare</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
+                                No assessments found. Click "+ New" to create one.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Info Box -->
+            <div class="info-box">
+                <h4>Reassessment cadence: every 90 days (BR-03) or on Significant Change flag (BR-05).</h4>
+                <p>Starting a reassessment opens the Initial Assessment form pre-filled from version {% if assessments %}v{{ assessments.0.version }}{% else %}latest{% endif %}.</p>
+            </div>
+
+        </main>
     </div>
-    <div class="header-right">
-      <button class="btn-outline">Select 2 to Compare</button>
-      <form method="POST" action="{% url 'medical:create_reassessment' resident.resident_id %}" style="margin:0;">
-        {% csrf_token %}
-        <button type="submit" class="btn-primary">+ New</button>
-      </form>
-    </div>
-  </div>
 
-  <div class="card">
-    <table class="history-table">
-      <thead>
-        <tr>
-          <th>Version</th>
-          <th>Type</th>
-          <th>Date</th>
-          <th>Author</th>
-          <th>ADL Score</th>
-          <th>LOC Tier</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for a in assessments %}
-        <tr>
-          <td class="font-bold">v{{ a.version }}</td>
-          <td>
-            {% if a.assessment_type == 'initial' %}
-              <span class="badge badge-initial">Initial</span>
-            {% else %}
-              <span class="badge badge-reassessment">Reassessment</span>
-            {% endif %}
-          </td>
-          <td>{{ a.assessment_date|date:"Y-m-d" }}</td>
-          <td>{{ a.author.first_name }} {{ a.author.last_name }}, RN</td>
-          <td>{{ a.total_adl_score }} / 32</td>
-          <td>
-            {% if a.loc_tier == 'Level 3' %}
-              <span class="loc-badge loc-level-3">Level 3</span>
-            {% elif a.loc_tier == 'Level 2' %}
-              <span class="loc-badge loc-level-2">Level 2</span>
-            {% else %}
-              <span class="loc-badge loc-level-1">{{ a.loc_tier|default:"Level 1" }}</span>
-            {% endif %}
-          </td>
-          <td style="text-align: right;">
-            {% if forloop.first %}
-              <a href="#" class="action-link">Current • View</a>
-            {% else %}
-              <a href="#" class="action-link">View • Compare</a>
-            {% endif %}
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="7" style="text-align: center; color: #94a3b8;">No assessments found for this resident.</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-
-  <div class="info-box">
-    <h4>Reassessment cadence: every 90 days (BR-03) or on Significant Change flag (BR-05).</h4>
-    <p>Starting a reassessment opens the Initial Assessment form pre-filled from the latest version.</p>
-  </div>
-</div>
-{% endblock %}
+</body>
+</html>
